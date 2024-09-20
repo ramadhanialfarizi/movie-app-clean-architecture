@@ -15,8 +15,8 @@ class TvRepositoryImpl implements TvRepository {
   }
 
   @override
-  Future<Either<Failure, TvRecomendationListResponse>>
-      getRecomendationTvShow() {
+  Future<Either<Failure, TvRecomendationListResponse>> getRecomendationTvShow(
+      int id) {
     // TODO: implement getRecomendationTvShow
     throw UnimplementedError();
   }

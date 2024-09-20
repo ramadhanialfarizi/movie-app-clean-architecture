@@ -8,7 +8,8 @@ import 'package:ditonton/data/models/tv_response/top_rated/tv_top_rated_list_res
 
 abstract class TvRepository {
   Future<Either<Failure, TvPopularListResponse>> getPopularTvShow();
-  Future<Either<Failure, TvRecomendationListResponse>> getRecomendationTvShow();
+  Future<Either<Failure, TvRecomendationListResponse>> getRecomendationTvShow(
+      int id);
   Future<Either<Failure, TvTopRatedListResponse>> getTopRatedTvShow();
   Future<Either<Failure, TvOnAirListResponse>> getOnAirTvShow();
   Future<Either<Failure, TvDetailResponse>> getDetailTvShow(int id);
