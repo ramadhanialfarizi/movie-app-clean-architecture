@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
+import 'package:ditonton/common/exception.dart';
 import 'package:ditonton/common/failure.dart';
 import 'package:ditonton/data/datasources/tv_remote_data_source.dart';
 import 'package:ditonton/data/models/tv_response/detail/tv_detail_response.dart';
@@ -16,9 +19,15 @@ class TvRepositoryImpl implements TvRepository {
   });
 
   @override
-  Future<Either<Failure, TvPopularListResponse>> getPopularTvShow() {
-    // TODO: implement getPopularTvShow
-    throw UnimplementedError();
+  Future<Either<Failure, TvPopularListResponse>> getPopularTvShow() async {
+    try {
+      final result = await tvRemoteDataSource.getPopularTvShow();
+      return Right(result);
+    } on ServerException {
+      return Left(ServerFailure(''));
+    } on SocketException {
+      return Left(ConnectionFailure('Failed to connect to the network'));
+    }
   }
 
   @override
