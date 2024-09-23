@@ -5,6 +5,7 @@ import 'package:ditonton/data/models/tv_response/detail/tv_detail_response.dart'
 import 'package:ditonton/data/models/tv_response/on_the_air/tv_on_air_list_response.dart';
 import 'package:ditonton/data/models/tv_response/popular/tv_popular_list_response.dart';
 import 'package:ditonton/data/models/tv_response/recomendation/tv_recomendation_list_response.dart';
+import 'package:ditonton/data/models/tv_response/search/search_tv_list_response.dart';
 import 'package:ditonton/data/models/tv_response/top_rated/tv_top_rated_list_response.dart';
 import 'package:http/http.dart' as http;
 
@@ -14,6 +15,7 @@ abstract class TvRemoteDataSource {
   Future<TvTopRatedListResponse> getTopRatedTvShow();
   Future<TvDetailResponse> getDetailTvShow(int id);
   Future<TvRecomendationListResponse> getRecomendationTvShow(int id);
+  Future<SearchTvListResponse> searchTv(String query);
 }
 
 class TvRemoteDataSourceImpl implements TvRemoteDataSource {
@@ -75,6 +77,18 @@ class TvRemoteDataSourceImpl implements TvRemoteDataSource {
 
     if (response.statusCode == 200) {
       return TvRecomendationListResponse.fromJson(jsonDecode(response.body));
+    } else {
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<SearchTvListResponse> searchTv(String query) async {
+    final response =
+        await client.get(Uri.parse('$BASE_URL/search/tv/?query=$query'));
+
+    if (response.statusCode == 200) {
+      return SearchTvListResponse.fromJson(jsonDecode(response.body));
     } else {
       throw ServerException();
     }
