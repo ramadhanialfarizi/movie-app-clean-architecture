@@ -6,6 +6,7 @@ import 'package:ditonton/presentation/pages/movie_detail_page.dart';
 import 'package:ditonton/presentation/pages/popular_movies_page.dart';
 import 'package:ditonton/presentation/pages/search_page.dart';
 import 'package:ditonton/presentation/pages/top_rated_movies_page.dart';
+import 'package:ditonton/presentation/pages/tv_show/tv_show_page.dart';
 import 'package:ditonton/presentation/pages/watchlist_movies_page.dart';
 import 'package:ditonton/presentation/provider/movie_list_notifier.dart';
 import 'package:ditonton/common/state_enum.dart';
@@ -56,7 +57,7 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
               leading: Icon(Icons.tv),
               title: Text('Tv Show'),
               onTap: () {
-                Navigator.pop(context);
+                Navigator.pushNamed(context, TvShowPage.ROUTE_NAME);
               },
             ),
             ListTile(
