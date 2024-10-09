@@ -21,7 +21,7 @@ TvOnAirDataResponse _$TvOnAirDataResponseFromJson(Map<String, dynamic> json) =>
       originalName: json['originalName'] as String?,
       overview: json['overview'] as String?,
       popularity: (json['popularity'] as num?)?.toDouble(),
-      posterPath: json['posterPath'] as String?,
+      posterPath: json['poster_path'] as String?,
       firstAirDate: json['firstAirDate'] == null
           ? null
           : DateTime.parse(json['firstAirDate'] as String),

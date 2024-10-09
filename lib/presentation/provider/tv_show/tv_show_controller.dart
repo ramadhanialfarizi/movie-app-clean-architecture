@@ -1,19 +1,45 @@
 import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/data/models/tv_response/on_the_air/tv_on_air_data_response.dart';
+import 'package:ditonton/data/models/tv_response/on_the_air/tv_on_air_list_response.dart';
 import 'package:ditonton/data/models/tv_response/popular/tv_popular_list_response.dart';
 import 'package:ditonton/data/models/tv_response/top_rated/tv_top_rated_list_response.dart';
+import 'package:ditonton/domain/usecases/tv_show/get_tv_show_on_air.dart';
 import 'package:flutter/material.dart';
 
 class TvShowController extends ChangeNotifier {
+  TvOnAirListResponse? tvOnAirListResponse;
   TvPopularListResponse? tvPopularListResponse;
-  TvOnAirDataResponse? tvOnAirDataResponse;
   TvTopRatedListResponse? tvTopRatedListResponse;
 
-  RequestState? tvPopularState;
   RequestState? tvOnAirState;
+  RequestState? tvPopularState;
   RequestState? tvTopRatedState;
 
-  TvShowController() {}
+  final GetTvShowOnAir getTvShowOnAir;
 
-  getTVShowPopular() async {}
+  String message = "";
+
+  TvShowController({
+    required this.getTvShowOnAir,
+  }) {
+    getTVShowPopular();
+  }
+
+  getTVShowPopular() async {
+    tvOnAirState = RequestState.Loading;
+    notifyListeners();
+
+    var result = await getTvShowOnAir.executeProcess();
+    result.fold(
+      (failure) {
+        tvOnAirState = RequestState.Error;
+        message = failure.message;
+        notifyListeners();
+      },
+      (tvOnAirData) {
+        tvOnAirState = RequestState.Loaded;
+        tvOnAirListResponse = tvOnAirData;
+        notifyListeners();
+      },
+    );
+  }
 }
