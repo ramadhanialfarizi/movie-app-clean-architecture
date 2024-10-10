@@ -17,6 +17,8 @@ import 'package:ditonton/domain/usecases/remove_watchlist.dart';
 import 'package:ditonton/domain/usecases/save_watchlist.dart';
 import 'package:ditonton/domain/usecases/search_movies.dart';
 import 'package:ditonton/domain/usecases/tv_show/get_tv_show_on_air.dart';
+import 'package:ditonton/domain/usecases/tv_show/get_tv_show_popular.dart';
+import 'package:ditonton/domain/usecases/tv_show/get_tv_show_top_rated.dart';
 import 'package:ditonton/presentation/provider/movie_detail_notifier.dart';
 import 'package:ditonton/presentation/provider/movie_list_notifier.dart';
 import 'package:ditonton/presentation/provider/movie_search_notifier.dart';
@@ -73,6 +75,8 @@ void init() {
   locator.registerFactory(
     () => TvShowController(
       getTvShowOnAir: locator(),
+      getTvShowPopular: locator(),
+      getTvShowTopRated: locator(),
     ),
   );
 
@@ -91,6 +95,12 @@ void init() {
   // tv
   locator.registerLazySingleton(
     () => GetTvShowOnAir(locator()),
+  );
+  locator.registerLazySingleton(
+    () => GetTvShowPopular(locator()),
+  );
+  locator.registerLazySingleton(
+    () => GetTvShowTopRated(locator()),
   );
 
   // repository

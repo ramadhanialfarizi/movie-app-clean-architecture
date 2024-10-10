@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class HomeMoviePage extends StatefulWidget {
+  static const ROUTE_NAME = '/home';
   @override
   _HomeMoviePageState createState() => _HomeMoviePageState();
 }
@@ -58,7 +59,7 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
               title: Text('Tv Show'),
               onTap: () {
                 Navigator.pop(context);
-                Navigator.pushNamed(context, TvShowPage.ROUTE_NAME);
+                Navigator.pushReplacementNamed(context, TvShowPage.ROUTE_NAME);
               },
             ),
             ListTile(

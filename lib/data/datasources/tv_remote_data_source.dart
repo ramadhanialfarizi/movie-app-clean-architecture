@@ -36,10 +36,13 @@ class TvRemoteDataSourceImpl implements TvRemoteDataSource {
   @override
   Future<TvPopularListResponse> getPopularTvShow() async {
     try {
-      final response = await client.get(Uri.parse('$BASE_URL/tv/popular'));
+      final response = await client.get(
+        Uri.parse('$BASE_URL/tv/popular?$API_KEY'),
+        headers: headers,
+      );
 
       if (response.statusCode == 200) {
-        log("data : ${jsonEncode(response)}");
+        log("data : ${jsonEncode(response.body)}");
         return TvPopularListResponse.fromJson(jsonDecode(response.body));
       } else {
         throw ServerException();
@@ -74,12 +77,22 @@ class TvRemoteDataSourceImpl implements TvRemoteDataSource {
 
   @override
   Future<TvTopRatedListResponse> getTopRatedTvShow() async {
-    final response = await client.get(Uri.parse('$BASE_URL/tv/top_rated'));
+    try {
+      final response = await client.get(
+        Uri.parse('$BASE_URL/tv/top_rated?$API_KEY'),
+        headers: headers,
+      );
 
-    if (response.statusCode == 200) {
-      return TvTopRatedListResponse.fromJson(jsonDecode(response.body));
-    } else {
-      throw ServerException();
+      log("status code : ${response.statusCode}");
+
+      if (response.statusCode == 200) {
+        return TvTopRatedListResponse.fromJson(jsonDecode(response.body));
+      } else {
+        throw ServerException();
+      }
+    } catch (e) {
+      log("error : $e");
+      rethrow;
     }
   }
 
