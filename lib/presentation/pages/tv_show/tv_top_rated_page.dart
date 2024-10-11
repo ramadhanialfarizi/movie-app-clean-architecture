@@ -41,7 +41,7 @@ class _TvTopRatedPageState extends State<TvTopRatedPage> {
               return ListView.builder(
                 itemBuilder: (context, index) {
                   final data = (controller.tvTopRated?.results ?? [])[index];
-                  return TvDetailListCard(
+                  return TvListCard(
                     onPressed: () {},
                     title: data.name ?? "",
                     overview: data.overview ?? "",

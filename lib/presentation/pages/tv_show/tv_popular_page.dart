@@ -42,7 +42,7 @@ class _TvPopularPageState extends State<TvPopularPage> {
                 itemBuilder: (context, index) {
                   final data =
                       (controller.tvPopularListResponse?.results ?? [])[index];
-                  return TvDetailListCard(
+                  return TvListCard(
                     onPressed: () {},
                     title: data.name ?? "",
                     overview: data.overview ?? "",

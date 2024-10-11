@@ -2,10 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ditonton/common/constants.dart';
 import 'package:flutter/material.dart';
 
-class TvShowList extends StatelessWidget {
+class TvShowBannerCard extends StatelessWidget {
   final String imagePath;
   final VoidCallback onTap;
-  const TvShowList({Key? key, required this.imagePath, required this.onTap})
+  const TvShowBannerCard(
+      {Key? key, required this.imagePath, required this.onTap})
       : super(key: key);
 
   @override

@@ -6,6 +6,7 @@ import 'package:ditonton/presentation/pages/home_movie_page.dart';
 import 'package:ditonton/presentation/pages/popular_movies_page.dart';
 import 'package:ditonton/presentation/pages/search_page.dart';
 import 'package:ditonton/presentation/pages/top_rated_movies_page.dart';
+import 'package:ditonton/presentation/pages/tv_show/search_tv_pages.dart';
 import 'package:ditonton/presentation/pages/tv_show/tv_popular_page.dart';
 import 'package:ditonton/presentation/pages/tv_show/tv_show_page.dart';
 import 'package:ditonton/presentation/pages/tv_show/tv_top_rated_page.dart';
@@ -15,6 +16,7 @@ import 'package:ditonton/presentation/provider/movie_list_notifier.dart';
 import 'package:ditonton/presentation/provider/movie_search_notifier.dart';
 import 'package:ditonton/presentation/provider/popular_movies_notifier.dart';
 import 'package:ditonton/presentation/provider/top_rated_movies_notifier.dart';
+import 'package:ditonton/presentation/provider/tv_show/search_tv_controller.dart';
 import 'package:ditonton/presentation/provider/tv_show/tv_popular_controller.dart';
 import 'package:ditonton/presentation/provider/tv_show/tv_show_controller.dart';
 import 'package:ditonton/presentation/provider/tv_show/tv_top_rated_controller.dart';
@@ -61,6 +63,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => di.locator<TvTopRatedController>(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => di.locator<SearchTvController>(),
+        ),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
@@ -104,6 +109,10 @@ class MyApp extends StatelessWidget {
             case TvTopRatedPage.ROUTE_NAME:
               return MaterialPageRoute(
                 builder: (context) => TvTopRatedPage(),
+              );
+            case SearchTvPages.ROUTE_NAME:
+              return MaterialPageRoute(
+                builder: (context) => SearchTvPages(),
               );
             default:
               return MaterialPageRoute(builder: (_) {

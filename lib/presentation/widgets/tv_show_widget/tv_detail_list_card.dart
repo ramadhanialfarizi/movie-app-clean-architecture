@@ -2,8 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ditonton/common/constants.dart';
 import 'package:flutter/material.dart';
 
-class TvDetailListCard extends StatelessWidget {
-  const TvDetailListCard(
+class TvListCard extends StatelessWidget {
+  const TvListCard(
       {Key? key,
       required this.onPressed,
       required this.title,

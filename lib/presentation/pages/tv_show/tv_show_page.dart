@@ -2,6 +2,7 @@ import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/presentation/pages/about_page.dart';
 import 'package:ditonton/presentation/pages/home_movie_page.dart';
+import 'package:ditonton/presentation/pages/tv_show/search_tv_pages.dart';
 import 'package:ditonton/presentation/pages/tv_show/tv_popular_page.dart';
 import 'package:ditonton/presentation/pages/tv_show/tv_top_rated_page.dart';
 import 'package:ditonton/presentation/pages/watchlist_movies_page.dart';
@@ -40,7 +41,7 @@ class _TvShowPageState extends State<TvShowPage> {
         actions: [
           IconButton(
             onPressed: () {
-              // Navigator.pushNamed(context, SearchPage.ROUTE_NAME);
+              Navigator.pushNamed(context, SearchTvPages.ROUTE_NAME);
             },
             icon: Icon(Icons.search),
           )
@@ -120,7 +121,7 @@ class _TvShowPageState extends State<TvShowPage> {
                         itemBuilder: (context, index) {
                           var data = (controller.tvOnAirListResponse?.results ??
                               [])[index];
-                          return TvShowList(
+                          return TvShowBannerCard(
                             imagePath: data.posterPath ?? "",
                             onTap: () {},
                           );
@@ -156,7 +157,7 @@ class _TvShowPageState extends State<TvShowPage> {
                           var data =
                               (controller.tvPopularListResponse?.results ??
                                   [])[index];
-                          return TvShowList(
+                          return TvShowBannerCard(
                             imagePath: data.posterPath ?? "",
                             onTap: () {},
                           );
@@ -192,7 +193,7 @@ class _TvShowPageState extends State<TvShowPage> {
                           var data =
                               (controller.tvTopRatedListResponse?.results ??
                                   [])[index];
-                          return TvShowList(
+                          return TvShowBannerCard(
                             imagePath: data.posterPath ?? "",
                             onTap: () {},
                           );
