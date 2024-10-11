@@ -2,6 +2,8 @@ import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/presentation/pages/about_page.dart';
 import 'package:ditonton/presentation/pages/home_movie_page.dart';
+import 'package:ditonton/presentation/pages/tv_show/tv_popular_page.dart';
+import 'package:ditonton/presentation/pages/tv_show/tv_top_rated_page.dart';
 import 'package:ditonton/presentation/pages/watchlist_movies_page.dart';
 import 'package:ditonton/presentation/provider/tv_show/tv_show_controller.dart';
 import 'package:ditonton/presentation/widgets/tv_show_widget/tv_show_list.dart';
@@ -62,6 +64,7 @@ class _TvShowPageState extends State<TvShowPage> {
               leading: Icon(Icons.movie),
               title: Text('Movies'),
               onTap: () {
+                Navigator.pop(context);
                 Navigator.pushReplacementNamed(
                     context, HomeMoviePage.ROUTE_NAME);
               },
@@ -71,7 +74,6 @@ class _TvShowPageState extends State<TvShowPage> {
               title: Text('Tv Show'),
               onTap: () {
                 Navigator.pop(context);
-                Navigator.pushNamed(context, TvShowPage.ROUTE_NAME);
               },
             ),
             ListTile(
@@ -132,7 +134,9 @@ class _TvShowPageState extends State<TvShowPage> {
               ),
               _buildSubHeading(
                 title: 'Popular',
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(context, TvPopularPage.ROUTE_NAME);
+                },
               ),
               Consumer<TvShowController>(
                 builder: (context, controller, child) {
@@ -166,7 +170,9 @@ class _TvShowPageState extends State<TvShowPage> {
               ),
               _buildSubHeading(
                 title: 'Top Rated',
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(context, TvTopRatedPage.ROUTE_NAME);
+                },
               ),
               Consumer<TvShowController>(
                 builder: (context, controller, child) {

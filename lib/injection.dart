@@ -24,7 +24,9 @@ import 'package:ditonton/presentation/provider/movie_list_notifier.dart';
 import 'package:ditonton/presentation/provider/movie_search_notifier.dart';
 import 'package:ditonton/presentation/provider/popular_movies_notifier.dart';
 import 'package:ditonton/presentation/provider/top_rated_movies_notifier.dart';
+import 'package:ditonton/presentation/provider/tv_show/tv_popular_controller.dart';
 import 'package:ditonton/presentation/provider/tv_show/tv_show_controller.dart';
+import 'package:ditonton/presentation/provider/tv_show/tv_top_rated_controller.dart';
 import 'package:ditonton/presentation/provider/watchlist_movie_notifier.dart';
 import 'package:http/http.dart' as http;
 import 'package:get_it/get_it.dart';
@@ -80,6 +82,13 @@ void init() {
     ),
   );
 
+  locator.registerFactory(
+    () => TvPopularController(getTvShowPopular: locator()),
+  );
+  locator.registerFactory(
+    () => TvTopRatedController(getTvTopRated: locator()),
+  );
+
   // use case
   // movie
   locator.registerLazySingleton(() => GetNowPlayingMovies(locator()));
@@ -102,6 +111,9 @@ void init() {
   locator.registerLazySingleton(
     () => GetTvShowTopRated(locator()),
   );
+  // locator.registerLazySingleton(
+  //   () => GetTvShowTopRated(locator()),
+  // );
 
   // repository
   locator.registerLazySingleton<MovieRepository>(
