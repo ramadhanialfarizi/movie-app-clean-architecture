@@ -6,6 +6,7 @@ import 'package:ditonton/presentation/pages/home_movie_page.dart';
 import 'package:ditonton/presentation/pages/popular_movies_page.dart';
 import 'package:ditonton/presentation/pages/search_page.dart';
 import 'package:ditonton/presentation/pages/top_rated_movies_page.dart';
+import 'package:ditonton/presentation/pages/tv_show/detail_tv_show_pages.dart';
 import 'package:ditonton/presentation/pages/tv_show/search_tv_pages.dart';
 import 'package:ditonton/presentation/pages/tv_show/tv_popular_page.dart';
 import 'package:ditonton/presentation/pages/tv_show/tv_show_page.dart';
@@ -16,6 +17,7 @@ import 'package:ditonton/presentation/provider/movie_list_notifier.dart';
 import 'package:ditonton/presentation/provider/movie_search_notifier.dart';
 import 'package:ditonton/presentation/provider/popular_movies_notifier.dart';
 import 'package:ditonton/presentation/provider/top_rated_movies_notifier.dart';
+import 'package:ditonton/presentation/provider/tv_show/detail_tv_controller.dart';
 import 'package:ditonton/presentation/provider/tv_show/search_tv_controller.dart';
 import 'package:ditonton/presentation/provider/tv_show/tv_popular_controller.dart';
 import 'package:ditonton/presentation/provider/tv_show/tv_show_controller.dart';
@@ -66,6 +68,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => di.locator<SearchTvController>(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => di.locator<DetailTvController>(),
+        ),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
@@ -113,6 +118,11 @@ class MyApp extends StatelessWidget {
             case SearchTvPages.ROUTE_NAME:
               return MaterialPageRoute(
                 builder: (context) => SearchTvPages(),
+              );
+            case DetailTvPages.ROUTE_NAME:
+              final id = settings.arguments as int;
+              return MaterialPageRoute(
+                builder: (context) => DetailTvPages(id: id),
               );
             default:
               return MaterialPageRoute(builder: (_) {

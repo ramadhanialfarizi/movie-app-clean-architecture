@@ -16,6 +16,7 @@ import 'package:ditonton/domain/usecases/get_watchlist_status.dart';
 import 'package:ditonton/domain/usecases/remove_watchlist.dart';
 import 'package:ditonton/domain/usecases/save_watchlist.dart';
 import 'package:ditonton/domain/usecases/search_movies.dart';
+import 'package:ditonton/domain/usecases/tv_show/get_tv_show_detail.dart';
 import 'package:ditonton/domain/usecases/tv_show/get_tv_show_on_air.dart';
 import 'package:ditonton/domain/usecases/tv_show/get_tv_show_popular.dart';
 import 'package:ditonton/domain/usecases/tv_show/get_tv_show_top_rated.dart';
@@ -25,6 +26,7 @@ import 'package:ditonton/presentation/provider/movie_list_notifier.dart';
 import 'package:ditonton/presentation/provider/movie_search_notifier.dart';
 import 'package:ditonton/presentation/provider/popular_movies_notifier.dart';
 import 'package:ditonton/presentation/provider/top_rated_movies_notifier.dart';
+import 'package:ditonton/presentation/provider/tv_show/detail_tv_controller.dart';
 import 'package:ditonton/presentation/provider/tv_show/search_tv_controller.dart';
 import 'package:ditonton/presentation/provider/tv_show/tv_popular_controller.dart';
 import 'package:ditonton/presentation/provider/tv_show/tv_show_controller.dart';
@@ -93,6 +95,9 @@ void init() {
   locator.registerFactory(
     () => SearchTvController(searchTvShow: locator()),
   );
+  locator.registerFactory(
+    () => DetailTvController(tvShowDetail: locator()),
+  );
 
   // use case
   // movie
@@ -118,6 +123,9 @@ void init() {
   );
   locator.registerLazySingleton(
     () => SearchTvShow(locator()),
+  );
+  locator.registerLazySingleton(
+    () => GetTvShowDetail(locator()),
   );
 
   // repository

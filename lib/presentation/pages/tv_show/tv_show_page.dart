@@ -2,6 +2,7 @@ import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/presentation/pages/about_page.dart';
 import 'package:ditonton/presentation/pages/home_movie_page.dart';
+import 'package:ditonton/presentation/pages/tv_show/detail_tv_show_pages.dart';
 import 'package:ditonton/presentation/pages/tv_show/search_tv_pages.dart';
 import 'package:ditonton/presentation/pages/tv_show/tv_popular_page.dart';
 import 'package:ditonton/presentation/pages/tv_show/tv_top_rated_page.dart';
@@ -123,7 +124,13 @@ class _TvShowPageState extends State<TvShowPage> {
                               [])[index];
                           return TvShowBannerCard(
                             imagePath: data.posterPath ?? "",
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.pushNamed(
+                                context,
+                                DetailTvPages.ROUTE_NAME,
+                                arguments: data.id,
+                              );
+                            },
                           );
                         },
                       ),
@@ -159,7 +166,13 @@ class _TvShowPageState extends State<TvShowPage> {
                                   [])[index];
                           return TvShowBannerCard(
                             imagePath: data.posterPath ?? "",
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.pushNamed(
+                                context,
+                                DetailTvPages.ROUTE_NAME,
+                                arguments: data.id,
+                              );
+                            },
                           );
                         },
                       ),
@@ -195,7 +208,13 @@ class _TvShowPageState extends State<TvShowPage> {
                                   [])[index];
                           return TvShowBannerCard(
                             imagePath: data.posterPath ?? "",
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.pushNamed(
+                                context,
+                                DetailTvPages.ROUTE_NAME,
+                                arguments: data.id,
+                              );
+                            },
                           );
                         },
                       ),

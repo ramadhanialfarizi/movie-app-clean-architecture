@@ -9,66 +9,66 @@ part of 'tv_detail_response.dart';
 TvDetailResponse _$TvDetailResponseFromJson(Map<String, dynamic> json) =>
     TvDetailResponse(
       adult: json['adult'] as bool?,
-      backdropPath: json['backdropPath'] as String?,
-      createdBy: (json['createdBy'] as List<dynamic>?)
+      backdropPath: json['backdrop_path'] as String?,
+      createdBy: (json['created_by'] as List<dynamic>?)
           ?.map((e) => CreatedByResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
-      episodeRunTime: (json['episodeRunTime'] as List<dynamic>?)
+      episodeRunTime: (json['episode_run_time'] as List<dynamic>?)
           ?.map((e) => (e as num).toInt())
           .toList(),
-      firstAirDate: json['firstAirDate'] as String?,
+      firstAirDate: json['first_air_date'] as String?,
       genres: (json['genres'] as List<dynamic>?)
           ?.map((e) => GenreResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
       homepage: json['homepage'] as String?,
       id: (json['id'] as num?)?.toInt(),
-      inProduction: json['inProduction'] as bool?,
+      inProduction: json['in_production'] as bool?,
       languages: (json['languages'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
-      lastAirDate: json['lastAirDate'] as String?,
-      lastEpisodeToAir: json['lastEpisodeToAir'] == null
+      lastAirDate: json['last_air_date'] as String?,
+      lastEpisodeToAir: json['last_episode_to_air'] == null
           ? null
           : TvEpisodeToAirResponse.fromJson(
-              json['lastEpisodeToAir'] as Map<String, dynamic>),
+              json['last_episode_to_air'] as Map<String, dynamic>),
       name: json['name'] as String?,
-      nextEpisodeToAir: json['nextEpisodeToAir'] == null
+      nextEpisodeToAir: json['next_episode_to_air'] == null
           ? null
           : TvEpisodeToAirResponse.fromJson(
-              json['nextEpisodeToAir'] as Map<String, dynamic>),
+              json['next_episode_to_air'] as Map<String, dynamic>),
       networks: (json['networks'] as List<dynamic>?)
           ?.map((e) => NetworkResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
-      numberOfEpisodes: (json['numberOfEpisodes'] as num?)?.toInt(),
-      numberOfSeasons: (json['numberOfSeasons'] as num?)?.toInt(),
-      originCountry: (json['originCountry'] as List<dynamic>?)
+      numberOfEpisodes: (json['number_of_episodes'] as num?)?.toInt(),
+      numberOfSeasons: (json['number_of_seasons'] as num?)?.toInt(),
+      originCountry: (json['origin_country'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
-      originalLanguage: json['originalLanguage'] as String?,
-      originalName: json['originalName'] as String?,
+      originalLanguage: json['original_language'] as String?,
+      originalName: json['original_name'] as String?,
       overview: json['overview'] as String?,
       popularity: (json['popularity'] as num?)?.toDouble(),
-      posterPath: json['posterPath'] as String?,
-      productionCompanies: (json['productionCompanies'] as List<dynamic>?)
+      posterPath: json['poster_path'] as String?,
+      productionCompanies: (json['production_companies'] as List<dynamic>?)
           ?.map((e) =>
               ProductionCompanyResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
-      productionCountries: (json['productionCountries'] as List<dynamic>?)
+      productionCountries: (json['production_countries'] as List<dynamic>?)
           ?.map((e) =>
               ProductionCountryResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
       seasons: (json['seasons'] as List<dynamic>?)
           ?.map((e) => SeasonResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
-      spokenLanguages: (json['spokenLanguages'] as List<dynamic>?)
+      spokenLanguages: (json['spoken_languages'] as List<dynamic>?)
           ?.map(
               (e) => SpokenLanguageResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
       status: json['status'] as String?,
       tagline: json['tagline'] as String?,
       type: json['type'] as String?,
-      voteAverage: (json['voteAverage'] as num?)?.toDouble(),
-      voteCount: (json['voteCount'] as num?)?.toInt(),
+      voteAverage: (json['vote_average'] as num?)?.toDouble(),
+      voteCount: (json['vote_count'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$TvDetailResponseToJson(TvDetailResponse instance) =>
