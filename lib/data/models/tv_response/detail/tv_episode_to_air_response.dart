@@ -5,18 +5,31 @@ part 'tv_episode_to_air_response.g.dart';
 
 @JsonSerializable()
 class TvEpisodeToAirResponse extends Equatable {
+  @JsonKey(name: "id")
   int? id;
+  @JsonKey(name: "name")
   String? name;
+  @JsonKey(name: "overview")
   String? overview;
+  @JsonKey(name: "vote_average")
   int? voteAverage;
+  @JsonKey(name: "vote_count")
   int? voteCount;
+  @JsonKey(name: "air_date")
   String? airDate;
+  @JsonKey(name: "episode_number")
   int? episodeNumber;
+  @JsonKey(name: "episode_type")
   String? episodeType;
+  @JsonKey(name: "production_code")
   String? productionCode;
-  dynamic runtime;
+  @JsonKey(name: "runtime")
+  int? runtime;
+  @JsonKey(name: "season_number")
   int? seasonNumber;
+  @JsonKey(name: "show_id")
   int? showId;
+  @JsonKey(name: "still_path")
   dynamic stillPath;
 
   TvEpisodeToAirResponse({

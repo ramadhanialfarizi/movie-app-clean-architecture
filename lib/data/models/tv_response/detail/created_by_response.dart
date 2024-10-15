@@ -5,11 +5,17 @@ part 'created_by_response.g.dart';
 
 @JsonSerializable()
 class CreatedByResponse extends Equatable {
+  @JsonKey(name: "id")
   int? id;
+  @JsonKey(name: "credit_id")
   String? creditId;
+  @JsonKey(name: "name")
   String? name;
+  @JsonKey(name: "original_name")
   String? originalName;
+  @JsonKey(name: "gender")
   int? gender;
+  @JsonKey(name: "profile_path")
   String? profilePath;
 
   CreatedByResponse({

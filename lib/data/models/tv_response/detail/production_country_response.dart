@@ -5,7 +5,9 @@ part 'production_country_response.g.dart';
 
 @JsonSerializable()
 class ProductionCountryResponse extends Equatable {
+  @JsonKey(name: "iso_3166_1")
   String? iso31661;
+  @JsonKey(name: "name")
   String? name;
 
   ProductionCountryResponse({

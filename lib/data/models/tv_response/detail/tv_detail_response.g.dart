@@ -16,7 +16,9 @@ TvDetailResponse _$TvDetailResponseFromJson(Map<String, dynamic> json) =>
       episodeRunTime: (json['episode_run_time'] as List<dynamic>?)
           ?.map((e) => (e as num).toInt())
           .toList(),
-      firstAirDate: json['first_air_date'] as String?,
+      firstAirDate: json['first_air_date'] == null
+          ? null
+          : DateTime.parse(json['first_air_date'] as String),
       genres: (json['genres'] as List<dynamic>?)
           ?.map((e) => GenreResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -26,7 +28,9 @@ TvDetailResponse _$TvDetailResponseFromJson(Map<String, dynamic> json) =>
       languages: (json['languages'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
-      lastAirDate: json['last_air_date'] as String?,
+      lastAirDate: json['last_air_date'] == null
+          ? null
+          : DateTime.parse(json['last_air_date'] as String),
       lastEpisodeToAir: json['last_episode_to_air'] == null
           ? null
           : TvEpisodeToAirResponse.fromJson(
@@ -50,8 +54,7 @@ TvDetailResponse _$TvDetailResponseFromJson(Map<String, dynamic> json) =>
       popularity: (json['popularity'] as num?)?.toDouble(),
       posterPath: json['poster_path'] as String?,
       productionCompanies: (json['production_companies'] as List<dynamic>?)
-          ?.map((e) =>
-              ProductionCompanyResponse.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => NetworkResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
       productionCountries: (json['production_countries'] as List<dynamic>?)
           ?.map((e) =>
@@ -74,35 +77,35 @@ TvDetailResponse _$TvDetailResponseFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$TvDetailResponseToJson(TvDetailResponse instance) =>
     <String, dynamic>{
       'adult': instance.adult,
-      'backdropPath': instance.backdropPath,
-      'createdBy': instance.createdBy,
-      'episodeRunTime': instance.episodeRunTime,
-      'firstAirDate': instance.firstAirDate,
+      'backdrop_path': instance.backdropPath,
+      'created_by': instance.createdBy,
+      'episode_run_time': instance.episodeRunTime,
+      'first_air_date': instance.firstAirDate?.toIso8601String(),
       'genres': instance.genres,
       'homepage': instance.homepage,
       'id': instance.id,
-      'inProduction': instance.inProduction,
+      'in_production': instance.inProduction,
       'languages': instance.languages,
-      'lastAirDate': instance.lastAirDate,
-      'lastEpisodeToAir': instance.lastEpisodeToAir,
+      'last_air_date': instance.lastAirDate?.toIso8601String(),
+      'last_episode_to_air': instance.lastEpisodeToAir,
       'name': instance.name,
-      'nextEpisodeToAir': instance.nextEpisodeToAir,
+      'next_episode_to_air': instance.nextEpisodeToAir,
       'networks': instance.networks,
-      'numberOfEpisodes': instance.numberOfEpisodes,
-      'numberOfSeasons': instance.numberOfSeasons,
-      'originCountry': instance.originCountry,
-      'originalLanguage': instance.originalLanguage,
-      'originalName': instance.originalName,
+      'number_of_episodes': instance.numberOfEpisodes,
+      'number_of_seasons': instance.numberOfSeasons,
+      'origin_country': instance.originCountry,
+      'original_language': instance.originalLanguage,
+      'original_name': instance.originalName,
       'overview': instance.overview,
       'popularity': instance.popularity,
-      'posterPath': instance.posterPath,
-      'productionCompanies': instance.productionCompanies,
-      'productionCountries': instance.productionCountries,
+      'poster_path': instance.posterPath,
+      'production_companies': instance.productionCompanies,
+      'production_countries': instance.productionCountries,
       'seasons': instance.seasons,
-      'spokenLanguages': instance.spokenLanguages,
+      'spoken_languages': instance.spokenLanguages,
       'status': instance.status,
       'tagline': instance.tagline,
       'type': instance.type,
-      'voteAverage': instance.voteAverage,
-      'voteCount': instance.voteCount,
+      'vote_average': instance.voteAverage,
+      'vote_count': instance.voteCount,
     };

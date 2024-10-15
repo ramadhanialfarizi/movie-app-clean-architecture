@@ -6,7 +6,9 @@ part 'genre_response.g.dart';
 
 @JsonSerializable()
 class GenreResponse extends Equatable {
+  @JsonKey(name: "id")
   int? id;
+  @JsonKey(name: "name")
   String? name;
 
   GenreResponse({

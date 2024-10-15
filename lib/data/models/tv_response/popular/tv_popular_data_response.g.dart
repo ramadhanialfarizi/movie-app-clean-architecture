@@ -10,25 +10,25 @@ TvPopularDataResponse _$TvPopularDataResponseFromJson(
         Map<String, dynamic> json) =>
     TvPopularDataResponse(
       adult: json['adult'] as bool?,
-      backdropPath: json['backdrop_path'] as String?,
-      genreIds: (json['genre_ids'] as List<dynamic>?)
+      backdropPath: json['backdropPath'] as String?,
+      genreIds: (json['genreIds'] as List<dynamic>?)
           ?.map((e) => (e as num).toInt())
           .toList(),
       id: (json['id'] as num?)?.toInt(),
-      originCountry: (json['origin_country'] as List<dynamic>?)
+      originCountry: (json['originCountry'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
-      originalLanguage: json['original_language'] as String?,
-      originalName: json['original_name'] as String?,
+      originalLanguage: json['originalLanguage'] as String?,
+      originalName: json['originalName'] as String?,
       overview: json['overview'] as String?,
       popularity: (json['popularity'] as num?)?.toDouble(),
-      posterPath: json['poster_path'] as String?,
+      posterPath: json['posterPath'] as String?,
       firstAirDate: json['firstAirDate'] == null
           ? null
-          : DateTime.parse(json['first_air_date'] as String),
+          : DateTime.parse(json['firstAirDate'] as String),
       name: json['name'] as String?,
-      voteAverage: (json['vote_average'] as num?)?.toDouble(),
-      voteCount: (json['vote_count'] as num?)?.toInt(),
+      voteAverage: (json['voteAverage'] as num?)?.toDouble(),
+      voteCount: (json['voteCount'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$TvPopularDataResponseToJson(
