@@ -14,8 +14,8 @@ TvPopularListResponse _$TvPopularListResponseFromJson(
           ?.map(
               (e) => TvPopularDataResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
-      totalPages: (json['totalPages'] as num?)?.toInt(),
-      totalResults: (json['totalResults'] as num?)?.toInt(),
+      totalPages: (json['total_pages'] as num?)?.toInt(),
+      totalResults: (json['total_results'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$TvPopularListResponseToJson(
@@ -23,6 +23,6 @@ Map<String, dynamic> _$TvPopularListResponseToJson(
     <String, dynamic>{
       'page': instance.page,
       'results': instance.results,
-      'totalPages': instance.totalPages,
-      'totalResults': instance.totalResults,
+      'total_pages': instance.totalPages,
+      'total_results': instance.totalResults,
     };

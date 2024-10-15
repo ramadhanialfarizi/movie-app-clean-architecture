@@ -61,7 +61,7 @@ class TvDetailResponse extends Equatable {
   @JsonKey(name: "poster_path")
   String? posterPath;
   @JsonKey(name: "production_companies")
-  List<NetworkResponse>? productionCompanies;
+  List<ProductionCompanyResponse>? productionCompanies;
   @JsonKey(name: "production_countries")
   List<ProductionCountryResponse>? productionCountries;
   @JsonKey(name: "seasons")

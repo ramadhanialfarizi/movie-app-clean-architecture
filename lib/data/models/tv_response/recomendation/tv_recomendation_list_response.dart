@@ -7,9 +7,13 @@ part 'tv_recomendation_list_response.g.dart';
 
 @JsonSerializable()
 class TvRecomendationListResponse extends Equatable {
+  @JsonKey(name: "page")
   int? page;
+  @JsonKey(name: "results")
   List<TvRecomendationDataResponse>? results;
+  @JsonKey(name: "total_pages")
   int? totalPages;
+  @JsonKey(name: "total_results")
   int? totalResults;
 
   TvRecomendationListResponse({

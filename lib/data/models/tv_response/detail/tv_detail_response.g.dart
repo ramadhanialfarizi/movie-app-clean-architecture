@@ -54,7 +54,8 @@ TvDetailResponse _$TvDetailResponseFromJson(Map<String, dynamic> json) =>
       popularity: (json['popularity'] as num?)?.toDouble(),
       posterPath: json['poster_path'] as String?,
       productionCompanies: (json['production_companies'] as List<dynamic>?)
-          ?.map((e) => NetworkResponse.fromJson(e as Map<String, dynamic>))
+          ?.map((e) =>
+              ProductionCompanyResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
       productionCountries: (json['production_countries'] as List<dynamic>?)
           ?.map((e) =>

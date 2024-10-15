@@ -6,20 +6,35 @@ part 'tv_recomendation_data_response.g.dart';
 
 @JsonSerializable()
 class TvRecomendationDataResponse extends Equatable {
+  @JsonKey(name: "backdrop_path")
   String? backdropPath;
+  @JsonKey(name: "id")
   int? id;
+  @JsonKey(name: "name")
   String? name;
+  @JsonKey(name: "original_name")
   String? originalName;
+  @JsonKey(name: "overview")
   String? overview;
+  @JsonKey(name: "poster_path")
   String? posterPath;
+  @JsonKey(name: "media_type")
   String? mediaType;
+  @JsonKey(name: "adult")
   bool? adult;
+  @JsonKey(name: "original_language")
   String? originalLanguage;
+  @JsonKey(name: "genre_ids")
   List<int>? genreIds;
+  @JsonKey(name: "popularity")
   double? popularity;
+  @JsonKey(name: "first_air_date")
   DateTime? firstAirDate;
+  @JsonKey(name: "vote_average")
   double? voteAverage;
+  @JsonKey(name: "vote_count")
   int? voteCount;
+  @JsonKey(name: "origin_country")
   List<String>? originCountry;
 
   TvRecomendationDataResponse({
