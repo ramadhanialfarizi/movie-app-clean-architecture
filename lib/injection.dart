@@ -19,6 +19,7 @@ import 'package:ditonton/domain/usecases/search_movies.dart';
 import 'package:ditonton/domain/usecases/tv_show/get_tv_show_detail.dart';
 import 'package:ditonton/domain/usecases/tv_show/get_tv_show_on_air.dart';
 import 'package:ditonton/domain/usecases/tv_show/get_tv_show_popular.dart';
+import 'package:ditonton/domain/usecases/tv_show/get_tv_show_recomendation.dart';
 import 'package:ditonton/domain/usecases/tv_show/get_tv_show_top_rated.dart';
 import 'package:ditonton/domain/usecases/tv_show/search_tv_show.dart';
 import 'package:ditonton/presentation/provider/movie_detail_notifier.dart';
@@ -96,7 +97,10 @@ void init() {
     () => SearchTvController(searchTvShow: locator()),
   );
   locator.registerFactory(
-    () => DetailTvController(tvShowDetail: locator()),
+    () => DetailTvController(
+      tvShowDetail: locator(),
+      recomendationTvShow: locator(),
+    ),
   );
 
   // use case
@@ -126,6 +130,9 @@ void init() {
   );
   locator.registerLazySingleton(
     () => GetTvShowDetail(locator()),
+  );
+  locator.registerLazySingleton(
+    () => GetTvShowRecomendation(locator()),
   );
 
   // repository
