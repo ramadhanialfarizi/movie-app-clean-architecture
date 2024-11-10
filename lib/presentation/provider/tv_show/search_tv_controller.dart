@@ -24,13 +24,13 @@ class SearchTvController extends ChangeNotifier {
     var result = await searchTvShow.executeProcess(query);
     result.fold(
       (failure) {
-        state = RequestState.Error;
         message = failure.message;
+        state = RequestState.Error;
         notifyListeners();
       },
       (data) {
-        state = RequestState.Loaded;
         resultData = data;
+        state = RequestState.Loaded;
         notifyListeners();
       },
     );

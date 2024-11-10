@@ -1,6 +1,7 @@
 import 'package:ditonton/data/datasources/db/database_helper.dart';
 import 'package:ditonton/data/datasources/movie_local_data_source.dart';
 import 'package:ditonton/data/datasources/movie_remote_data_source.dart';
+import 'package:ditonton/data/datasources/tv_local_data_source.dart';
 import 'package:ditonton/data/datasources/tv_remote_data_source.dart';
 import 'package:ditonton/data/repositories/movie_repository_impl.dart';
 import 'package:ditonton/data/repositories/tv_repository_impl.dart';
@@ -21,6 +22,9 @@ import 'package:ditonton/domain/usecases/tv_show/get_tv_show_on_air.dart';
 import 'package:ditonton/domain/usecases/tv_show/get_tv_show_popular.dart';
 import 'package:ditonton/domain/usecases/tv_show/get_tv_show_recomendation.dart';
 import 'package:ditonton/domain/usecases/tv_show/get_tv_show_top_rated.dart';
+import 'package:ditonton/domain/usecases/tv_show/get_watchlist_tv_status.dart';
+import 'package:ditonton/domain/usecases/tv_show/remove_watchlist_tv.dart';
+import 'package:ditonton/domain/usecases/tv_show/save_watchlist_tv.dart';
 import 'package:ditonton/domain/usecases/tv_show/search_tv_show.dart';
 import 'package:ditonton/presentation/provider/movie_detail_notifier.dart';
 import 'package:ditonton/presentation/provider/movie_list_notifier.dart';
@@ -35,6 +39,7 @@ import 'package:ditonton/presentation/provider/tv_show/tv_top_rated_controller.d
 import 'package:ditonton/presentation/provider/watchlist_movie_notifier.dart';
 import 'package:http/http.dart' as http;
 import 'package:get_it/get_it.dart';
+import 'package:provider/provider.dart';
 
 final locator = GetIt.instance;
 
@@ -100,6 +105,9 @@ void init() {
     () => DetailTvController(
       tvShowDetail: locator(),
       recomendationTvShow: locator(),
+      getWatchListStatus: locator(),
+      removeWatchlist: locator(),
+      saveWatchlist: locator(),
     ),
   );
 
@@ -134,6 +142,15 @@ void init() {
   locator.registerLazySingleton(
     () => GetTvShowRecomendation(locator()),
   );
+  locator.registerLazySingleton(
+    () => GetWatchlistTvStatus(repository: locator()),
+  );
+  locator.registerLazySingleton(
+    () => RemoveWatchlistTv(repository: locator()),
+  );
+  locator.registerLazySingleton(
+    () => SaveWatchlistTv(repository: locator()),
+  );
 
   // repository
   locator.registerLazySingleton<MovieRepository>(
@@ -146,6 +163,7 @@ void init() {
   locator.registerLazySingleton<TvRepository>(
     () => TvRepositoryImpl(
       tvRemoteDataSource: locator(),
+      localDataSource: locator(),
     ),
   );
 
@@ -156,6 +174,9 @@ void init() {
       () => MovieLocalDataSourceImpl(databaseHelper: locator()));
   locator.registerLazySingleton<TvRemoteDataSource>(
     () => TvRemoteDataSourceImpl(client: locator()),
+  );
+  locator.registerLazySingleton<TvLocalDataSource>(
+    () => TvLocalDataSourceImpl(databaseHelper: locator()),
   );
 
   // helper

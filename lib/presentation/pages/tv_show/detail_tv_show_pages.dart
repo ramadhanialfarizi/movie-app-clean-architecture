@@ -28,6 +28,8 @@ class _DetailTvPagesState extends State<DetailTvPages> {
     Future.microtask(() {
       Provider.of<DetailTvController>(context, listen: false)
           .getDetailData(widget.id);
+      Provider.of<DetailTvController>(context, listen: false)
+          .loadWatchlistStatus(widget.id);
     });
     super.initState();
   }
@@ -45,6 +47,7 @@ class _DetailTvPagesState extends State<DetailTvPages> {
             final data = controller.tvDetailResponse;
             return DetailContent(
               tvDetailResponse: data ?? TvDetailResponse(),
+              isAddedWatchlist: controller.isAddedWatchlist,
             );
           } else {
             return Text(controller.message);
@@ -56,10 +59,14 @@ class _DetailTvPagesState extends State<DetailTvPages> {
 }
 
 class DetailContent extends StatelessWidget {
-  const DetailContent({Key? key, required this.tvDetailResponse})
+  const DetailContent(
+      {Key? key,
+      required this.tvDetailResponse,
+      required this.isAddedWatchlist})
       : super(key: key);
 
   final TvDetailResponse tvDetailResponse;
+  final bool isAddedWatchlist;
 
   @override
   Widget build(BuildContext context) {
@@ -117,48 +124,45 @@ class DetailContent extends StatelessWidget {
                             ),
                             FilledButton(
                               onPressed: () async {
-                                // if (!isAddedWatchlist) {
-                                //   await Provider.of<MovieDetailNotifier>(
-                                //           context,
-                                //           listen: false)
-                                //       .addWatchlist(movie);
-                                // } else {
-                                //   await Provider.of<MovieDetailNotifier>(
-                                //           context,
-                                //           listen: false)
-                                //       .removeFromWatchlist(movie);
-                                // }
+                                if (!isAddedWatchlist) {
+                                  await Provider.of<DetailTvController>(context,
+                                          listen: false)
+                                      .addWatchlist(tvDetailResponse);
+                                } else {
+                                  await Provider.of<DetailTvController>(context,
+                                          listen: false)
+                                      .removeFromWatchlist(tvDetailResponse);
+                                }
 
-                                // final message =
-                                //     Provider.of<MovieDetailNotifier>(context,
-                                //             listen: false)
-                                //         .watchlistMessage;
+                                final message = Provider.of<DetailTvController>(
+                                        context,
+                                        listen: false)
+                                    .watchlistMessage;
 
-                                // if (message ==
-                                //         MovieDetailNotifier
-                                //             .watchlistAddSuccessMessage ||
-                                //     message ==
-                                //         MovieDetailNotifier
-                                //             .watchlistRemoveSuccessMessage) {
-                                //   ScaffoldMessenger.of(context).showSnackBar(
-                                //       SnackBar(content: Text(message)));
-                                // } else {
-                                //   showDialog(
-                                //       context: context,
-                                //       builder: (context) {
-                                //         return AlertDialog(
-                                //           content: Text(message),
-                                //         );
-                                //       });
-                                // }
+                                if (message ==
+                                        DetailTvController
+                                            .watchlistAddSuccessMessage ||
+                                    message ==
+                                        DetailTvController
+                                            .watchlistRemoveSuccessMessage) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text(message)));
+                                } else {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          content: Text(message),
+                                        );
+                                      });
+                                }
                               },
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  // isAddedWatchlist
-                                  //     ? Icon(Icons.check)
-                                  //     :
-                                  Icon(Icons.add),
+                                  isAddedWatchlist
+                                      ? Icon(Icons.check)
+                                      : Icon(Icons.add),
                                   Text('Watchlist'),
                                 ],
                               ),
