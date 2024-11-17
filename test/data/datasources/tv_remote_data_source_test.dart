@@ -234,7 +234,7 @@ void main() {
           jsonDecode(readJson('dummy_data/tv_dummy/tv_recommendation.json')));
 
       test(
-        "should return tv show popular list data",
+        "should return tv show recomendation list data",
         () async {
           // arrange
           when(mockHttpClient.get(
@@ -263,5 +263,10 @@ void main() {
         expect(() => call, throwsA(isA<ServerException>()));
       });
     },
+  );
+
+  group(
+    "search tv show",
+    () {},
   );
 }
