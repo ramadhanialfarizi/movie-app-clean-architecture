@@ -6,6 +6,7 @@ import 'package:ditonton/data/models/tv_response/detail/tv_detail_response.dart'
 import 'package:ditonton/data/models/tv_response/on_the_air/tv_on_air_list_response.dart';
 import 'package:ditonton/data/models/tv_response/popular/tv_popular_list_response.dart';
 import 'package:ditonton/data/models/tv_response/recomendation/tv_recomendation_list_response.dart';
+import 'package:ditonton/data/models/tv_response/search/search_tv_list_response.dart';
 import 'package:ditonton/data/models/tv_response/top_rated/tv_top_rated_list_response.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
@@ -267,6 +268,43 @@ void main() {
 
   group(
     "search tv show",
-    () {},
+    () {
+      String query = "Better Call Saul";
+
+      final searchTvData = SearchTvListResponse.fromJson(
+          jsonDecode(readJson('dummy_data/tv_dummy/search_tv.json')));
+
+      test(
+        "should return tv show recomendation list data",
+        () async {
+          // arrange
+          when(mockHttpClient.get(
+            Uri.parse(
+                '$BASE_URL/3/search/tv?query=$query&include_adult=false&language=en-US&page=1'),
+            headers: headers,
+          )).thenAnswer((_) async => http.Response(
+              readJson('dummy_data/tv_dummy/search_tv.json'), 200));
+          // act
+          final result = await dataSourceImpl.searchTv(query);
+          // assert
+          expect(result, equals(searchTvData));
+        },
+      );
+
+      test(
+          'should throw a ServerException when the response code is 404 or other',
+          () async {
+        // arrange
+        when(mockHttpClient.get(
+          Uri.parse(
+              '$BASE_URL/3/search/tv?query=$query&include_adult=false&language=en-US&page=1'),
+          headers: headers,
+        )).thenAnswer((_) async => http.Response('Not Found', 404));
+        // act
+        final call = dataSourceImpl.searchTv(query);
+        // assert
+        expect(() => call, throwsA(isA<ServerException>()));
+      });
+    },
   );
 }
