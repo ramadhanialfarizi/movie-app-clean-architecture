@@ -18,4 +18,14 @@ void main() {
       );
     },
   );
+
+  group(
+    "Now playing tv show",
+    () {
+      test(
+        "should return tv show now playing data",
+        () {},
+      );
+    },
+  );
 }
