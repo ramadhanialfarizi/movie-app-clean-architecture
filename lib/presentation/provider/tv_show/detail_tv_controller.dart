@@ -1,12 +1,10 @@
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/data/models/tv_response/detail/tv_detail_response.dart';
 import 'package:ditonton/data/models/tv_response/recomendation/tv_recomendation_list_response.dart';
-import 'package:ditonton/domain/entities/movie_detail.dart';
-import 'package:ditonton/domain/usecases/get_watchlist_status.dart';
-import 'package:ditonton/domain/usecases/remove_watchlist.dart';
-import 'package:ditonton/domain/usecases/save_watchlist.dart';
+
 import 'package:ditonton/domain/usecases/tv_show/get_tv_show_detail.dart';
 import 'package:ditonton/domain/usecases/tv_show/get_tv_show_recomendation.dart';
+import 'package:ditonton/domain/usecases/tv_show/get_watchlist_tv_status.dart';
 import 'package:ditonton/domain/usecases/tv_show/remove_watchlist_tv.dart';
 import 'package:ditonton/domain/usecases/tv_show/save_watchlist_tv.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +22,8 @@ class DetailTvController extends ChangeNotifier {
   final GetTvShowRecomendation recomendationTvShow;
 
   // for handle watchlist
-  final GetWatchListStatus getWatchListStatus;
+  // final GetWatchListStatus getWatchListStatus;
+  final GetWatchlistTvStatus getWatchlistTvStatus;
   final SaveWatchlistTv saveWatchlist;
   final RemoveWatchlistTv removeWatchlist;
   bool isAddedWatchlist = false;
@@ -32,7 +31,7 @@ class DetailTvController extends ChangeNotifier {
   DetailTvController({
     required this.tvShowDetail,
     required this.recomendationTvShow,
-    required this.getWatchListStatus,
+    required this.getWatchlistTvStatus,
     required this.saveWatchlist,
     required this.removeWatchlist,
   });
@@ -114,7 +113,7 @@ class DetailTvController extends ChangeNotifier {
   }
 
   Future<void> loadWatchlistStatus(int id) async {
-    final result = await getWatchListStatus.execute(id);
+    final result = await getWatchlistTvStatus.execute(id);
     isAddedWatchlist = result;
     notifyListeners();
   }

@@ -1,5 +1,6 @@
 import 'package:ditonton/data/models/movie_table.dart';
 import 'package:ditonton/data/models/tv_response/detail/tv_detail_response.dart';
+import 'package:ditonton/data/models/tv_response/detail/tv_episode_to_air_response.dart';
 import 'package:ditonton/data/models/tv_response/on_the_air/tv_on_air_data_response.dart';
 import 'package:ditonton/data/models/tv_response/on_the_air/tv_on_air_list_response.dart';
 import 'package:ditonton/data/models/tv_response/popular/tv_popular_data_response.dart';
@@ -29,14 +30,39 @@ final testMovieTvTable = MovieTable(
 
 // TV Detail Response
 var tvDummyDetail = TvDetailResponse(
-  adult: false,
-  backdropPath: "/9faGSFi5jam6pDWGNd0p8JcJgXQ.jpg",
-  id: 1396,
-  name: 'Breaking Bad',
-  posterPath: "/ztkUQFLlC19CCMYHW9o1zWhJRNq.jpg",
-  overview:
-      "Walter White, a New Mexico chemistry teacher, is diagnosed with Stage III cancer and given a prognosis of only two years left to live. He becomes filled with a sense of fearlessness and an unrelenting desire to secure his family's financial future at any cost as he enters the dangerous world of drugs and crime.",
-);
+    adult: false,
+    backdropPath: "/9faGSFi5jam6pDWGNd0p8JcJgXQ.jpg",
+    id: 1396,
+    name: 'Breaking Bad',
+    posterPath: "/ztkUQFLlC19CCMYHW9o1zWhJRNq.jpg",
+    overview:
+        "Walter White, a New Mexico chemistry teacher, is diagnosed with Stage III cancer and given a prognosis of only two years left to live. He becomes filled with a sense of fearlessness and an unrelenting desire to secure his family's financial future at any cost as he enters the dangerous world of drugs and crime.",
+    createdBy: [],
+    episodeRunTime: [],
+    firstAirDate: DateTime.parse("2020-11-02"),
+    genres: [],
+    homepage: "",
+    inProduction: true,
+    languages: [],
+    lastAirDate: DateTime.parse("2020-11-02"),
+    lastEpisodeToAir: TvEpisodeToAirResponse(),
+    networks: [],
+    nextEpisodeToAir: TvEpisodeToAirResponse(),
+    voteCount: 0,
+    numberOfEpisodes: 1,
+    numberOfSeasons: 2,
+    originCountry: [],
+    originalLanguage: "",
+    originalName: "",
+    popularity: 20,
+    productionCompanies: [],
+    productionCountries: [],
+    seasons: [],
+    spokenLanguages: [],
+    status: "",
+    tagline: "",
+    type: "",
+    voteAverage: 20.0);
 
 // TV on air list response
 TvOnAirDataResponse tvOnAirDataResponse = TvOnAirDataResponse(

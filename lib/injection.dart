@@ -39,7 +39,6 @@ import 'package:ditonton/presentation/provider/tv_show/tv_top_rated_controller.d
 import 'package:ditonton/presentation/provider/watchlist_movie_notifier.dart';
 import 'package:http/http.dart' as http;
 import 'package:get_it/get_it.dart';
-import 'package:provider/provider.dart';
 
 final locator = GetIt.instance;
 
@@ -105,7 +104,7 @@ void init() {
     () => DetailTvController(
       tvShowDetail: locator(),
       recomendationTvShow: locator(),
-      getWatchListStatus: locator(),
+      getWatchlistTvStatus: locator(),
       removeWatchlist: locator(),
       saveWatchlist: locator(),
     ),
