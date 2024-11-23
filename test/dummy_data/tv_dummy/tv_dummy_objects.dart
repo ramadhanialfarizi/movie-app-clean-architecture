@@ -1,4 +1,11 @@
 import 'package:ditonton/data/models/movie_table.dart';
+import 'package:ditonton/data/models/tv_response/detail/created_by_response.dart';
+import 'package:ditonton/data/models/tv_response/detail/genre_response.dart';
+import 'package:ditonton/data/models/tv_response/detail/network_response.dart';
+import 'package:ditonton/data/models/tv_response/detail/production_company_response.dart';
+import 'package:ditonton/data/models/tv_response/detail/production_country_response.dart';
+import 'package:ditonton/data/models/tv_response/detail/season_response.dart';
+import 'package:ditonton/data/models/tv_response/detail/spoken_language_response.dart';
 import 'package:ditonton/data/models/tv_response/detail/tv_detail_response.dart';
 import 'package:ditonton/data/models/tv_response/detail/tv_episode_to_air_response.dart';
 import 'package:ditonton/data/models/tv_response/on_the_air/tv_on_air_data_response.dart';
@@ -63,6 +70,72 @@ var tvDummyDetail = TvDetailResponse(
     tagline: "",
     type: "",
     voteAverage: 20.0);
+
+TvEpisodeToAirResponse tvEpisodeToAirResponse = TvEpisodeToAirResponse(
+  airDate: "",
+  episodeNumber: 2,
+  episodeType: "",
+  id: 111,
+  name: "",
+  overview: "",
+  productionCode: "",
+  runtime: 2,
+  seasonNumber: 2,
+  showId: 2,
+  stillPath: "",
+  voteAverage: 2,
+  voteCount: 2,
+);
+
+SpokenLanguageResponse spokenLanguageResponse = SpokenLanguageResponse(
+  englishName: "",
+  iso6391: "",
+  name: "",
+);
+
+SeasonResponse seasonResponse = SeasonResponse(
+  airDate: "",
+  episodeCount: 2,
+  id: 2,
+  name: "",
+  overview: "",
+  posterPath: "",
+  seasonNumber: 2,
+  voteAverage: 2,
+);
+
+ProductionCountryResponse productionCountryResponse = ProductionCountryResponse(
+  iso31661: "",
+  name: "",
+);
+
+ProductionCompanyResponse productionCompanyResponse = ProductionCompanyResponse(
+  id: 1,
+  logoPath: "",
+  name: "",
+  originCountry: "",
+);
+
+NetworkResponse networkResponse = NetworkResponse(
+  id: 1,
+  logoPath: "",
+  name: "",
+  originCountry: "",
+);
+
+GenreResponse genreResponse = GenreResponse(
+  id: 1,
+  name: "",
+);
+
+CreatedByResponse createdByResponse = CreatedByResponse(
+  creditId: "",
+  gender: 2,
+  id: 2,
+  name: "",
+  originalName: "",
+  profilePath: "",
+);
 
 // TV on air list response
 TvOnAirDataResponse tvOnAirDataResponse = TvOnAirDataResponse(
