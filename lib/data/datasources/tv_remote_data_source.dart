@@ -146,7 +146,7 @@ class TvRemoteDataSourceImpl implements TvRemoteDataSource {
     try {
       final response = await client.get(
         Uri.parse(
-          '$BASE_URL/3/search/tv?query=$query&include_adult=false&language=en-US&page=1',
+          '$BASE_URL/search/tv?query=$query&include_adult=false&language=en-US&page=1',
         ),
         headers: headers,
       );
