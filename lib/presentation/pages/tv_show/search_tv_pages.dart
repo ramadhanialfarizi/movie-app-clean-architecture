@@ -1,5 +1,6 @@
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/state_enum.dart';
+import 'package:ditonton/presentation/pages/tv_show/detail_tv_show_pages.dart';
 import 'package:ditonton/presentation/provider/tv_show/search_tv_controller.dart';
 import 'package:ditonton/presentation/widgets/tv_show_widget/tv_detail_list_card.dart';
 import 'package:flutter/material.dart';
@@ -73,7 +74,13 @@ class _SearchTvPagesState extends State<SearchTvPages> {
                       itemBuilder: (context, index) {
                         final data = (result ?? [])[index];
                         return TvListCard(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(
+                              context,
+                              DetailTvPages.ROUTE_NAME,
+                              arguments: data.id,
+                            );
+                          },
                           title: data.name ?? "",
                           overview: data.overview ?? "",
                           imageLink: data.posterPath ?? "",
