@@ -188,13 +188,17 @@ class DetailContent extends StatelessWidget {
                               ],
                             ),
                             SizedBox(height: 16),
-                            Text(
-                              'Overview',
-                              style: kHeading6,
-                            ),
-                            Text(
-                              tvDetailResponse.overview ?? "",
-                            ),
+                            if (tvDetailResponse.overview?.isNotEmpty ??
+                                false) ...[
+                              Text(
+                                'Overview',
+                                style: kHeading6,
+                              ),
+                              Text(
+                                tvDetailResponse.overview ?? "",
+                              ),
+                            ] else
+                              ...[],
                             SizedBox(height: 16),
                             Text(
                               'Recommendations',

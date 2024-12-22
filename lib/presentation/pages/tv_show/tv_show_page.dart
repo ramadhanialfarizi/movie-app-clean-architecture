@@ -4,6 +4,7 @@ import 'package:ditonton/presentation/pages/about_page.dart';
 import 'package:ditonton/presentation/pages/home_movie_page.dart';
 import 'package:ditonton/presentation/pages/tv_show/detail_tv_show_pages.dart';
 import 'package:ditonton/presentation/pages/tv_show/search_tv_pages.dart';
+import 'package:ditonton/presentation/pages/tv_show/tv_now_playing_pages.dart';
 import 'package:ditonton/presentation/pages/tv_show/tv_popular_page.dart';
 import 'package:ditonton/presentation/pages/tv_show/tv_top_rated_page.dart';
 import 'package:ditonton/presentation/pages/watchlist_movies_page.dart';
@@ -101,9 +102,15 @@ class _TvShowPageState extends State<TvShowPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Now Playing',
-                style: kHeading6,
+              // Text(
+              //   'Now Playing',
+              //   style: kHeading6,
+              // ),
+              _buildSubHeading(
+                title: 'Now Playing',
+                onTap: () {
+                  Navigator.pushNamed(context, TvNowPlayingPages.ROUTE_NAME);
+                },
               ),
               Consumer<TvShowController>(
                 builder: (context, controller, child) {

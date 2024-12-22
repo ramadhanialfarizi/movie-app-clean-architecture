@@ -33,6 +33,7 @@ import 'package:ditonton/presentation/provider/popular_movies_notifier.dart';
 import 'package:ditonton/presentation/provider/top_rated_movies_notifier.dart';
 import 'package:ditonton/presentation/provider/tv_show/detail_tv_controller.dart';
 import 'package:ditonton/presentation/provider/tv_show/search_tv_controller.dart';
+import 'package:ditonton/presentation/provider/tv_show/tv_now_playing_controller.dart';
 import 'package:ditonton/presentation/provider/tv_show/tv_popular_controller.dart';
 import 'package:ditonton/presentation/provider/tv_show/tv_show_controller.dart';
 import 'package:ditonton/presentation/provider/tv_show/tv_top_rated_controller.dart';
@@ -108,6 +109,9 @@ void init() {
       removeWatchlist: locator(),
       saveWatchlist: locator(),
     ),
+  );
+  locator.registerFactory(
+    () => TvNowPlayingController(getTvShowOnAir: locator()),
   );
 
   // use case

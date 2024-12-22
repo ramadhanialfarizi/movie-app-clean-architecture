@@ -8,6 +8,7 @@ import 'package:ditonton/presentation/pages/search_page.dart';
 import 'package:ditonton/presentation/pages/top_rated_movies_page.dart';
 import 'package:ditonton/presentation/pages/tv_show/detail_tv_show_pages.dart';
 import 'package:ditonton/presentation/pages/tv_show/search_tv_pages.dart';
+import 'package:ditonton/presentation/pages/tv_show/tv_now_playing_pages.dart';
 import 'package:ditonton/presentation/pages/tv_show/tv_popular_page.dart';
 import 'package:ditonton/presentation/pages/tv_show/tv_show_page.dart';
 import 'package:ditonton/presentation/pages/tv_show/tv_top_rated_page.dart';
@@ -19,6 +20,7 @@ import 'package:ditonton/presentation/provider/popular_movies_notifier.dart';
 import 'package:ditonton/presentation/provider/top_rated_movies_notifier.dart';
 import 'package:ditonton/presentation/provider/tv_show/detail_tv_controller.dart';
 import 'package:ditonton/presentation/provider/tv_show/search_tv_controller.dart';
+import 'package:ditonton/presentation/provider/tv_show/tv_now_playing_controller.dart';
 import 'package:ditonton/presentation/provider/tv_show/tv_popular_controller.dart';
 import 'package:ditonton/presentation/provider/tv_show/tv_show_controller.dart';
 import 'package:ditonton/presentation/provider/tv_show/tv_top_rated_controller.dart';
@@ -71,6 +73,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => di.locator<DetailTvController>(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => di.locator<TvNowPlayingController>(),
+        ),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
@@ -118,6 +123,10 @@ class MyApp extends StatelessWidget {
             case SearchTvPages.ROUTE_NAME:
               return MaterialPageRoute(
                 builder: (context) => SearchTvPages(),
+              );
+            case TvNowPlayingPages.ROUTE_NAME:
+              return MaterialPageRoute(
+                builder: (context) => TvNowPlayingPages(),
               );
             case DetailTvPages.ROUTE_NAME:
               final id = settings.arguments as int;
