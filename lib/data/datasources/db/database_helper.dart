@@ -21,6 +21,7 @@ class DatabaseHelper {
   }
 
   static const String _tblWatchlist = 'watchlist';
+  static const String _tblWatchlistTV = 'watchlistTvSHow';
 
   Future<Database> _initDb() async {
     final path = await getDatabasesPath();
@@ -39,6 +40,15 @@ class DatabaseHelper {
         posterPath TEXT
       );
     ''');
+
+    await db.execute('''
+      CREATE TABLE  $_tblWatchlistTV (
+        id INTEGER PRIMARY KEY,
+        title TEXT,
+        overview TEXT,
+        posterPath TEXT
+      );
+    ''');
   }
 
   Future<int> insertWatchlist(MovieTable movie) async {
@@ -46,10 +56,24 @@ class DatabaseHelper {
     return await db!.insert(_tblWatchlist, movie.toJson());
   }
 
+  Future<int> insertWatchlistTv(MovieTable movie) async {
+    final db = await database;
+    return await db!.insert(_tblWatchlistTV, movie.toJson());
+  }
+
   Future<int> removeWatchlist(MovieTable movie) async {
     final db = await database;
     return await db!.delete(
       _tblWatchlist,
+      where: 'id = ?',
+      whereArgs: [movie.id],
+    );
+  }
+
+  Future<int> removeWatchlistTv(MovieTable movie) async {
+    final db = await database;
+    return await db!.delete(
+      _tblWatchlistTV,
       where: 'id = ?',
       whereArgs: [movie.id],
     );
@@ -70,9 +94,31 @@ class DatabaseHelper {
     }
   }
 
+  Future<Map<String, dynamic>?> getTVShowById(int id) async {
+    final db = await database;
+    final results = await db!.query(
+      _tblWatchlistTV,
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+
+    if (results.isNotEmpty) {
+      return results.first;
+    } else {
+      return null;
+    }
+  }
+
   Future<List<Map<String, dynamic>>> getWatchlistMovies() async {
     final db = await database;
     final List<Map<String, dynamic>> results = await db!.query(_tblWatchlist);
+
+    return results;
+  }
+
+  Future<List<Map<String, dynamic>>> getWatchlistTVShow() async {
+    final db = await database;
+    final List<Map<String, dynamic>> results = await db!.query(_tblWatchlistTV);
 
     return results;
   }
