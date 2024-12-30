@@ -44,24 +44,30 @@ class _WatchlistTvPagesState extends State<WatchlistTvPages> with RouteAware {
               child: CircularProgressIndicator(),
             );
           } else if (data.watchlistState == RequestState.Loaded) {
-            return ListView.builder(
-              itemBuilder: (context, index) {
-                final dataTv = data.watchlistTV[index];
-                return TvListCard(
-                  onPressed: () {
-                    Navigator.pushNamed(
-                      context,
-                      DetailTvPages.ROUTE_NAME,
-                      arguments: dataTv.id,
-                    );
-                  },
-                  title: dataTv.title ?? "",
-                  overview: dataTv.overview ?? "",
-                  imageLink: dataTv.posterPath ?? "",
-                );
-              },
-              itemCount: data.watchlistTV.length,
-            );
+            if (data.watchlistTV.isNotEmpty) {
+              return ListView.builder(
+                itemBuilder: (context, index) {
+                  final dataTv = data.watchlistTV[index];
+                  return TvListCard(
+                    onPressed: () {
+                      Navigator.pushNamed(
+                        context,
+                        DetailTvPages.ROUTE_NAME,
+                        arguments: dataTv.id,
+                      );
+                    },
+                    title: dataTv.title ?? "",
+                    overview: dataTv.overview ?? "",
+                    imageLink: dataTv.posterPath ?? "",
+                  );
+                },
+                itemCount: data.watchlistTV.length,
+              );
+            } else {
+              return Center(
+                child: Text("You don't have any TV watchlist"),
+              );
+            }
           } else {
             return Center(
               key: Key('error_message'),
