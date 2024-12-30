@@ -1,12 +1,13 @@
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/data/models/tv_response/detail/tv_detail_response.dart';
+import 'package:ditonton/data/models/tv_response/watchlist/tv_table_data.dart';
 import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/usecases/tv_show/get_watchlist_tv.dart';
 import 'package:flutter/foundation.dart';
 
 class WatchlistTvController extends ChangeNotifier {
-  var _watchlistTV = <TvDetailResponse>[];
-  List<TvDetailResponse> get watchlistTV => _watchlistTV;
+  var _watchlistTV = <TvTableData>[];
+  List<TvTableData> get watchlistTV => _watchlistTV;
 
   var _watchlistState = RequestState.Empty;
   RequestState get watchlistState => _watchlistState;

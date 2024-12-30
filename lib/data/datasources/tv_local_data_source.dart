@@ -1,12 +1,13 @@
 import 'package:ditonton/common/exception.dart';
 import 'package:ditonton/data/datasources/db/database_helper.dart';
 import 'package:ditonton/data/models/movie_table.dart';
+import 'package:ditonton/data/models/tv_response/watchlist/tv_table_data.dart';
 
 abstract class TvLocalDataSource {
   Future<String> insertWatchlist(MovieTable movie);
   Future<String> removeWatchlist(MovieTable movie);
   Future<MovieTable?> getTvShowById(int id);
-  Future<List<MovieTable>> getWatchlistTv();
+  Future<List<TvTableData>> getWatchlistTv();
 }
 
 class TvLocalDataSourceImpl implements TvLocalDataSource {
@@ -25,9 +26,9 @@ class TvLocalDataSourceImpl implements TvLocalDataSource {
   }
 
   @override
-  Future<List<MovieTable>> getWatchlistTv() async {
+  Future<List<TvTableData>> getWatchlistTv() async {
     final result = await databaseHelper.getWatchlistTVShow();
-    return result.map((data) => MovieTable.fromMap(data)).toList();
+    return result.map((data) => TvTableData.fromJson(data)).toList();
   }
 
   @override

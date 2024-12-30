@@ -1,4 +1,5 @@
 import 'package:ditonton/common/state_enum.dart';
+import 'package:ditonton/common/utils.dart';
 import 'package:ditonton/presentation/pages/tv_show/detail_tv_show_pages.dart';
 import 'package:ditonton/presentation/provider/tv_show/watchlist_tv_controller.dart';
 import 'package:ditonton/presentation/widgets/tv_show_widget/tv_detail_list_card.dart';
@@ -12,13 +13,24 @@ class WatchlistTvPages extends StatefulWidget {
   State<WatchlistTvPages> createState() => _WatchlistTvPagesState();
 }
 
-class _WatchlistTvPagesState extends State<WatchlistTvPages> {
+class _WatchlistTvPagesState extends State<WatchlistTvPages> with RouteAware {
   @override
   void initState() {
     Future.microtask(() =>
         Provider.of<WatchlistTvController>(context, listen: false)
             .fetchWatchlistTV());
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    routeObserver.subscribe(this, ModalRoute.of(context)!);
+  }
+
+  void didPopNext() {
+    Provider.of<WatchlistTvController>(context, listen: false)
+        .fetchWatchlistTV();
   }
 
   @override
@@ -43,7 +55,7 @@ class _WatchlistTvPagesState extends State<WatchlistTvPages> {
                       arguments: dataTv.id,
                     );
                   },
-                  title: dataTv.name ?? "",
+                  title: dataTv.title ?? "",
                   overview: dataTv.overview ?? "",
                   imageLink: dataTv.posterPath ?? "",
                 );
@@ -59,5 +71,11 @@ class _WatchlistTvPagesState extends State<WatchlistTvPages> {
         },
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    routeObserver.unsubscribe(this);
+    super.dispose();
   }
 }

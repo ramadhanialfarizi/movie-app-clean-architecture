@@ -12,6 +12,7 @@ import 'package:ditonton/data/models/tv_response/popular/tv_popular_list_respons
 import 'package:ditonton/data/models/tv_response/recomendation/tv_recomendation_list_response.dart';
 import 'package:ditonton/data/models/tv_response/search/search_tv_list_response.dart';
 import 'package:ditonton/data/models/tv_response/top_rated/tv_top_rated_list_response.dart';
+import 'package:ditonton/data/models/tv_response/watchlist/tv_table_data.dart';
 import 'package:ditonton/domain/repositories/tv_repository.dart';
 
 class TvRepositoryImpl implements TvRepository {
@@ -97,24 +98,10 @@ class TvRepositoryImpl implements TvRepository {
   }
 
   @override
-  Future<Either<Failure, List<TvDetailResponse>>> getWatchlistTvShow() async {
+  Future<Either<Failure, List<TvTableData>>> getWatchlistTvShow() async {
     final result = await localDataSource.getWatchlistTv();
 
-    List<TvDetailResponse> listWatchlistTv = [];
-
-    result.forEach(
-      (element) {
-        TvDetailResponse tvDetailResponse = TvDetailResponse();
-        tvDetailResponse.id = element.id;
-        tvDetailResponse.overview = element.overview;
-        tvDetailResponse.name = element.title;
-        tvDetailResponse.posterPath = element.posterPath;
-
-        listWatchlistTv.add(tvDetailResponse);
-      },
-    );
-
-    return Right(listWatchlistTv);
+    return Right(result);
   }
 
   @override

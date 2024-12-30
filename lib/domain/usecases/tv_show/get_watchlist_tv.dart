@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:ditonton/common/failure.dart';
 import 'package:ditonton/data/models/tv_response/detail/tv_detail_response.dart';
+import 'package:ditonton/data/models/tv_response/watchlist/tv_table_data.dart';
 import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/repositories/tv_repository.dart';
 
@@ -9,7 +10,7 @@ class GetWatchlistTv {
 
   GetWatchlistTv(this._tvRepository);
 
-  Future<Either<Failure, List<TvDetailResponse>>> execute() {
+  Future<Either<Failure, List<TvTableData>>> execute() {
     return _tvRepository.getWatchlistTvShow();
   }
 }
