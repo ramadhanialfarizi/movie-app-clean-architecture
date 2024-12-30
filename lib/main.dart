@@ -12,6 +12,7 @@ import 'package:ditonton/presentation/pages/tv_show/tv_now_playing_pages.dart';
 import 'package:ditonton/presentation/pages/tv_show/tv_popular_page.dart';
 import 'package:ditonton/presentation/pages/tv_show/tv_show_page.dart';
 import 'package:ditonton/presentation/pages/tv_show/tv_top_rated_page.dart';
+import 'package:ditonton/presentation/pages/watchlist_main_page.dart';
 import 'package:ditonton/presentation/pages/watchlist_movies_page.dart';
 import 'package:ditonton/presentation/provider/movie_detail_notifier.dart';
 import 'package:ditonton/presentation/provider/movie_list_notifier.dart';
@@ -24,6 +25,7 @@ import 'package:ditonton/presentation/provider/tv_show/tv_now_playing_controller
 import 'package:ditonton/presentation/provider/tv_show/tv_popular_controller.dart';
 import 'package:ditonton/presentation/provider/tv_show/tv_show_controller.dart';
 import 'package:ditonton/presentation/provider/tv_show/tv_top_rated_controller.dart';
+import 'package:ditonton/presentation/provider/tv_show/watchlist_tv_controller.dart';
 import 'package:ditonton/presentation/provider/watchlist_movie_notifier.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -76,6 +78,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => di.locator<TvNowPlayingController>(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => di.locator<WatchlistTvController>(),
+        )
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
@@ -89,6 +94,7 @@ class MyApp extends StatelessWidget {
         home: HomeMoviePage(),
         navigatorObservers: [routeObserver],
         onGenerateRoute: (RouteSettings settings) {
+          LogUtility.writeLog("ROUTE NOW: ${settings.name}");
           switch (settings.name) {
             case HomeMoviePage.ROUTE_NAME:
               return MaterialPageRoute(builder: (_) => HomeMoviePage());
@@ -104,8 +110,8 @@ class MyApp extends StatelessWidget {
               );
             case SearchPage.ROUTE_NAME:
               return CupertinoPageRoute(builder: (_) => SearchPage());
-            case WatchlistMoviesPage.ROUTE_NAME:
-              return MaterialPageRoute(builder: (_) => WatchlistMoviesPage());
+            case WatchlistMainPage.ROUTE_NAME:
+              return MaterialPageRoute(builder: (_) => WatchlistMainPage());
             case AboutPage.ROUTE_NAME:
               return MaterialPageRoute(builder: (_) => AboutPage());
             case TvShowPage.ROUTE_NAME:

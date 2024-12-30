@@ -97,9 +97,24 @@ class TvRepositoryImpl implements TvRepository {
   }
 
   @override
-  Future<Either<Failure, List<TvDetailResponse>>> getWatchlistTvShow() {
-    // TODO: implement getWatchlistTvShow
-    throw UnimplementedError();
+  Future<Either<Failure, List<TvDetailResponse>>> getWatchlistTvShow() async {
+    final result = await localDataSource.getWatchlistTv();
+
+    List<TvDetailResponse> listWatchlistTv = [];
+
+    result.forEach(
+      (element) {
+        TvDetailResponse tvDetailResponse = TvDetailResponse();
+        tvDetailResponse.id = element.id;
+        tvDetailResponse.overview = element.overview;
+        tvDetailResponse.name = element.title;
+        tvDetailResponse.posterPath = element.posterPath;
+
+        listWatchlistTv.add(tvDetailResponse);
+      },
+    );
+
+    return Right(listWatchlistTv);
   }
 
   @override
