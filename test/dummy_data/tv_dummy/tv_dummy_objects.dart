@@ -18,6 +18,7 @@ import 'package:ditonton/data/models/tv_response/search/search_tv_data_response.
 import 'package:ditonton/data/models/tv_response/search/search_tv_list_response.dart';
 import 'package:ditonton/data/models/tv_response/top_rated/tv_top_rated_data_response.dart';
 import 'package:ditonton/data/models/tv_response/top_rated/tv_top_rated_list_response.dart';
+import 'package:ditonton/data/models/tv_response/watchlist/tv_table_data.dart';
 
 final testTvShowJson = {
   'id': 1396,
@@ -201,6 +202,21 @@ TvTopRatedDataResponse tvTopRatedDataResponse = TvTopRatedDataResponse(
   name: "Ici tout commence",
   voteCount: 62,
 );
+
+TvTableData tvTableDataDummy = TvTableData(
+  id: 1,
+  title: "title",
+  posterPath: "posterPath",
+  overview: "overview",
+);
+
+final testTvTableFromJson = {
+  'id': 1396,
+  'title': 'Breaking Bad',
+  'overview':
+      "Walter White, a New Mexico chemistry teacher, is diagnosed with Stage III cancer and given a prognosis of only two years left to live. He becomes filled with a sense of fearlessness and an unrelenting desire to secure his family's financial future at any cost as he enters the dangerous world of drugs and crime.",
+  'posterPath': "/ztkUQFLlC19CCMYHW9o1zWhJRNq.jpg",
+};
 
 TvTopRatedListResponse tvTopRatedListResponse = TvTopRatedListResponse(
   page: 1,
