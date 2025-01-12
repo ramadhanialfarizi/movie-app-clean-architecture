@@ -13,6 +13,8 @@ import 'package:ditonton/data/models/tv_response/recomendation/tv_recomendation_
 import 'package:ditonton/data/models/tv_response/search/search_tv_list_response.dart';
 import 'package:ditonton/data/models/tv_response/top_rated/tv_top_rated_list_response.dart';
 import 'package:ditonton/data/models/tv_response/watchlist/tv_table_data.dart';
+import 'package:ditonton/domain/entities/tv_entities/tv_item_model.dart';
+import 'package:ditonton/domain/entities/tv_entities/tv_list_model.dart';
 import 'package:ditonton/domain/repositories/tv_repository.dart';
 
 class TvRepositoryImpl implements TvRepository {
@@ -86,10 +88,40 @@ class TvRepositoryImpl implements TvRepository {
   }
 
   @override
-  Future<Either<Failure, SearchTvListResponse>> searchTv(String query) async {
+  Future<Either<Failure, TvListModel>> searchTv(String query) async {
     try {
       final result = await tvRemoteDataSource.searchTv(query);
-      return Right(result);
+
+      List<TvItemModel> dataItem = [];
+      TvListModel dataList = TvListModel();
+
+      result.results?.forEach(
+        (element) {
+          TvItemModel data = TvItemModel();
+          data.adult = element.adult;
+          data.backdropPath = element.backdropPath;
+          data.firstAirDate = element.firstAirDate;
+          data.genreIds = element.genreIds;
+          data.id = element.id;
+          // data.mediaType = element.
+          data.name = element.name;
+          data.originCountry = element.originCountry;
+          data.originalLanguage = element.originalLanguage;
+          data.originalName = element.originalName;
+          data.overview = element.overview;
+          data.popularity = element.popularity;
+          data.posterPath = element.posterPath;
+
+          dataItem.add(data);
+        },
+      );
+
+      dataList.page = result.page;
+      dataList.results = dataItem;
+      dataList.totalPages = result.totalPages;
+      dataList.totalResults = result.totalResults;
+
+      return Right(dataList);
     } on ServerException {
       return Left(ServerFailure(''));
     } on SocketException {

@@ -1,11 +1,13 @@
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/data/models/tv_response/search/search_tv_list_response.dart';
+import 'package:ditonton/domain/entities/tv_entities/tv_list_model.dart';
 import 'package:ditonton/domain/usecases/tv_show/search_tv_show.dart';
 import 'package:flutter/material.dart';
 
 class SearchTvController extends ChangeNotifier {
   RequestState? state;
-  SearchTvListResponse? resultData;
+  TvListModel? tvListModel;
+  // SearchTvListResponse? resultData;
 
   // TextEditingController textController = TextEditingController();
 
@@ -29,7 +31,7 @@ class SearchTvController extends ChangeNotifier {
         notifyListeners();
       },
       (data) {
-        resultData = data;
+        tvListModel = data;
         state = RequestState.Loaded;
         notifyListeners();
       },

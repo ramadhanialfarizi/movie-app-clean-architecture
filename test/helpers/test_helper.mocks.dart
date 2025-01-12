@@ -4,8 +4,8 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i12;
-import 'dart:convert' as _i27;
-import 'dart:typed_data' as _i28;
+import 'dart:convert' as _i28;
+import 'dart:typed_data' as _i29;
 
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:ditonton/common/failure.dart' as _i13;
@@ -34,6 +34,8 @@ import 'package:ditonton/data/models/tv_response/watchlist/tv_table_data.dart'
     as _i25;
 import 'package:ditonton/domain/entities/movie.dart' as _i14;
 import 'package:ditonton/domain/entities/movie_detail.dart' as _i15;
+import 'package:ditonton/domain/entities/tv_entities/tv_list_model.dart'
+    as _i27;
 import 'package:ditonton/domain/repositories/movie_repository.dart' as _i11;
 import 'package:ditonton/domain/repositories/tv_repository.dart' as _i26;
 import 'package:http/http.dart' as _i10;
@@ -859,23 +861,23 @@ class MockTvRepository extends _i1.Mock implements _i26.TvRepository {
       ) as _i12.Future<_i2.Either<_i13.Failure, _i7.TvDetailResponse>>);
 
   @override
-  _i12.Future<_i2.Either<_i13.Failure, _i9.SearchTvListResponse>> searchTv(
+  _i12.Future<_i2.Either<_i13.Failure, _i27.TvListModel>> searchTv(
           String? query) =>
       (super.noSuchMethod(
         Invocation.method(
           #searchTv,
           [query],
         ),
-        returnValue: _i12
-            .Future<_i2.Either<_i13.Failure, _i9.SearchTvListResponse>>.value(
-            _FakeEither_0<_i13.Failure, _i9.SearchTvListResponse>(
+        returnValue:
+            _i12.Future<_i2.Either<_i13.Failure, _i27.TvListModel>>.value(
+                _FakeEither_0<_i13.Failure, _i27.TvListModel>(
           this,
           Invocation.method(
             #searchTv,
             [query],
           ),
         )),
-      ) as _i12.Future<_i2.Either<_i13.Failure, _i9.SearchTvListResponse>>);
+      ) as _i12.Future<_i2.Either<_i13.Failure, _i27.TvListModel>>);
 
   @override
   _i12.Future<_i2.Either<_i13.Failure, String>> saveWatchlist(
@@ -996,7 +998,7 @@ class MockHttpClient extends _i1.Mock implements _i10.Client {
     Uri? url, {
     Map<String, String>? headers,
     Object? body,
-    _i27.Encoding? encoding,
+    _i28.Encoding? encoding,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -1027,7 +1029,7 @@ class MockHttpClient extends _i1.Mock implements _i10.Client {
     Uri? url, {
     Map<String, String>? headers,
     Object? body,
-    _i27.Encoding? encoding,
+    _i28.Encoding? encoding,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -1058,7 +1060,7 @@ class MockHttpClient extends _i1.Mock implements _i10.Client {
     Uri? url, {
     Map<String, String>? headers,
     Object? body,
-    _i27.Encoding? encoding,
+    _i28.Encoding? encoding,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -1089,7 +1091,7 @@ class MockHttpClient extends _i1.Mock implements _i10.Client {
     Uri? url, {
     Map<String, String>? headers,
     Object? body,
-    _i27.Encoding? encoding,
+    _i28.Encoding? encoding,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -1137,7 +1139,7 @@ class MockHttpClient extends _i1.Mock implements _i10.Client {
       ) as _i12.Future<String>);
 
   @override
-  _i12.Future<_i28.Uint8List> readBytes(
+  _i12.Future<_i29.Uint8List> readBytes(
     Uri? url, {
     Map<String, String>? headers,
   }) =>
@@ -1147,8 +1149,8 @@ class MockHttpClient extends _i1.Mock implements _i10.Client {
           [url],
           {#headers: headers},
         ),
-        returnValue: _i12.Future<_i28.Uint8List>.value(_i28.Uint8List(0)),
-      ) as _i12.Future<_i28.Uint8List>);
+        returnValue: _i12.Future<_i29.Uint8List>.value(_i29.Uint8List(0)),
+      ) as _i12.Future<_i29.Uint8List>);
 
   @override
   _i12.Future<_i10.StreamedResponse> send(_i10.BaseRequest? request) =>

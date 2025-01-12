@@ -7,6 +7,7 @@ import 'package:ditonton/data/models/tv_response/recomendation/tv_recomendation_
 import 'package:ditonton/data/models/tv_response/search/search_tv_list_response.dart';
 import 'package:ditonton/data/models/tv_response/top_rated/tv_top_rated_list_response.dart';
 import 'package:ditonton/data/models/tv_response/watchlist/tv_table_data.dart';
+import 'package:ditonton/domain/entities/tv_entities/tv_list_model.dart';
 
 abstract class TvRepository {
   Future<Either<Failure, TvPopularListResponse>> getPopularTvShow();
@@ -15,7 +16,7 @@ abstract class TvRepository {
   Future<Either<Failure, TvTopRatedListResponse>> getTopRatedTvShow();
   Future<Either<Failure, TvOnAirListResponse>> getOnAirTvShow();
   Future<Either<Failure, TvDetailResponse>> getDetailTvShow(int id);
-  Future<Either<Failure, SearchTvListResponse>> searchTv(String query);
+  Future<Either<Failure, TvListModel>> searchTv(String query);
   Future<Either<Failure, String>> saveWatchlist(TvDetailResponse tvDetail);
   Future<Either<Failure, String>> removeWatchlist(TvDetailResponse tvDetail);
   Future<bool> isAddedToWatchlist(int id);
