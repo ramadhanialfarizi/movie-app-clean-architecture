@@ -7,11 +7,7 @@ import 'package:ditonton/data/datasources/tv_local_data_source.dart';
 import 'package:ditonton/data/datasources/tv_remote_data_source.dart';
 import 'package:ditonton/data/models/movie_table.dart';
 import 'package:ditonton/data/models/tv_response/detail/tv_detail_response.dart';
-import 'package:ditonton/data/models/tv_response/on_the_air/tv_on_air_list_response.dart';
-import 'package:ditonton/data/models/tv_response/popular/tv_popular_list_response.dart';
 import 'package:ditonton/data/models/tv_response/recomendation/tv_recomendation_list_response.dart';
-import 'package:ditonton/data/models/tv_response/search/search_tv_list_response.dart';
-import 'package:ditonton/data/models/tv_response/top_rated/tv_top_rated_list_response.dart';
 import 'package:ditonton/data/models/tv_response/watchlist/tv_table_data.dart';
 import 'package:ditonton/domain/entities/tv_entities/tv_item_model.dart';
 import 'package:ditonton/domain/entities/tv_entities/tv_list_model.dart';
@@ -27,10 +23,39 @@ class TvRepositoryImpl implements TvRepository {
   });
 
   @override
-  Future<Either<Failure, TvPopularListResponse>> getPopularTvShow() async {
+  Future<Either<Failure, TvListModel>> getPopularTvShow() async {
     try {
       final result = await tvRemoteDataSource.getPopularTvShow();
-      return Right(result);
+
+      List<TvItemModel> dataItem = [];
+      TvListModel dataList = TvListModel();
+
+      result.results?.forEach(
+        (element) {
+          TvItemModel data = TvItemModel();
+          data.adult = element.adult;
+          data.backdropPath = element.backdropPath;
+          data.firstAirDate = element.firstAirDate.toString();
+          data.genreIds = element.genreIds;
+          data.id = element.id;
+          data.name = element.name;
+          data.originCountry = element.originCountry;
+          data.originalLanguage = element.originalLanguage;
+          data.originalName = element.originalName;
+          data.overview = element.overview;
+          data.popularity = element.popularity;
+          data.posterPath = element.posterPath;
+
+          dataItem.add(data);
+        },
+      );
+
+      dataList.page = result.page;
+      dataList.results = dataItem;
+      dataList.totalPages = result.totalPages;
+      dataList.totalResults = result.totalResults;
+
+      return Right(dataList);
     } on ServerException {
       return Left(ServerFailure(''));
     } on SocketException {
@@ -52,10 +77,38 @@ class TvRepositoryImpl implements TvRepository {
   }
 
   @override
-  Future<Either<Failure, TvTopRatedListResponse>> getTopRatedTvShow() async {
+  Future<Either<Failure, TvListModel>> getTopRatedTvShow() async {
     try {
       final result = await tvRemoteDataSource.getTopRatedTvShow();
-      return Right(result);
+      List<TvItemModel> dataItem = [];
+      TvListModel dataList = TvListModel();
+
+      result.results?.forEach(
+        (element) {
+          TvItemModel data = TvItemModel();
+          data.adult = element.adult;
+          data.backdropPath = element.backdropPath;
+          data.firstAirDate = element.firstAirDate.toString();
+          data.genreIds = element.genreIds;
+          data.id = element.id;
+          data.name = element.name;
+          data.originCountry = element.originCountry;
+          data.originalLanguage = element.originalLanguage;
+          data.originalName = element.originalName;
+          data.overview = element.overview;
+          data.popularity = element.popularity;
+          data.posterPath = element.posterPath;
+
+          dataItem.add(data);
+        },
+      );
+
+      dataList.page = result.page;
+      dataList.results = dataItem;
+      dataList.totalPages = result.totalPages;
+      dataList.totalResults = result.totalResults;
+
+      return Right(dataList);
     } on ServerException {
       return Left(ServerFailure(''));
     } on SocketException {
@@ -64,10 +117,38 @@ class TvRepositoryImpl implements TvRepository {
   }
 
   @override
-  Future<Either<Failure, TvOnAirListResponse>> getOnAirTvShow() async {
+  Future<Either<Failure, TvListModel>> getOnAirTvShow() async {
     try {
       final result = await tvRemoteDataSource.getOnAirTvShow();
-      return Right(result);
+      List<TvItemModel> dataItem = [];
+      TvListModel dataList = TvListModel();
+
+      result.results?.forEach(
+        (element) {
+          TvItemModel data = TvItemModel();
+          data.adult = element.adult;
+          data.backdropPath = element.backdropPath;
+          data.firstAirDate = element.firstAirDate.toString();
+          data.genreIds = element.genreIds;
+          data.id = element.id;
+          data.name = element.name;
+          data.originCountry = element.originCountry;
+          data.originalLanguage = element.originalLanguage;
+          data.originalName = element.originalName;
+          data.overview = element.overview;
+          data.popularity = element.popularity;
+          data.posterPath = element.posterPath;
+
+          dataItem.add(data);
+        },
+      );
+
+      dataList.page = result.page;
+      dataList.results = dataItem;
+      dataList.totalPages = result.totalPages;
+      dataList.totalResults = result.totalResults;
+
+      return Right(dataList);
     } on ServerException {
       return Left(ServerFailure(''));
     } on SocketException {

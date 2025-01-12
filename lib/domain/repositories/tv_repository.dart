@@ -10,11 +10,11 @@ import 'package:ditonton/data/models/tv_response/watchlist/tv_table_data.dart';
 import 'package:ditonton/domain/entities/tv_entities/tv_list_model.dart';
 
 abstract class TvRepository {
-  Future<Either<Failure, TvPopularListResponse>> getPopularTvShow();
+  Future<Either<Failure, TvListModel>> getPopularTvShow();
   Future<Either<Failure, TvRecomendationListResponse>> getRecomendationTvShow(
       int id);
-  Future<Either<Failure, TvTopRatedListResponse>> getTopRatedTvShow();
-  Future<Either<Failure, TvOnAirListResponse>> getOnAirTvShow();
+  Future<Either<Failure, TvListModel>> getTopRatedTvShow();
+  Future<Either<Failure, TvListModel>> getOnAirTvShow();
   Future<Either<Failure, TvDetailResponse>> getDetailTvShow(int id);
   Future<Either<Failure, TvListModel>> searchTv(String query);
   Future<Either<Failure, String>> saveWatchlist(TvDetailResponse tvDetail);
