@@ -7,7 +7,6 @@ import 'package:ditonton/data/datasources/tv_local_data_source.dart';
 import 'package:ditonton/data/datasources/tv_remote_data_source.dart';
 import 'package:ditonton/data/models/movie_table.dart';
 import 'package:ditonton/data/models/tv_response/detail/tv_detail_response.dart';
-import 'package:ditonton/data/models/tv_response/recomendation/tv_recomendation_list_response.dart';
 import 'package:ditonton/data/models/tv_response/watchlist/tv_table_data.dart';
 import 'package:ditonton/domain/entities/tv_entities/tv_item_model.dart';
 import 'package:ditonton/domain/entities/tv_entities/tv_list_model.dart';
@@ -64,11 +63,39 @@ class TvRepositoryImpl implements TvRepository {
   }
 
   @override
-  Future<Either<Failure, TvRecomendationListResponse>> getRecomendationTvShow(
-      int id) async {
+  Future<Either<Failure, TvListModel>> getRecomendationTvShow(int id) async {
     try {
       final result = await tvRemoteDataSource.getRecomendationTvShow(id);
-      return Right(result);
+
+      List<TvItemModel> dataItem = [];
+      TvListModel dataList = TvListModel();
+
+      result.results?.forEach(
+        (element) {
+          TvItemModel data = TvItemModel();
+          data.adult = element.adult;
+          data.backdropPath = element.backdropPath;
+          data.firstAirDate = element.firstAirDate.toString();
+          data.genreIds = element.genreIds;
+          data.id = element.id;
+          data.name = element.name;
+          data.originCountry = element.originCountry;
+          data.originalLanguage = element.originalLanguage;
+          data.originalName = element.originalName;
+          data.overview = element.overview;
+          data.popularity = element.popularity;
+          data.posterPath = element.posterPath;
+
+          dataItem.add(data);
+        },
+      );
+
+      dataList.page = result.page;
+      dataList.results = dataItem;
+      dataList.totalPages = result.totalPages;
+      dataList.totalResults = result.totalResults;
+
+      return Right(dataList);
     } on ServerException {
       return Left(ServerFailure(''));
     } on SocketException {

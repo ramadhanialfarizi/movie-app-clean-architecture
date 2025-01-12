@@ -1,6 +1,6 @@
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/data/models/tv_response/detail/tv_detail_response.dart';
-import 'package:ditonton/data/models/tv_response/recomendation/tv_recomendation_list_response.dart';
+import 'package:ditonton/domain/entities/tv_entities/tv_list_model.dart';
 
 import 'package:ditonton/domain/usecases/tv_show/get_tv_show_detail.dart';
 import 'package:ditonton/domain/usecases/tv_show/get_tv_show_recomendation.dart';
@@ -14,7 +14,7 @@ class DetailTvController extends ChangeNotifier {
   RequestState? recomendationState;
 
   TvDetailResponse? tvDetailResponse;
-  TvRecomendationListResponse? tvRecomendationListResponse;
+  TvListModel? tvRecomendationListResponse;
 
   String message = '';
 
