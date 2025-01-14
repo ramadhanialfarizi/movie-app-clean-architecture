@@ -21,7 +21,7 @@ void main() {
     "get popular tv show",
     () async {
       when(mockTvRepository.getPopularTvShow())
-          .thenAnswer((_) async => Right(tvPopularListResponse));
+          .thenAnswer((_) async => Right(tvListModel));
 
       final result = await usecase.executeProcess();
       expect(result, Right(tvPopularListResponse));

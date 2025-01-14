@@ -7,10 +7,9 @@ import 'dart:async' as _i5;
 
 import 'package:dartz/dartz.dart' as _i3;
 import 'package:ditonton/common/failure.dart' as _i6;
-import 'package:ditonton/data/models/tv_response/detail/tv_detail_response.dart'
+import 'package:ditonton/domain/entities/tv_entities/detail/tv_detail_model.dart'
     as _i7;
-import 'package:ditonton/data/models/tv_response/recomendation/tv_recomendation_list_response.dart'
-    as _i9;
+import 'package:ditonton/domain/entities/tv_entities/tv_list_model.dart' as _i9;
 import 'package:ditonton/domain/repositories/tv_repository.dart' as _i2;
 import 'package:ditonton/domain/usecases/tv_show/get_tv_show_detail.dart'
     as _i4;
@@ -75,7 +74,7 @@ class MockGetTvShowDetail extends _i1.Mock implements _i4.GetTvShowDetail {
       ) as _i2.TvRepository);
 
   @override
-  _i5.Future<_i3.Either<_i6.Failure, _i7.TvDetailResponse>> executeProcess(
+  _i5.Future<_i3.Either<_i6.Failure, _i7.TvDetailModel>> executeProcess(
           int? id) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -83,15 +82,15 @@ class MockGetTvShowDetail extends _i1.Mock implements _i4.GetTvShowDetail {
           [id],
         ),
         returnValue:
-            _i5.Future<_i3.Either<_i6.Failure, _i7.TvDetailResponse>>.value(
-                _FakeEither_1<_i6.Failure, _i7.TvDetailResponse>(
+            _i5.Future<_i3.Either<_i6.Failure, _i7.TvDetailModel>>.value(
+                _FakeEither_1<_i6.Failure, _i7.TvDetailModel>(
           this,
           Invocation.method(
             #executeProcess,
             [id],
           ),
         )),
-      ) as _i5.Future<_i3.Either<_i6.Failure, _i7.TvDetailResponse>>);
+      ) as _i5.Future<_i3.Either<_i6.Failure, _i7.TvDetailModel>>);
 }
 
 /// A class which mocks [GetTvShowRecomendation].
@@ -113,25 +112,22 @@ class MockGetTvShowRecomendation extends _i1.Mock
       ) as _i2.TvRepository);
 
   @override
-  _i5.Future<
-      _i3.Either<_i6.Failure, _i9.TvRecomendationListResponse>> executeProcess(
+  _i5.Future<_i3.Either<_i6.Failure, _i9.TvListModel>> executeProcess(
           int? id) =>
       (super.noSuchMethod(
         Invocation.method(
           #executeProcess,
           [id],
         ),
-        returnValue: _i5.Future<
-                _i3.Either<_i6.Failure, _i9.TvRecomendationListResponse>>.value(
-            _FakeEither_1<_i6.Failure, _i9.TvRecomendationListResponse>(
+        returnValue: _i5.Future<_i3.Either<_i6.Failure, _i9.TvListModel>>.value(
+            _FakeEither_1<_i6.Failure, _i9.TvListModel>(
           this,
           Invocation.method(
             #executeProcess,
             [id],
           ),
         )),
-      ) as _i5
-          .Future<_i3.Either<_i6.Failure, _i9.TvRecomendationListResponse>>);
+      ) as _i5.Future<_i3.Either<_i6.Failure, _i9.TvListModel>>);
 }
 
 /// A class which mocks [GetWatchlistTvStatus].
@@ -181,7 +177,7 @@ class MockSaveWatchlistTv extends _i1.Mock implements _i11.SaveWatchlistTv {
 
   @override
   _i5.Future<_i3.Either<_i6.Failure, String>> execute(
-          _i7.TvDetailResponse? data) =>
+          _i7.TvDetailModel? data) =>
       (super.noSuchMethod(
         Invocation.method(
           #execute,
@@ -217,7 +213,7 @@ class MockRemoveWatchlistTv extends _i1.Mock implements _i12.RemoveWatchlistTv {
 
   @override
   _i5.Future<_i3.Either<_i6.Failure, String>> execute(
-          _i7.TvDetailResponse? data) =>
+          _i7.TvDetailModel? data) =>
       (super.noSuchMethod(
         Invocation.method(
           #execute,

@@ -19,6 +19,8 @@ import 'package:ditonton/data/models/tv_response/search/search_tv_list_response.
 import 'package:ditonton/data/models/tv_response/top_rated/tv_top_rated_data_response.dart';
 import 'package:ditonton/data/models/tv_response/top_rated/tv_top_rated_list_response.dart';
 import 'package:ditonton/data/models/tv_response/watchlist/tv_table_data.dart';
+import 'package:ditonton/domain/entities/tv_entities/detail/tv_detail_model.dart';
+import 'package:ditonton/domain/entities/tv_entities/tv_list_model.dart';
 
 final testTvShowJson = {
   'id': 1396,
@@ -71,6 +73,15 @@ var tvDummyDetail = TvDetailResponse(
     tagline: "",
     type: "",
     voteAverage: 20.0);
+
+TvDetailModel tvDetailModel = TvDetailModel(
+  genre: [],
+  id: 0,
+  name: "",
+  overview: "",
+  posterPath: "",
+  voteAverage: 0.0,
+);
 
 TvEpisodeToAirResponse tvEpisodeToAirResponse = TvEpisodeToAirResponse(
   airDate: "",
@@ -273,4 +284,11 @@ SearchTvListResponse searchTvListResponse = SearchTvListResponse(
   results: [searchTvDataResponse],
   totalPages: 66,
   totalResults: 1311,
+);
+
+TvListModel tvListModel = TvListModel(
+  page: 0,
+  results: [],
+  totalPages: 0,
+  totalResults: 0,
 );

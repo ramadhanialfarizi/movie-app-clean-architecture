@@ -7,8 +7,7 @@ import 'dart:async' as _i5;
 
 import 'package:dartz/dartz.dart' as _i3;
 import 'package:ditonton/common/failure.dart' as _i6;
-import 'package:ditonton/data/models/tv_response/popular/tv_popular_list_response.dart'
-    as _i7;
+import 'package:ditonton/domain/entities/tv_entities/tv_list_model.dart' as _i7;
 import 'package:ditonton/domain/repositories/tv_repository.dart' as _i2;
 import 'package:ditonton/domain/usecases/tv_show/get_tv_show_popular.dart'
     as _i4;
@@ -65,20 +64,19 @@ class MockGetTvShowPopular extends _i1.Mock implements _i4.GetTvShowPopular {
       ) as _i2.TvRepository);
 
   @override
-  _i5.Future<_i3.Either<_i6.Failure, _i7.TvPopularListResponse>>
-      executeProcess() => (super.noSuchMethod(
-            Invocation.method(
-              #executeProcess,
-              [],
-            ),
-            returnValue: _i5.Future<
-                    _i3.Either<_i6.Failure, _i7.TvPopularListResponse>>.value(
-                _FakeEither_1<_i6.Failure, _i7.TvPopularListResponse>(
-              this,
-              Invocation.method(
-                #executeProcess,
-                [],
-              ),
-            )),
-          ) as _i5.Future<_i3.Either<_i6.Failure, _i7.TvPopularListResponse>>);
+  _i5.Future<_i3.Either<_i6.Failure, _i7.TvListModel>> executeProcess() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #executeProcess,
+          [],
+        ),
+        returnValue: _i5.Future<_i3.Either<_i6.Failure, _i7.TvListModel>>.value(
+            _FakeEither_1<_i6.Failure, _i7.TvListModel>(
+          this,
+          Invocation.method(
+            #executeProcess,
+            [],
+          ),
+        )),
+      ) as _i5.Future<_i3.Either<_i6.Failure, _i7.TvListModel>>);
 }

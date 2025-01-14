@@ -20,7 +20,7 @@ void main() {
     () async {
       int id = 1111;
       when(mockTvRepository.getDetailTvShow(id))
-          .thenAnswer((_) async => Right(tvDummyDetail));
+          .thenAnswer((_) async => Right(tvDetailModel));
 
       final result = await usecase.executeProcess(id);
       expect(result, Right(tvDummyDetail));

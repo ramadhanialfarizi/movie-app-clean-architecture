@@ -7,19 +7,14 @@ import 'dart:async' as _i5;
 
 import 'package:dartz/dartz.dart' as _i3;
 import 'package:ditonton/common/failure.dart' as _i6;
-import 'package:ditonton/data/models/tv_response/on_the_air/tv_on_air_list_response.dart'
-    as _i7;
-import 'package:ditonton/data/models/tv_response/popular/tv_popular_list_response.dart'
-    as _i9;
-import 'package:ditonton/data/models/tv_response/top_rated/tv_top_rated_list_response.dart'
-    as _i11;
+import 'package:ditonton/domain/entities/tv_entities/tv_list_model.dart' as _i7;
 import 'package:ditonton/domain/repositories/tv_repository.dart' as _i2;
 import 'package:ditonton/domain/usecases/tv_show/get_tv_show_on_air.dart'
     as _i4;
 import 'package:ditonton/domain/usecases/tv_show/get_tv_show_popular.dart'
     as _i8;
 import 'package:ditonton/domain/usecases/tv_show/get_tv_show_top_rated.dart'
-    as _i10;
+    as _i9;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -73,22 +68,21 @@ class MockGetTvShowOnAir extends _i1.Mock implements _i4.GetTvShowOnAir {
       ) as _i2.TvRepository);
 
   @override
-  _i5.Future<_i3.Either<_i6.Failure, _i7.TvOnAirListResponse>>
-      executeProcess() => (super.noSuchMethod(
-            Invocation.method(
-              #executeProcess,
-              [],
-            ),
-            returnValue: _i5
-                .Future<_i3.Either<_i6.Failure, _i7.TvOnAirListResponse>>.value(
-                _FakeEither_1<_i6.Failure, _i7.TvOnAirListResponse>(
-              this,
-              Invocation.method(
-                #executeProcess,
-                [],
-              ),
-            )),
-          ) as _i5.Future<_i3.Either<_i6.Failure, _i7.TvOnAirListResponse>>);
+  _i5.Future<_i3.Either<_i6.Failure, _i7.TvListModel>> executeProcess() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #executeProcess,
+          [],
+        ),
+        returnValue: _i5.Future<_i3.Either<_i6.Failure, _i7.TvListModel>>.value(
+            _FakeEither_1<_i6.Failure, _i7.TvListModel>(
+          this,
+          Invocation.method(
+            #executeProcess,
+            [],
+          ),
+        )),
+      ) as _i5.Future<_i3.Either<_i6.Failure, _i7.TvListModel>>);
 }
 
 /// A class which mocks [GetTvShowPopular].
@@ -109,28 +103,27 @@ class MockGetTvShowPopular extends _i1.Mock implements _i8.GetTvShowPopular {
       ) as _i2.TvRepository);
 
   @override
-  _i5.Future<_i3.Either<_i6.Failure, _i9.TvPopularListResponse>>
-      executeProcess() => (super.noSuchMethod(
-            Invocation.method(
-              #executeProcess,
-              [],
-            ),
-            returnValue: _i5.Future<
-                    _i3.Either<_i6.Failure, _i9.TvPopularListResponse>>.value(
-                _FakeEither_1<_i6.Failure, _i9.TvPopularListResponse>(
-              this,
-              Invocation.method(
-                #executeProcess,
-                [],
-              ),
-            )),
-          ) as _i5.Future<_i3.Either<_i6.Failure, _i9.TvPopularListResponse>>);
+  _i5.Future<_i3.Either<_i6.Failure, _i7.TvListModel>> executeProcess() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #executeProcess,
+          [],
+        ),
+        returnValue: _i5.Future<_i3.Either<_i6.Failure, _i7.TvListModel>>.value(
+            _FakeEither_1<_i6.Failure, _i7.TvListModel>(
+          this,
+          Invocation.method(
+            #executeProcess,
+            [],
+          ),
+        )),
+      ) as _i5.Future<_i3.Either<_i6.Failure, _i7.TvListModel>>);
 }
 
 /// A class which mocks [GetTvShowTopRated].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGetTvShowTopRated extends _i1.Mock implements _i10.GetTvShowTopRated {
+class MockGetTvShowTopRated extends _i1.Mock implements _i9.GetTvShowTopRated {
   MockGetTvShowTopRated() {
     _i1.throwOnMissingStub(this);
   }
@@ -145,21 +138,19 @@ class MockGetTvShowTopRated extends _i1.Mock implements _i10.GetTvShowTopRated {
       ) as _i2.TvRepository);
 
   @override
-  _i5.Future<_i3.Either<_i6.Failure, _i11.TvTopRatedListResponse>>
-      executeProcess() => (super.noSuchMethod(
-            Invocation.method(
-              #executeProcess,
-              [],
-            ),
-            returnValue: _i5.Future<
-                    _i3.Either<_i6.Failure, _i11.TvTopRatedListResponse>>.value(
-                _FakeEither_1<_i6.Failure, _i11.TvTopRatedListResponse>(
-              this,
-              Invocation.method(
-                #executeProcess,
-                [],
-              ),
-            )),
-          ) as _i5
-              .Future<_i3.Either<_i6.Failure, _i11.TvTopRatedListResponse>>);
+  _i5.Future<_i3.Either<_i6.Failure, _i7.TvListModel>> executeProcess() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #executeProcess,
+          [],
+        ),
+        returnValue: _i5.Future<_i3.Either<_i6.Failure, _i7.TvListModel>>.value(
+            _FakeEither_1<_i6.Failure, _i7.TvListModel>(
+          this,
+          Invocation.method(
+            #executeProcess,
+            [],
+          ),
+        )),
+      ) as _i5.Future<_i3.Either<_i6.Failure, _i7.TvListModel>>);
 }

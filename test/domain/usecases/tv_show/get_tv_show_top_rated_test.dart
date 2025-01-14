@@ -21,7 +21,7 @@ void main() {
     "get tv show top rated use case",
     () async {
       when(mockTvRepository.getTopRatedTvShow())
-          .thenAnswer((_) async => Right(tvTopRatedListResponse));
+          .thenAnswer((_) async => Right(tvListModel));
 
       final result = await usecase.executeProcess();
       expect(result, Right(tvTopRatedListResponse));

@@ -21,7 +21,7 @@ void main() {
       String query = "Better Call Saul";
 
       when(mockTvRepository.searchTv(query))
-          .thenAnswer((_) async => Right(searchTvListResponse));
+          .thenAnswer((_) async => Right(tvListModel));
 
       final result = await usecase.executeProcess(query);
 

@@ -21,7 +21,7 @@ void main() {
     "get tv show on air",
     () async {
       when(mockTvRepository.getOnAirTvShow())
-          .thenAnswer((_) async => Right(tvOnAirListResponse));
+          .thenAnswer((_) async => Right(tvListModel));
 
       final result = await usecase.executeProcess();
       expect(result, Right(tvOnAirListResponse));
