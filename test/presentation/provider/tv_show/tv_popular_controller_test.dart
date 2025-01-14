@@ -28,7 +28,7 @@ void main() {
       test('should get data from the usecase', () async {
         // arrange
         when(mockGetTvShowPopular.executeProcess())
-            .thenAnswer((_) async => Right(tvPopularListResponse));
+            .thenAnswer((_) async => Right(tvListModel));
         // act
         controller.loadTvPopularData();
         // assert
@@ -38,7 +38,7 @@ void main() {
       test('should change state to Loading when usecase is called', () {
         // arrange
         when(mockGetTvShowPopular.executeProcess())
-            .thenAnswer((_) async => Right(tvPopularListResponse));
+            .thenAnswer((_) async => Right(tvListModel));
         // act
         controller.loadTvPopularData();
         // assert
@@ -48,7 +48,7 @@ void main() {
       test('should change movies when data is gotten successfully', () async {
         // arrange
         when(mockGetTvShowPopular.executeProcess())
-            .thenAnswer((_) async => Right(tvPopularListResponse));
+            .thenAnswer((_) async => Right(tvListModel));
         // act
         await controller.loadTvPopularData();
         // assert

@@ -42,7 +42,7 @@ void main() {
       test('should get data from the usecase', () async {
         // arrange
         when(mockGetTvShowOnAir.executeProcess())
-            .thenAnswer((_) async => Right(tvOnAirListResponse));
+            .thenAnswer((_) async => Right(tvListModel));
         // act
         controller.loadTVShowOnAir();
         // assert
@@ -52,7 +52,7 @@ void main() {
       test('should change state to Loading when usecase is called', () {
         // arrange
         when(mockGetTvShowOnAir.executeProcess())
-            .thenAnswer((_) async => Right(tvOnAirListResponse));
+            .thenAnswer((_) async => Right(tvListModel));
         // act
         controller.loadTVShowOnAir();
         // assert
@@ -62,12 +62,12 @@ void main() {
       test('should change movies when data is gotten successfully', () async {
         // arrange
         when(mockGetTvShowOnAir.executeProcess())
-            .thenAnswer((_) async => Right(tvOnAirListResponse));
+            .thenAnswer((_) async => Right(tvListModel));
         // act
         await controller.loadTVShowOnAir();
         // assert
         expect(controller.tvOnAirState, RequestState.Loaded);
-        expect(controller.tvOnAirListResponse, tvOnAirListResponse);
+        expect(controller.tvOnAirListResponse, tvListModel);
       });
 
       test('should return error when data is unsuccessful', () async {
@@ -89,7 +89,7 @@ void main() {
       test('should get data from the usecase', () async {
         // arrange
         when(mockGetTvShowPopular.executeProcess())
-            .thenAnswer((_) async => Right(tvPopularListResponse));
+            .thenAnswer((_) async => Right(tvListModel));
         // act
         controller.loadTvShowPopular();
         // assert
@@ -99,7 +99,7 @@ void main() {
       test('should change state to Loading when usecase is called', () {
         // arrange
         when(mockGetTvShowPopular.executeProcess())
-            .thenAnswer((_) async => Right(tvPopularListResponse));
+            .thenAnswer((_) async => Right(tvListModel));
         // act
         controller.loadTvShowPopular();
         // assert
@@ -109,12 +109,12 @@ void main() {
       test('should change movies when data is gotten successfully', () async {
         // arrange
         when(mockGetTvShowPopular.executeProcess())
-            .thenAnswer((_) async => Right(tvPopularListResponse));
+            .thenAnswer((_) async => Right(tvListModel));
         // act
         await controller.loadTvShowPopular();
         // assert
         expect(controller.tvPopularState, RequestState.Loaded);
-        expect(controller.tvPopularListResponse, tvPopularListResponse);
+        expect(controller.tvPopularListResponse, tvListModel);
       });
 
       test('should return error when data is unsuccessful', () async {
@@ -136,7 +136,7 @@ void main() {
       test('should get data from the usecase', () async {
         // arrange
         when(mockGetTvShowTopRated.executeProcess())
-            .thenAnswer((_) async => Right(tvTopRatedListResponse));
+            .thenAnswer((_) async => Right(tvListModel));
         // act
         controller.loadTvShowTopRated();
         // assert
@@ -146,7 +146,7 @@ void main() {
       test('should change state to Loading when usecase is called', () {
         // arrange
         when(mockGetTvShowTopRated.executeProcess())
-            .thenAnswer((_) async => Right(tvTopRatedListResponse));
+            .thenAnswer((_) async => Right(tvListModel));
         // act
         controller.loadTvShowTopRated();
         // assert
@@ -156,12 +156,12 @@ void main() {
       test('should change movies when data is gotten successfully', () async {
         // arrange
         when(mockGetTvShowTopRated.executeProcess())
-            .thenAnswer((_) async => Right(tvTopRatedListResponse));
+            .thenAnswer((_) async => Right(tvListModel));
         // act
         await controller.loadTvShowTopRated();
         // assert
         expect(controller.tvTopRatedState, RequestState.Loaded);
-        expect(controller.tvTopRatedListResponse, tvTopRatedListResponse);
+        expect(controller.tvTopRatedListResponse, tvListModel);
       });
 
       test('should return error when data is unsuccessful', () async {

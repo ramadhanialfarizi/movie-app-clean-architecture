@@ -54,7 +54,7 @@ void main() {
         await controller.searchData(query);
         // assert
         expect(controller.state, RequestState.Loaded);
-        expect(controller.resultData, tvListModel);
+        expect(controller.tvListModel, tvListModel);
       });
 
       test('should return error when data is unsuccessful', () async {
