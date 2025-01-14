@@ -27,7 +27,7 @@ void main() {
     test('should return success message when insert to database is success',
         () async {
       // arrange
-      when(mockDatabaseHelper.insertWatchlist(paramTest))
+      when(mockDatabaseHelper.insertWatchlistTv(paramTest))
           .thenAnswer((_) async => 1);
 
       // act
@@ -58,7 +58,7 @@ void main() {
     test('should return success message when remove from database is success',
         () async {
       // arrange
-      when(mockDatabaseHelper.removeWatchlist(paramTest))
+      when(mockDatabaseHelper.removeWatchlistTv(paramTest))
           .thenAnswer((_) async => 1);
       // act
       final result = await dataSource.removeWatchlist(paramTest);
@@ -83,7 +83,7 @@ void main() {
 
     test('should return tv show detail when data is found', () async {
       // arrange
-      when(mockDatabaseHelper.getMovieById(testId))
+      when(mockDatabaseHelper.getTVShowById(testId))
           .thenAnswer((_) async => testTvShowJson);
       // act
       final result = await dataSource.getTvShowById(testId ?? 0);
@@ -93,7 +93,7 @@ void main() {
 
     test('should return null when data is not found', () async {
       // arrange
-      when(mockDatabaseHelper.getMovieById(testId))
+      when(mockDatabaseHelper.getTVShowById(testId))
           .thenAnswer((_) async => null);
       // act
       final result = await dataSource.getTvShowById(testId ?? 0);
@@ -103,14 +103,14 @@ void main() {
   });
 
   group('get watchlist tv show', () {
-    test('should return list of MovieTable from database', () async {
+    test('should return list of tv table from database', () async {
       // arrange
-      when(mockDatabaseHelper.getWatchlistMovies())
-          .thenAnswer((_) async => [testMovieMap]);
+      when(mockDatabaseHelper.getWatchlistTVShow())
+          .thenAnswer((_) async => [testTvMap]);
       // act
       final result = await dataSource.getWatchlistTv();
       // assert
-      expect(result, [testMovieTable]);
+      expect(result, [testTvTable]);
     });
   });
 }

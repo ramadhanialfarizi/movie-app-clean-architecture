@@ -4,7 +4,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'tv_table_data.g.dart';
 
 @JsonSerializable()
-class TvTableData {
+class TvTableData extends Equatable {
   final int id;
   final String? title;
   final String? posterPath;
