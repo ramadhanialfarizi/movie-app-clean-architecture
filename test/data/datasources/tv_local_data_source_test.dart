@@ -19,10 +19,10 @@ void main() {
 
   group('save tv watchlist', () {
     MovieTable paramTest = MovieTable(
-      id: tvDummyDetail.id ?? 0,
-      title: tvDummyDetail.name,
-      posterPath: tvDummyDetail.posterPath,
-      overview: tvDummyDetail.overview,
+      id: tvDetailModel.id ?? 0,
+      title: tvDetailModel.name,
+      posterPath: tvDetailModel.posterPath,
+      overview: tvDetailModel.overview,
     );
     test('should return success message when insert to database is success',
         () async {
@@ -50,10 +50,10 @@ void main() {
 
   group('remove tv watchlist', () {
     MovieTable paramTest = MovieTable(
-      id: tvDummyDetail.id ?? 0,
-      title: tvDummyDetail.name,
-      posterPath: tvDummyDetail.posterPath,
-      overview: tvDummyDetail.overview,
+      id: tvDetailModel.id ?? 0,
+      title: tvDetailModel.name,
+      posterPath: tvDetailModel.posterPath,
+      overview: tvDetailModel.overview,
     );
     test('should return success message when remove from database is success',
         () async {
@@ -79,7 +79,7 @@ void main() {
   });
 
   group('fetch tv Detail By Id', () {
-    final testId = tvDummyDetail.id;
+    final testId = tvDetailModel.id;
 
     test('should return tv show detail when data is found', () async {
       // arrange

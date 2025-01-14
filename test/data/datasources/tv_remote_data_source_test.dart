@@ -280,7 +280,7 @@ void main() {
           // arrange
           when(mockHttpClient.get(
             Uri.parse(
-                '$BASE_URL/3/search/tv?query=$query&include_adult=false&language=en-US&page=1'),
+                '$BASE_URL/search/tv?query=$query&include_adult=false&language=en-US&page=1'),
             headers: headers,
           )).thenAnswer((_) async => http.Response(
               readJson('dummy_data/tv_dummy/search_tv.json'), 200));
@@ -297,7 +297,7 @@ void main() {
         // arrange
         when(mockHttpClient.get(
           Uri.parse(
-              '$BASE_URL/3/search/tv?query=$query&include_adult=false&language=en-US&page=1'),
+              '$BASE_URL/search/tv?query=$query&include_adult=false&language=en-US&page=1'),
           headers: headers,
         )).thenAnswer((_) async => http.Response('Not Found', 404));
         // act
