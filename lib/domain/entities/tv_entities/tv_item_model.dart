@@ -1,9 +1,10 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'tv_item_model.g.dart';
 
 @JsonSerializable()
-class TvItemModel {
+class TvItemModel extends Equatable {
   @JsonKey(name: "backdrop_path")
   String? backdropPath;
   @JsonKey(name: "id")
@@ -59,7 +60,6 @@ class TvItemModel {
   Map<String, dynamic> toJson() => _$TvItemModelToJson(this);
 
   @override
-  // TODO: implement props
   List<Object?> get props => [
         backdropPath,
         id,

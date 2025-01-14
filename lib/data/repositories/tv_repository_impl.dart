@@ -6,8 +6,9 @@ import 'package:ditonton/common/failure.dart';
 import 'package:ditonton/data/datasources/tv_local_data_source.dart';
 import 'package:ditonton/data/datasources/tv_remote_data_source.dart';
 import 'package:ditonton/data/models/movie_table.dart';
-import 'package:ditonton/data/models/tv_response/detail/tv_detail_response.dart';
 import 'package:ditonton/data/models/tv_response/watchlist/tv_table_data.dart';
+import 'package:ditonton/domain/entities/genre.dart';
+import 'package:ditonton/domain/entities/tv_entities/detail/tv_detail_model.dart';
 import 'package:ditonton/domain/entities/tv_entities/tv_item_model.dart';
 import 'package:ditonton/domain/entities/tv_entities/tv_list_model.dart';
 import 'package:ditonton/domain/repositories/tv_repository.dart';
@@ -184,10 +185,32 @@ class TvRepositoryImpl implements TvRepository {
   }
 
   @override
-  Future<Either<Failure, TvDetailResponse>> getDetailTvShow(int id) async {
+  Future<Either<Failure, TvDetailModel>> getDetailTvShow(int id) async {
     try {
       final result = await tvRemoteDataSource.getDetailTvShow(id);
-      return Right(result);
+
+      List<Genre> listGenre = [];
+
+      result.genres?.forEach(
+        (element) {
+          Genre data = Genre(
+            id: element.id ?? 0,
+            name: element.name ?? "",
+          );
+
+          listGenre.add(data);
+        },
+      );
+
+      TvDetailModel dataModel = TvDetailModel();
+      dataModel.name = result.name;
+      dataModel.overview = result.overview;
+      dataModel.posterPath = result.posterPath;
+      dataModel.voteAverage = result.voteAverage;
+      dataModel.genre = listGenre;
+      dataModel.id = result.id;
+
+      return Right(dataModel);
     } on ServerException {
       return Left(ServerFailure(''));
     } on SocketException {
@@ -252,7 +275,7 @@ class TvRepositoryImpl implements TvRepository {
 
   @override
   Future<Either<Failure, String>> removeWatchlist(
-      TvDetailResponse tvDetail) async {
+      TvDetailModel tvDetail) async {
     try {
       MovieTable data = MovieTable(
         id: tvDetail.id ?? 0,
@@ -269,8 +292,7 @@ class TvRepositoryImpl implements TvRepository {
   }
 
   @override
-  Future<Either<Failure, String>> saveWatchlist(
-      TvDetailResponse tvDetail) async {
+  Future<Either<Failure, String>> saveWatchlist(TvDetailModel tvDetail) async {
     try {
       MovieTable data = MovieTable(
         id: tvDetail.id ?? 0,
