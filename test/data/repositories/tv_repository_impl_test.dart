@@ -46,7 +46,7 @@ void main() {
             () => TvListModel(),
           );
 
-          expect(resultList, tvOnAirListResponse);
+          expect(resultList, tvListModel);
         },
       );
 
@@ -99,7 +99,7 @@ void main() {
             () => TvListModel(),
           );
 
-          expect(resultList, tvPopularListResponse);
+          expect(resultList, tvListModel);
         },
       );
       test(
@@ -151,7 +151,7 @@ void main() {
             () => TvListModel(),
           );
 
-          expect(resultList, tvTopRatedListResponse);
+          expect(resultList, tvListModel);
         },
       );
 
@@ -205,7 +205,7 @@ void main() {
             () => TvListModel(),
           );
 
-          expect(resultList, tvRecomendationListResponse);
+          expect(resultList, tvListModel);
         },
       );
 
@@ -260,7 +260,7 @@ void main() {
             () => TvDetailModel(),
           );
 
-          expect(resultList, tvDummyDetail);
+          expect(resultList, tvDetailModel);
         },
       );
 
@@ -314,7 +314,7 @@ void main() {
             () => TvListModel(),
           );
 
-          expect(resultList, searchTvListResponse);
+          expect(resultList, tvListModel);
         },
       );
       test(

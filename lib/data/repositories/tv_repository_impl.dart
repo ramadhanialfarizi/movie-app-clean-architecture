@@ -45,6 +45,8 @@ class TvRepositoryImpl implements TvRepository {
           data.overview = element.overview;
           data.popularity = element.popularity;
           data.posterPath = element.posterPath;
+          data.voteAverage = element.voteAverage;
+          data.voteCount = element.voteCount;
 
           dataItem.add(data);
         },
@@ -86,6 +88,8 @@ class TvRepositoryImpl implements TvRepository {
           data.overview = element.overview;
           data.popularity = element.popularity;
           data.posterPath = element.posterPath;
+          data.voteAverage = element.voteAverage;
+          data.voteCount = element.voteCount;
 
           dataItem.add(data);
         },
@@ -126,6 +130,8 @@ class TvRepositoryImpl implements TvRepository {
           data.overview = element.overview;
           data.popularity = element.popularity;
           data.posterPath = element.posterPath;
+          data.voteAverage = element.voteAverage;
+          data.voteCount = element.voteCount;
 
           dataItem.add(data);
         },
@@ -166,6 +172,8 @@ class TvRepositoryImpl implements TvRepository {
           data.overview = element.overview;
           data.popularity = element.popularity;
           data.posterPath = element.posterPath;
+          data.voteAverage = element.voteAverage;
+          data.voteCount = element.voteCount;
 
           dataItem.add(data);
         },
@@ -234,7 +242,6 @@ class TvRepositoryImpl implements TvRepository {
           data.firstAirDate = element.firstAirDate;
           data.genreIds = element.genreIds;
           data.id = element.id;
-          // data.mediaType = element.
           data.name = element.name;
           data.originCountry = element.originCountry;
           data.originalLanguage = element.originalLanguage;
@@ -242,6 +249,8 @@ class TvRepositoryImpl implements TvRepository {
           data.overview = element.overview;
           data.popularity = element.popularity;
           data.posterPath = element.posterPath;
+          data.voteAverage = element.voteAverage;
+          data.voteCount = element.voteCount;
 
           dataItem.add(data);
         },
