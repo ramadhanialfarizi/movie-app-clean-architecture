@@ -25,7 +25,7 @@ void main() {
 
       final result = await usecase.executeProcess(query);
 
-      expect(result, Right(searchTvListResponse));
+      expect(result, Right(tvListModel));
     },
   );
 }

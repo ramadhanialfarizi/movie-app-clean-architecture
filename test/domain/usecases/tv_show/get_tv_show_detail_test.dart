@@ -23,7 +23,7 @@ void main() {
           .thenAnswer((_) async => Right(tvDetailModel));
 
       final result = await usecase.executeProcess(id);
-      expect(result, Right(tvDummyDetail));
+      expect(result, Right(tvDetailModel));
     },
   );
 }

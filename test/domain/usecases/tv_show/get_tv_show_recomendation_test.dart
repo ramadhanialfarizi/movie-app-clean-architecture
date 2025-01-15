@@ -25,7 +25,7 @@ void main() {
           .thenAnswer((_) async => Right(tvListModel));
 
       final result = await usecase.executeProcess(id);
-      expect(result, Right(tvRecomendationListResponse));
+      expect(result, Right(tvListModel));
     },
   );
 }
