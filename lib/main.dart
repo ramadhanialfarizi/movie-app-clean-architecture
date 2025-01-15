@@ -13,7 +13,6 @@ import 'package:ditonton/presentation/pages/tv_show/tv_popular_page.dart';
 import 'package:ditonton/presentation/pages/tv_show/tv_show_page.dart';
 import 'package:ditonton/presentation/pages/tv_show/tv_top_rated_page.dart';
 import 'package:ditonton/presentation/pages/watchlist_main_page.dart';
-import 'package:ditonton/presentation/pages/watchlist_movies_page.dart';
 import 'package:ditonton/presentation/provider/movie_detail_notifier.dart';
 import 'package:ditonton/presentation/provider/movie_list_notifier.dart';
 import 'package:ditonton/presentation/provider/movie_search_notifier.dart';
