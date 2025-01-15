@@ -53,7 +53,7 @@ void main() {
         await controller.loadTvPopularData();
         // assert
         expect(controller.popularState, RequestState.Loaded);
-        expect(controller.tvPopularListResponse, tvPopularListResponse);
+        expect(controller.tvPopularListResponse, tvListModel);
       });
 
       test('should return error when data is unsuccessful', () async {

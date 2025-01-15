@@ -94,7 +94,7 @@ void main() {
         await controller.getDetailData(id);
         // assert
         expect(controller.detailState, RequestState.Loaded);
-        expect(controller.tvDetailResponse, tvDummyDetail);
+        expect(controller.tvDetailResponse, tvDetailModel);
       });
 
       test(
@@ -107,8 +107,7 @@ void main() {
         await controller.getRecomendationTV(id);
         // assert
         expect(controller.detailState, RequestState.Loaded);
-        expect(controller.tvRecomendationListResponse,
-            tvRecomendationListResponse);
+        expect(controller.tvRecomendationListResponse, tvListModel);
       });
     },
   );
@@ -124,8 +123,7 @@ void main() {
         await controller.getRecomendationTV(id);
         // assert
         verify(mockGetTvShowRecomendation.executeProcess(id));
-        expect(controller.tvRecomendationListResponse,
-            tvRecomendationListResponse);
+        expect(controller.tvRecomendationListResponse, tvListModel);
       });
 
       test(
@@ -138,8 +136,7 @@ void main() {
         await controller.getRecomendationTV(id);
         // assert
         expect(controller.recomendationState, RequestState.Loaded);
-        expect(controller.tvRecomendationListResponse,
-            tvRecomendationListResponse);
+        expect(controller.tvRecomendationListResponse, tvListModel);
       });
 
       test('should update error message when request in successful', () async {
