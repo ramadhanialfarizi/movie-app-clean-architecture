@@ -1,18 +1,13 @@
 import 'package:ditonton/domain/entities/tv_entities/tv_item_model.dart';
 import 'package:equatable/equatable.dart';
-import 'package:json_annotation/json_annotation.dart';
 
-part 'tv_list_model.g.dart';
-
-@JsonSerializable()
 class TvListModel extends Equatable {
-  @JsonKey(name: "page")
   int? page;
-  @JsonKey(name: "results")
+
   List<TvItemModel>? results;
-  @JsonKey(name: "total_pages")
+
   int? totalPages;
-  @JsonKey(name: "total_results")
+
   int? totalResults;
 
   TvListModel({
@@ -21,11 +16,6 @@ class TvListModel extends Equatable {
     this.totalPages,
     this.totalResults,
   });
-
-  factory TvListModel.fromJson(Map<String, dynamic> json) =>
-      _$TvListModelFromJson(json);
-
-  Map<String, dynamic> toJson() => _$TvListModelToJson(this);
 
   @override
   List<Object?> get props => [
