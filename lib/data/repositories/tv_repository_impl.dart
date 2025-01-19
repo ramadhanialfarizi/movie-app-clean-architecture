@@ -6,11 +6,11 @@ import 'package:ditonton/common/failure.dart';
 import 'package:ditonton/data/datasources/tv_local_data_source.dart';
 import 'package:ditonton/data/datasources/tv_remote_data_source.dart';
 import 'package:ditonton/data/models/movie_table.dart';
-import 'package:ditonton/data/models/tv_response/watchlist/tv_table_data.dart';
 import 'package:ditonton/domain/entities/genre.dart';
-import 'package:ditonton/domain/entities/tv_entities/detail/tv_detail_model.dart';
+import 'package:ditonton/domain/entities/tv_entities/tv_detail_model.dart';
 import 'package:ditonton/domain/entities/tv_entities/tv_item_model.dart';
 import 'package:ditonton/domain/entities/tv_entities/tv_list_model.dart';
+import 'package:ditonton/domain/entities/tv_entities/tv_watchlist_model.dart';
 import 'package:ditonton/domain/repositories/tv_repository.dart';
 
 class TvRepositoryImpl implements TvRepository {
@@ -270,10 +270,25 @@ class TvRepositoryImpl implements TvRepository {
   }
 
   @override
-  Future<Either<Failure, List<TvTableData>>> getWatchlistTvShow() async {
+  Future<Either<Failure, List<TvWatchlistModel>>> getWatchlistTvShow() async {
     final result = await localDataSource.getWatchlistTv();
 
-    return Right(result);
+    List<TvWatchlistModel> watchlist = [];
+
+    result.forEach(
+      (element) {
+        TvWatchlistModel data = TvWatchlistModel(
+          id: element.id,
+          title: element.title,
+          posterPath: element.posterPath,
+          overview: element.overview,
+        );
+
+        watchlist.add(data);
+      },
+    );
+
+    return Right(watchlist);
   }
 
   @override

@@ -3,11 +3,8 @@ import 'package:equatable/equatable.dart';
 
 class TvListModel extends Equatable {
   int? page;
-
   List<TvItemModel>? results;
-
   int? totalPages;
-
   int? totalResults;
 
   TvListModel({

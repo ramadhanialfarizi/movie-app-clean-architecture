@@ -19,7 +19,7 @@ import 'package:ditonton/data/models/tv_response/search/search_tv_list_response.
 import 'package:ditonton/data/models/tv_response/top_rated/tv_top_rated_data_response.dart';
 import 'package:ditonton/data/models/tv_response/top_rated/tv_top_rated_list_response.dart';
 import 'package:ditonton/data/models/tv_response/watchlist/tv_table_data.dart';
-import 'package:ditonton/domain/entities/tv_entities/detail/tv_detail_model.dart';
+import 'package:ditonton/domain/entities/tv_entities/tv_detail_model.dart';
 import 'package:ditonton/domain/entities/tv_entities/tv_item_model.dart';
 import 'package:ditonton/domain/entities/tv_entities/tv_list_model.dart';
 

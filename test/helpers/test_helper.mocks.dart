@@ -4,8 +4,8 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i12;
-import 'dart:convert' as _i29;
-import 'dart:typed_data' as _i30;
+import 'dart:convert' as _i30;
+import 'dart:typed_data' as _i31;
 
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:ditonton/common/failure.dart' as _i13;
@@ -34,10 +34,12 @@ import 'package:ditonton/data/models/tv_response/watchlist/tv_table_data.dart'
     as _i25;
 import 'package:ditonton/domain/entities/movie.dart' as _i14;
 import 'package:ditonton/domain/entities/movie_detail.dart' as _i15;
-import 'package:ditonton/domain/entities/tv_entities/detail/tv_detail_model.dart'
+import 'package:ditonton/domain/entities/tv_entities/tv_detail_model.dart'
     as _i28;
 import 'package:ditonton/domain/entities/tv_entities/tv_list_model.dart'
     as _i27;
+import 'package:ditonton/domain/entities/tv_entities/tv_watchlist_model.dart'
+    as _i29;
 import 'package:ditonton/domain/repositories/movie_repository.dart' as _i11;
 import 'package:ditonton/domain/repositories/tv_repository.dart' as _i26;
 import 'package:http/http.dart' as _i10;
@@ -923,22 +925,24 @@ class MockTvRepository extends _i1.Mock implements _i26.TvRepository {
       ) as _i12.Future<bool>);
 
   @override
-  _i12.Future<_i2.Either<_i13.Failure, List<_i25.TvTableData>>>
+  _i12.Future<_i2.Either<_i13.Failure, List<_i29.TvWatchlistModel>>>
       getWatchlistTvShow() => (super.noSuchMethod(
             Invocation.method(
               #getWatchlistTvShow,
               [],
             ),
-            returnValue: _i12
-                .Future<_i2.Either<_i13.Failure, List<_i25.TvTableData>>>.value(
-                _FakeEither_0<_i13.Failure, List<_i25.TvTableData>>(
+            returnValue: _i12.Future<
+                    _i2
+                    .Either<_i13.Failure, List<_i29.TvWatchlistModel>>>.value(
+                _FakeEither_0<_i13.Failure, List<_i29.TvWatchlistModel>>(
               this,
               Invocation.method(
                 #getWatchlistTvShow,
                 [],
               ),
             )),
-          ) as _i12.Future<_i2.Either<_i13.Failure, List<_i25.TvTableData>>>);
+          ) as _i12
+              .Future<_i2.Either<_i13.Failure, List<_i29.TvWatchlistModel>>>);
 }
 
 /// A class which mocks [Client].
@@ -996,7 +1000,7 @@ class MockHttpClient extends _i1.Mock implements _i10.Client {
     Uri? url, {
     Map<String, String>? headers,
     Object? body,
-    _i29.Encoding? encoding,
+    _i30.Encoding? encoding,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -1027,7 +1031,7 @@ class MockHttpClient extends _i1.Mock implements _i10.Client {
     Uri? url, {
     Map<String, String>? headers,
     Object? body,
-    _i29.Encoding? encoding,
+    _i30.Encoding? encoding,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -1058,7 +1062,7 @@ class MockHttpClient extends _i1.Mock implements _i10.Client {
     Uri? url, {
     Map<String, String>? headers,
     Object? body,
-    _i29.Encoding? encoding,
+    _i30.Encoding? encoding,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -1089,7 +1093,7 @@ class MockHttpClient extends _i1.Mock implements _i10.Client {
     Uri? url, {
     Map<String, String>? headers,
     Object? body,
-    _i29.Encoding? encoding,
+    _i30.Encoding? encoding,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -1137,7 +1141,7 @@ class MockHttpClient extends _i1.Mock implements _i10.Client {
       ) as _i12.Future<String>);
 
   @override
-  _i12.Future<_i30.Uint8List> readBytes(
+  _i12.Future<_i31.Uint8List> readBytes(
     Uri? url, {
     Map<String, String>? headers,
   }) =>
@@ -1147,8 +1151,8 @@ class MockHttpClient extends _i1.Mock implements _i10.Client {
           [url],
           {#headers: headers},
         ),
-        returnValue: _i12.Future<_i30.Uint8List>.value(_i30.Uint8List(0)),
-      ) as _i12.Future<_i30.Uint8List>);
+        returnValue: _i12.Future<_i31.Uint8List>.value(_i31.Uint8List(0)),
+      ) as _i12.Future<_i31.Uint8List>);
 
   @override
   _i12.Future<_i10.StreamedResponse> send(_i10.BaseRequest? request) =>

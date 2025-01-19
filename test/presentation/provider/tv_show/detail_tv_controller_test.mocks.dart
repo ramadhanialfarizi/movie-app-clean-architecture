@@ -7,7 +7,7 @@ import 'dart:async' as _i5;
 
 import 'package:dartz/dartz.dart' as _i3;
 import 'package:ditonton/common/failure.dart' as _i6;
-import 'package:ditonton/domain/entities/tv_entities/detail/tv_detail_model.dart'
+import 'package:ditonton/domain/entities/tv_entities/tv_detail_model.dart'
     as _i7;
 import 'package:ditonton/domain/entities/tv_entities/tv_list_model.dart' as _i9;
 import 'package:ditonton/domain/repositories/tv_repository.dart' as _i2;
