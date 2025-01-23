@@ -52,6 +52,6 @@ Jika kamu menerapkan modular pada project, Anda dapat memanfaatkan berkas `test.
 
 5. latest build status badges cicd
 ```
-    https://api.codemagic.io/apps/679109c355b1f2ea82e406f9/movie_app_workflow/status_badge.svg
+    https://api.codemagic.io/apps/679109c355b1f2ea82e406f9/679109c355b1f2ea82e406f8/status_badge.svg
 ```
 
