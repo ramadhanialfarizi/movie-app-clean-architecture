@@ -51,7 +51,5 @@ Jika kamu menerapkan modular pada project, Anda dapat memanfaatkan berkas `test.
 4. Tunggu proses testing selesai hingga muncul web terkait laporan coverage.
 
 5. latest build status badges cicd
-```
-    https://api.codemagic.io/apps/679109c355b1f2ea82e406f9/679109c355b1f2ea82e406f8/status_badge.svg
-```
+[![Codemagic build status](https://api.codemagic.io/apps/679109c355b1f2ea82e406f9/679109c355b1f2ea82e406f8/status_badge.svg)]( https://api.codemagic.io/apps/679109c355b1f2ea82e406f9/679109c355b1f2ea82e406f8/latest_build)
 
