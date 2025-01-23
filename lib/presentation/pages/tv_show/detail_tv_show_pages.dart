@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/data/models/tv_response/detail/genre_response.dart';
-import 'package:ditonton/data/models/tv_response/detail/tv_detail_response.dart';
+import 'package:ditonton/domain/entities/genre.dart';
+import 'package:ditonton/domain/entities/tv_entities/tv_detail_model.dart';
 import 'package:ditonton/presentation/provider/tv_show/detail_tv_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -46,7 +46,7 @@ class _DetailTvPagesState extends State<DetailTvPages> {
           } else if (controller.detailState == RequestState.Loaded) {
             final data = controller.tvDetailResponse;
             return DetailContent(
-              tvDetailResponse: data ?? TvDetailResponse(),
+              tvDetailResponse: data ?? TvDetailModel(),
               isAddedWatchlist: controller.isAddedWatchlist,
             );
           } else {
@@ -65,7 +65,7 @@ class DetailContent extends StatelessWidget {
       required this.isAddedWatchlist})
       : super(key: key);
 
-  final TvDetailResponse tvDetailResponse;
+  final TvDetailModel tvDetailResponse;
   final bool isAddedWatchlist;
 
   @override
@@ -168,7 +168,7 @@ class DetailContent extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              _showGenres(tvDetailResponse.genres ?? []),
+                              _showGenres(tvDetailResponse.genre ?? []),
                             ),
                             // Text(
                             //   _showDuration(tvDetailResponse.runtime),
@@ -302,10 +302,10 @@ class DetailContent extends StatelessWidget {
     }
   }
 
-  String _showGenres(List<GenreResponse> genres) {
+  String _showGenres(List<Genre> genres) {
     String result = '';
     for (var genre in genres) {
-      result += genre.name ?? "" + ', ';
+      result += genre.name;
     }
 
     if (result.isEmpty) {

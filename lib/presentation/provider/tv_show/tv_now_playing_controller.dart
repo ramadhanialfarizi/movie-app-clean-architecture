@@ -1,11 +1,11 @@
 import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/data/models/tv_response/on_the_air/tv_on_air_list_response.dart';
+import 'package:ditonton/domain/entities/tv_entities/tv_list_model.dart';
 import 'package:ditonton/domain/usecases/tv_show/get_tv_show_on_air.dart';
 import 'package:flutter/foundation.dart';
 
 class TvNowPlayingController extends ChangeNotifier {
   RequestState? state;
-  TvOnAirListResponse? tvOnAirListResponse;
+  TvListModel? tvOnAirListResponse;
   String message = "";
 
   final GetTvShowOnAir getTvShowOnAir;

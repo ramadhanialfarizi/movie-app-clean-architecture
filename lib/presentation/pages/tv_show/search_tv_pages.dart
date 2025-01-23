@@ -67,7 +67,7 @@ class _SearchTvPagesState extends State<SearchTvPages> {
                     child: CircularProgressIndicator(),
                   );
                 } else if (controller.state == RequestState.Loaded) {
-                  final result = controller.resultData?.results;
+                  final result = controller.tvListModel?.results;
                   return Expanded(
                     child: ListView.builder(
                       padding: const EdgeInsets.all(8),

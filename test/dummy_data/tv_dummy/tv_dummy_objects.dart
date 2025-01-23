@@ -19,6 +19,9 @@ import 'package:ditonton/data/models/tv_response/search/search_tv_list_response.
 import 'package:ditonton/data/models/tv_response/top_rated/tv_top_rated_data_response.dart';
 import 'package:ditonton/data/models/tv_response/top_rated/tv_top_rated_list_response.dart';
 import 'package:ditonton/data/models/tv_response/watchlist/tv_table_data.dart';
+import 'package:ditonton/domain/entities/tv_entities/tv_detail_model.dart';
+import 'package:ditonton/domain/entities/tv_entities/tv_item_model.dart';
+import 'package:ditonton/domain/entities/tv_entities/tv_list_model.dart';
 
 final testTvShowJson = {
   'id': 1396,
@@ -71,6 +74,16 @@ var tvDummyDetail = TvDetailResponse(
     tagline: "",
     type: "",
     voteAverage: 20.0);
+
+TvDetailModel tvDetailModel = TvDetailModel(
+  genre: [],
+  id: 1396,
+  name: 'Breaking Bad',
+  overview:
+      "Walter White, a New Mexico chemistry teacher, is diagnosed with Stage III cancer and given a prognosis of only two years left to live. He becomes filled with a sense of fearlessness and an unrelenting desire to secure his family's financial future at any cost as he enters the dangerous world of drugs and crime.",
+  posterPath: "/ztkUQFLlC19CCMYHW9o1zWhJRNq.jpg",
+  voteAverage: 20.0,
+);
 
 TvEpisodeToAirResponse tvEpisodeToAirResponse = TvEpisodeToAirResponse(
   airDate: "",
@@ -263,7 +276,7 @@ SearchTvDataResponse searchTvDataResponse = SearchTvDataResponse(
   overview: "sasdasdaada",
   popularity: 208232.22,
   posterPath: "/yuTHx38jpogXovMhqNatvozigMJ.jpg",
-  firstAirDate: "2020-11-02",
+  firstAirDate: DateTime.parse("2020-11-02").toString(),
   name: "Ici tout commence",
   voteCount: 62,
 );
@@ -273,4 +286,28 @@ SearchTvListResponse searchTvListResponse = SearchTvListResponse(
   results: [searchTvDataResponse],
   totalPages: 66,
   totalResults: 1311,
+);
+
+TvListModel tvListModel = TvListModel(
+  page: 1,
+  results: [tvItemModel],
+  totalPages: 66,
+  totalResults: 1311,
+);
+
+TvItemModel tvItemModel = TvItemModel(
+  adult: false,
+  backdropPath: "/vgeDRVpSUa4Hvovg4C6dgm4dfUW.jpg",
+  genreIds: [10, 10],
+  id: 1111,
+  originCountry: ["US"],
+  originalLanguage: "en",
+  originalName: "sadasda",
+  overview: "sasdasdaada",
+  popularity: 208232.22,
+  posterPath: "/yuTHx38jpogXovMhqNatvozigMJ.jpg",
+  firstAirDate: DateTime.parse("2020-11-02").toString(),
+  name: "Ici tout commence",
+  voteCount: 62,
+  // voteAverage: 0.0,
 );

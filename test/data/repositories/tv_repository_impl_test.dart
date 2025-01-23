@@ -3,13 +3,9 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:ditonton/common/exception.dart';
 import 'package:ditonton/common/failure.dart';
-import 'package:ditonton/data/models/tv_response/detail/tv_detail_response.dart';
-import 'package:ditonton/data/models/tv_response/on_the_air/tv_on_air_list_response.dart';
-import 'package:ditonton/data/models/tv_response/popular/tv_popular_list_response.dart';
-import 'package:ditonton/data/models/tv_response/recomendation/tv_recomendation_list_response.dart';
-import 'package:ditonton/data/models/tv_response/search/search_tv_list_response.dart';
-import 'package:ditonton/data/models/tv_response/top_rated/tv_top_rated_list_response.dart';
 import 'package:ditonton/data/repositories/tv_repository_impl.dart';
+import 'package:ditonton/domain/entities/tv_entities/tv_detail_model.dart';
+import 'package:ditonton/domain/entities/tv_entities/tv_list_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
@@ -47,10 +43,10 @@ void main() {
           verify(mockTvRemoteDataSource.getOnAirTvShow());
 
           final resultList = result.getOrElse(
-            () => TvOnAirListResponse(),
+            () => TvListModel(),
           );
 
-          expect(resultList, tvOnAirListResponse);
+          expect(resultList, tvListModel);
         },
       );
 
@@ -100,10 +96,10 @@ void main() {
           verify(mockTvRemoteDataSource.getPopularTvShow());
 
           final resultList = result.getOrElse(
-            () => TvPopularListResponse(),
+            () => TvListModel(),
           );
 
-          expect(resultList, tvPopularListResponse);
+          expect(resultList, tvListModel);
         },
       );
       test(
@@ -152,10 +148,10 @@ void main() {
           verify(mockTvRemoteDataSource.getTopRatedTvShow());
 
           final resultList = result.getOrElse(
-            () => TvTopRatedListResponse(),
+            () => TvListModel(),
           );
 
-          expect(resultList, tvTopRatedListResponse);
+          expect(resultList, tvListModel);
         },
       );
 
@@ -206,10 +202,10 @@ void main() {
           verify(mockTvRemoteDataSource.getRecomendationTvShow(id));
 
           final resultList = result.getOrElse(
-            () => TvRecomendationListResponse(),
+            () => TvListModel(),
           );
 
-          expect(resultList, tvRecomendationListResponse);
+          expect(resultList, tvListModel);
         },
       );
 
@@ -261,10 +257,10 @@ void main() {
           verify(mockTvRemoteDataSource.getDetailTvShow(id));
 
           final resultList = result.getOrElse(
-            () => TvDetailResponse(),
+            () => TvDetailModel(),
           );
 
-          expect(resultList, tvDummyDetail);
+          expect(resultList, tvDetailModel);
         },
       );
 
@@ -315,10 +311,10 @@ void main() {
           verify(mockTvRemoteDataSource.searchTv(query));
 
           final resultList = result.getOrElse(
-            () => SearchTvListResponse(),
+            () => TvListModel(),
           );
 
-          expect(resultList, searchTvListResponse);
+          expect(resultList, tvListModel);
         },
       );
       test(

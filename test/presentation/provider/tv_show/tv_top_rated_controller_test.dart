@@ -30,7 +30,7 @@ void main() {
       test('should get data from the usecase', () async {
         // arrange
         when(mockGetTvShowTopRated.executeProcess())
-            .thenAnswer((_) async => Right(tvTopRatedListResponse));
+            .thenAnswer((_) async => Right(tvListModel));
         // act
         controller.loadTvShowTopRated();
         // assert
@@ -40,7 +40,7 @@ void main() {
       test('should change state to Loading when usecase is called', () {
         // arrange
         when(mockGetTvShowTopRated.executeProcess())
-            .thenAnswer((_) async => Right(tvTopRatedListResponse));
+            .thenAnswer((_) async => Right(tvListModel));
         // act
         controller.loadTvShowTopRated();
         // assert
@@ -50,12 +50,12 @@ void main() {
       test('should change movies when data is gotten successfully', () async {
         // arrange
         when(mockGetTvShowTopRated.executeProcess())
-            .thenAnswer((_) async => Right(tvTopRatedListResponse));
+            .thenAnswer((_) async => Right(tvListModel));
         // act
         await controller.loadTvShowTopRated();
         // assert
         expect(controller.state, RequestState.Loaded);
-        expect(controller.tvTopRated, tvTopRatedListResponse);
+        expect(controller.tvTopRated, tvListModel);
       });
 
       test('should return error when data is unsuccessful', () async {

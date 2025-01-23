@@ -6,13 +6,11 @@ import 'package:ditonton/common/failure.dart';
 import 'package:ditonton/data/datasources/tv_local_data_source.dart';
 import 'package:ditonton/data/datasources/tv_remote_data_source.dart';
 import 'package:ditonton/data/models/movie_table.dart';
-import 'package:ditonton/data/models/tv_response/detail/tv_detail_response.dart';
-import 'package:ditonton/data/models/tv_response/on_the_air/tv_on_air_list_response.dart';
-import 'package:ditonton/data/models/tv_response/popular/tv_popular_list_response.dart';
-import 'package:ditonton/data/models/tv_response/recomendation/tv_recomendation_list_response.dart';
-import 'package:ditonton/data/models/tv_response/search/search_tv_list_response.dart';
-import 'package:ditonton/data/models/tv_response/top_rated/tv_top_rated_list_response.dart';
-import 'package:ditonton/data/models/tv_response/watchlist/tv_table_data.dart';
+import 'package:ditonton/domain/entities/genre.dart';
+import 'package:ditonton/domain/entities/tv_entities/tv_detail_model.dart';
+import 'package:ditonton/domain/entities/tv_entities/tv_item_model.dart';
+import 'package:ditonton/domain/entities/tv_entities/tv_list_model.dart';
+import 'package:ditonton/domain/entities/tv_entities/tv_watchlist_model.dart';
 import 'package:ditonton/domain/repositories/tv_repository.dart';
 
 class TvRepositoryImpl implements TvRepository {
@@ -25,10 +23,41 @@ class TvRepositoryImpl implements TvRepository {
   });
 
   @override
-  Future<Either<Failure, TvPopularListResponse>> getPopularTvShow() async {
+  Future<Either<Failure, TvListModel>> getPopularTvShow() async {
     try {
       final result = await tvRemoteDataSource.getPopularTvShow();
-      return Right(result);
+
+      List<TvItemModel> dataItem = [];
+      TvListModel dataList = TvListModel();
+
+      result.results?.forEach(
+        (element) {
+          TvItemModel data = TvItemModel();
+          data.adult = element.adult;
+          data.backdropPath = element.backdropPath;
+          data.firstAirDate = element.firstAirDate.toString();
+          data.genreIds = element.genreIds;
+          data.id = element.id;
+          data.name = element.name;
+          data.originCountry = element.originCountry;
+          data.originalLanguage = element.originalLanguage;
+          data.originalName = element.originalName;
+          data.overview = element.overview;
+          data.popularity = element.popularity;
+          data.posterPath = element.posterPath;
+          data.voteAverage = element.voteAverage;
+          data.voteCount = element.voteCount;
+
+          dataItem.add(data);
+        },
+      );
+
+      dataList.page = result.page;
+      dataList.results = dataItem;
+      dataList.totalPages = result.totalPages;
+      dataList.totalResults = result.totalResults;
+
+      return Right(dataList);
     } on ServerException {
       return Left(ServerFailure(''));
     } on SocketException {
@@ -37,11 +66,41 @@ class TvRepositoryImpl implements TvRepository {
   }
 
   @override
-  Future<Either<Failure, TvRecomendationListResponse>> getRecomendationTvShow(
-      int id) async {
+  Future<Either<Failure, TvListModel>> getRecomendationTvShow(int id) async {
     try {
       final result = await tvRemoteDataSource.getRecomendationTvShow(id);
-      return Right(result);
+
+      List<TvItemModel> dataItem = [];
+      TvListModel dataList = TvListModel();
+
+      result.results?.forEach(
+        (element) {
+          TvItemModel data = TvItemModel();
+          data.adult = element.adult;
+          data.backdropPath = element.backdropPath;
+          data.firstAirDate = element.firstAirDate.toString();
+          data.genreIds = element.genreIds;
+          data.id = element.id;
+          data.name = element.name;
+          data.originCountry = element.originCountry;
+          data.originalLanguage = element.originalLanguage;
+          data.originalName = element.originalName;
+          data.overview = element.overview;
+          data.popularity = element.popularity;
+          data.posterPath = element.posterPath;
+          data.voteAverage = element.voteAverage;
+          data.voteCount = element.voteCount;
+
+          dataItem.add(data);
+        },
+      );
+
+      dataList.page = result.page;
+      dataList.results = dataItem;
+      dataList.totalPages = result.totalPages;
+      dataList.totalResults = result.totalResults;
+
+      return Right(dataList);
     } on ServerException {
       return Left(ServerFailure(''));
     } on SocketException {
@@ -50,10 +109,40 @@ class TvRepositoryImpl implements TvRepository {
   }
 
   @override
-  Future<Either<Failure, TvTopRatedListResponse>> getTopRatedTvShow() async {
+  Future<Either<Failure, TvListModel>> getTopRatedTvShow() async {
     try {
       final result = await tvRemoteDataSource.getTopRatedTvShow();
-      return Right(result);
+      List<TvItemModel> dataItem = [];
+      TvListModel dataList = TvListModel();
+
+      result.results?.forEach(
+        (element) {
+          TvItemModel data = TvItemModel();
+          data.adult = element.adult;
+          data.backdropPath = element.backdropPath;
+          data.firstAirDate = element.firstAirDate.toString();
+          data.genreIds = element.genreIds;
+          data.id = element.id;
+          data.name = element.name;
+          data.originCountry = element.originCountry;
+          data.originalLanguage = element.originalLanguage;
+          data.originalName = element.originalName;
+          data.overview = element.overview;
+          data.popularity = element.popularity;
+          data.posterPath = element.posterPath;
+          data.voteAverage = element.voteAverage;
+          data.voteCount = element.voteCount;
+
+          dataItem.add(data);
+        },
+      );
+
+      dataList.page = result.page;
+      dataList.results = dataItem;
+      dataList.totalPages = result.totalPages;
+      dataList.totalResults = result.totalResults;
+
+      return Right(dataList);
     } on ServerException {
       return Left(ServerFailure(''));
     } on SocketException {
@@ -62,10 +151,40 @@ class TvRepositoryImpl implements TvRepository {
   }
 
   @override
-  Future<Either<Failure, TvOnAirListResponse>> getOnAirTvShow() async {
+  Future<Either<Failure, TvListModel>> getOnAirTvShow() async {
     try {
       final result = await tvRemoteDataSource.getOnAirTvShow();
-      return Right(result);
+      List<TvItemModel> dataItem = [];
+      TvListModel dataList = TvListModel();
+
+      result.results?.forEach(
+        (element) {
+          TvItemModel data = TvItemModel();
+          data.adult = element.adult;
+          data.backdropPath = element.backdropPath;
+          data.firstAirDate = element.firstAirDate.toString();
+          data.genreIds = element.genreIds;
+          data.id = element.id;
+          data.name = element.name;
+          data.originCountry = element.originCountry;
+          data.originalLanguage = element.originalLanguage;
+          data.originalName = element.originalName;
+          data.overview = element.overview;
+          data.popularity = element.popularity;
+          data.posterPath = element.posterPath;
+          data.voteAverage = element.voteAverage;
+          data.voteCount = element.voteCount;
+
+          dataItem.add(data);
+        },
+      );
+
+      dataList.page = result.page;
+      dataList.results = dataItem;
+      dataList.totalPages = result.totalPages;
+      dataList.totalResults = result.totalResults;
+
+      return Right(dataList);
     } on ServerException {
       return Left(ServerFailure(''));
     } on SocketException {
@@ -74,10 +193,32 @@ class TvRepositoryImpl implements TvRepository {
   }
 
   @override
-  Future<Either<Failure, TvDetailResponse>> getDetailTvShow(int id) async {
+  Future<Either<Failure, TvDetailModel>> getDetailTvShow(int id) async {
     try {
       final result = await tvRemoteDataSource.getDetailTvShow(id);
-      return Right(result);
+
+      List<Genre> listGenre = [];
+
+      result.genres?.forEach(
+        (element) {
+          Genre data = Genre(
+            id: element.id ?? 0,
+            name: element.name ?? "",
+          );
+
+          listGenre.add(data);
+        },
+      );
+
+      TvDetailModel dataModel = TvDetailModel();
+      dataModel.name = result.name;
+      dataModel.overview = result.overview;
+      dataModel.posterPath = result.posterPath;
+      dataModel.voteAverage = result.voteAverage;
+      dataModel.genre = listGenre;
+      dataModel.id = result.id;
+
+      return Right(dataModel);
     } on ServerException {
       return Left(ServerFailure(''));
     } on SocketException {
@@ -86,10 +227,41 @@ class TvRepositoryImpl implements TvRepository {
   }
 
   @override
-  Future<Either<Failure, SearchTvListResponse>> searchTv(String query) async {
+  Future<Either<Failure, TvListModel>> searchTv(String query) async {
     try {
       final result = await tvRemoteDataSource.searchTv(query);
-      return Right(result);
+
+      List<TvItemModel> dataItem = [];
+      TvListModel dataList = TvListModel();
+
+      result.results?.forEach(
+        (element) {
+          TvItemModel data = TvItemModel();
+          data.adult = element.adult;
+          data.backdropPath = element.backdropPath;
+          data.firstAirDate = element.firstAirDate;
+          data.genreIds = element.genreIds;
+          data.id = element.id;
+          data.name = element.name;
+          data.originCountry = element.originCountry;
+          data.originalLanguage = element.originalLanguage;
+          data.originalName = element.originalName;
+          data.overview = element.overview;
+          data.popularity = element.popularity;
+          data.posterPath = element.posterPath;
+          data.voteAverage = element.voteAverage;
+          data.voteCount = element.voteCount;
+
+          dataItem.add(data);
+        },
+      );
+
+      dataList.page = result.page;
+      dataList.results = dataItem;
+      dataList.totalPages = result.totalPages;
+      dataList.totalResults = result.totalResults;
+
+      return Right(dataList);
     } on ServerException {
       return Left(ServerFailure(''));
     } on SocketException {
@@ -98,10 +270,25 @@ class TvRepositoryImpl implements TvRepository {
   }
 
   @override
-  Future<Either<Failure, List<TvTableData>>> getWatchlistTvShow() async {
+  Future<Either<Failure, List<TvWatchlistModel>>> getWatchlistTvShow() async {
     final result = await localDataSource.getWatchlistTv();
 
-    return Right(result);
+    List<TvWatchlistModel> watchlist = [];
+
+    result.forEach(
+      (element) {
+        TvWatchlistModel data = TvWatchlistModel(
+          id: element.id,
+          title: element.title,
+          posterPath: element.posterPath,
+          overview: element.overview,
+        );
+
+        watchlist.add(data);
+      },
+    );
+
+    return Right(watchlist);
   }
 
   @override
@@ -112,7 +299,7 @@ class TvRepositoryImpl implements TvRepository {
 
   @override
   Future<Either<Failure, String>> removeWatchlist(
-      TvDetailResponse tvDetail) async {
+      TvDetailModel tvDetail) async {
     try {
       MovieTable data = MovieTable(
         id: tvDetail.id ?? 0,
@@ -129,8 +316,7 @@ class TvRepositoryImpl implements TvRepository {
   }
 
   @override
-  Future<Either<Failure, String>> saveWatchlist(
-      TvDetailResponse tvDetail) async {
+  Future<Either<Failure, String>> saveWatchlist(TvDetailModel tvDetail) async {
     try {
       MovieTable data = MovieTable(
         id: tvDetail.id ?? 0,

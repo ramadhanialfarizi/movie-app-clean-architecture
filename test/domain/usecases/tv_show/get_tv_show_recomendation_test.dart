@@ -22,10 +22,10 @@ void main() {
     () async {
       int id = 1111;
       when(mockTvRepository.getRecomendationTvShow(id))
-          .thenAnswer((_) async => Right(tvRecomendationListResponse));
+          .thenAnswer((_) async => Right(tvListModel));
 
       final result = await usecase.executeProcess(id);
-      expect(result, Right(tvRecomendationListResponse));
+      expect(result, Right(tvListModel));
     },
   );
 }

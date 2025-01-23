@@ -50,15 +50,15 @@ void main() {
 
   void _executeUseCase() {
     when(mockTvShowDetail.executeProcess(id))
-        .thenAnswer((_) async => Right(tvDummyDetail));
+        .thenAnswer((_) async => Right(tvDetailModel));
 
     when(mockGetTvShowRecomendation.executeProcess(id))
-        .thenAnswer((_) async => Right(tvRecomendationListResponse));
+        .thenAnswer((_) async => Right(tvListModel));
   }
 
   void _executeFailedRecomendation() {
     when(mockTvShowDetail.executeProcess(id))
-        .thenAnswer((_) async => Right(tvDummyDetail));
+        .thenAnswer((_) async => Right(tvDetailModel));
 
     when(mockGetTvShowRecomendation.executeProcess(id))
         .thenAnswer((_) async => Left(ServerFailure('Failed')));
@@ -94,7 +94,7 @@ void main() {
         await controller.getDetailData(id);
         // assert
         expect(controller.detailState, RequestState.Loaded);
-        expect(controller.tvDetailResponse, tvDummyDetail);
+        expect(controller.tvDetailResponse, tvDetailModel);
       });
 
       test(
@@ -107,8 +107,7 @@ void main() {
         await controller.getRecomendationTV(id);
         // assert
         expect(controller.detailState, RequestState.Loaded);
-        expect(controller.tvRecomendationListResponse,
-            tvRecomendationListResponse);
+        expect(controller.tvRecomendationListResponse, tvListModel);
       });
     },
   );
@@ -124,8 +123,7 @@ void main() {
         await controller.getRecomendationTV(id);
         // assert
         verify(mockGetTvShowRecomendation.executeProcess(id));
-        expect(controller.tvRecomendationListResponse,
-            tvRecomendationListResponse);
+        expect(controller.tvRecomendationListResponse, tvListModel);
       });
 
       test(
@@ -138,8 +136,7 @@ void main() {
         await controller.getRecomendationTV(id);
         // assert
         expect(controller.recomendationState, RequestState.Loaded);
-        expect(controller.tvRecomendationListResponse,
-            tvRecomendationListResponse);
+        expect(controller.tvRecomendationListResponse, tvListModel);
       });
 
       test('should update error message when request in successful', () async {
@@ -172,40 +169,40 @@ void main() {
 
       test('should execute save watchlist when function called', () async {
         // arrange
-        when(mockSaveWatchlistTv.execute(tvDummyDetail))
+        when(mockSaveWatchlistTv.execute(tvDetailModel))
             .thenAnswer((_) async => Right('Success'));
         when(mockGetWatchlistTvStatus.execute(tvDummyDetail.id))
             .thenAnswer((_) async => true);
         // act
-        await controller.addWatchlist(tvDummyDetail);
+        await controller.addWatchlist(tvDetailModel);
         // assert
-        verify(mockSaveWatchlistTv.execute(tvDummyDetail));
+        verify(mockSaveWatchlistTv.execute(tvDetailModel));
       });
 
       test('should execute remove watchlist when function called', () async {
         // arrange
-        when(mockRemoveWatchlistTv.execute(tvDummyDetail))
+        when(mockRemoveWatchlistTv.execute(tvDetailModel))
             .thenAnswer((_) async => Right('Removed'));
-        when(mockGetWatchlistTvStatus.execute(tvDummyDetail.id))
+        when(mockGetWatchlistTvStatus.execute(tvDetailModel.id))
             .thenAnswer((_) async => false);
 
         // act
-        await controller.removeFromWatchlist(tvDummyDetail);
+        await controller.removeFromWatchlist(tvDetailModel);
         // assert
-        verify(mockRemoveWatchlistTv.execute(tvDummyDetail));
+        verify(mockRemoveWatchlistTv.execute(tvDetailModel));
       });
 
       test('should update watchlist status when add watchlist success',
           () async {
         // arrange
-        when(mockSaveWatchlistTv.execute(tvDummyDetail))
+        when(mockSaveWatchlistTv.execute(tvDetailModel))
             .thenAnswer((_) async => Right('Added to Watchlist'));
-        when(mockGetWatchlistTvStatus.execute(tvDummyDetail.id))
+        when(mockGetWatchlistTvStatus.execute(tvDetailModel.id))
             .thenAnswer((_) async => true);
         // act
-        await controller.addWatchlist(tvDummyDetail);
+        await controller.addWatchlist(tvDetailModel);
         // assert
-        verify(mockGetWatchlistTvStatus.execute(tvDummyDetail.id));
+        verify(mockGetWatchlistTvStatus.execute(tvDetailModel.id));
         expect(controller.isAddedWatchlist, true);
         expect(controller.watchlistMessage, 'Added to Watchlist');
       });
@@ -213,12 +210,12 @@ void main() {
       test('should update watchlist message when add watchlist failed',
           () async {
         // arrange
-        when(mockSaveWatchlistTv.execute(tvDummyDetail))
+        when(mockSaveWatchlistTv.execute(tvDetailModel))
             .thenAnswer((_) async => Left(DatabaseFailure('Failed')));
-        when(mockGetWatchlistTvStatus.execute(tvDummyDetail.id))
+        when(mockGetWatchlistTvStatus.execute(tvDetailModel.id))
             .thenAnswer((_) async => false);
         // act
-        await controller.addWatchlist(tvDummyDetail);
+        await controller.addWatchlist(tvDetailModel);
         // assert
         expect(controller.watchlistMessage, 'Failed');
       });

@@ -1,6 +1,6 @@
 import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/data/models/tv_response/detail/tv_detail_response.dart';
-import 'package:ditonton/data/models/tv_response/recomendation/tv_recomendation_list_response.dart';
+import 'package:ditonton/domain/entities/tv_entities/tv_detail_model.dart';
+import 'package:ditonton/domain/entities/tv_entities/tv_list_model.dart';
 
 import 'package:ditonton/domain/usecases/tv_show/get_tv_show_detail.dart';
 import 'package:ditonton/domain/usecases/tv_show/get_tv_show_recomendation.dart';
@@ -13,8 +13,8 @@ class DetailTvController extends ChangeNotifier {
   RequestState? detailState;
   RequestState? recomendationState;
 
-  TvDetailResponse? tvDetailResponse;
-  TvRecomendationListResponse? tvRecomendationListResponse;
+  TvDetailModel? tvDetailResponse;
+  TvListModel? tvRecomendationListResponse;
 
   String message = '';
 
@@ -82,7 +82,7 @@ class DetailTvController extends ChangeNotifier {
   static const watchlistAddSuccessMessage = 'Added to Watchlist';
   static const watchlistRemoveSuccessMessage = 'Removed from Watchlist';
 
-  Future<void> addWatchlist(TvDetailResponse data) async {
+  Future<void> addWatchlist(TvDetailModel data) async {
     final result = await saveWatchlist.execute(data);
 
     await result.fold(
@@ -97,7 +97,7 @@ class DetailTvController extends ChangeNotifier {
     await loadWatchlistStatus(data.id ?? 0);
   }
 
-  Future<void> removeFromWatchlist(TvDetailResponse data) async {
+  Future<void> removeFromWatchlist(TvDetailModel data) async {
     final result = await removeWatchlist.execute(data);
 
     await result.fold(

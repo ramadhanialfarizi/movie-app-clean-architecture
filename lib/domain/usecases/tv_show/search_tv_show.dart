@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:ditonton/common/failure.dart';
-import 'package:ditonton/data/models/tv_response/search/search_tv_list_response.dart';
+import 'package:ditonton/domain/entities/tv_entities/tv_list_model.dart';
 import 'package:ditonton/domain/repositories/tv_repository.dart';
 
 class SearchTvShow {
@@ -8,7 +8,7 @@ class SearchTvShow {
 
   SearchTvShow(this.repository);
 
-  Future<Either<Failure, SearchTvListResponse>> executeProcess(String query) {
+  Future<Either<Failure, TvListModel>> executeProcess(String query) {
     return repository.searchTv(query);
   }
 }

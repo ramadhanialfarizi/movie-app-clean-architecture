@@ -1,17 +1,15 @@
-import 'package:ditonton/common/failure.dart';
 import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/data/models/tv_response/on_the_air/tv_on_air_list_response.dart';
-import 'package:ditonton/data/models/tv_response/popular/tv_popular_list_response.dart';
-import 'package:ditonton/data/models/tv_response/top_rated/tv_top_rated_list_response.dart';
+
+import 'package:ditonton/domain/entities/tv_entities/tv_list_model.dart';
 import 'package:ditonton/domain/usecases/tv_show/get_tv_show_on_air.dart';
 import 'package:ditonton/domain/usecases/tv_show/get_tv_show_popular.dart';
 import 'package:ditonton/domain/usecases/tv_show/get_tv_show_top_rated.dart';
 import 'package:flutter/material.dart';
 
 class TvShowController extends ChangeNotifier {
-  TvOnAirListResponse? tvOnAirListResponse;
-  TvPopularListResponse? tvPopularListResponse;
-  TvTopRatedListResponse? tvTopRatedListResponse;
+  TvListModel? tvOnAirListResponse;
+  TvListModel? tvPopularListResponse;
+  TvListModel? tvTopRatedListResponse;
 
   RequestState? tvOnAirState;
   RequestState? tvPopularState;
