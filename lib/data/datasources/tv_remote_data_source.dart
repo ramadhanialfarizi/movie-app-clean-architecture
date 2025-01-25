@@ -9,6 +9,7 @@ import 'package:ditonton/data/models/tv_response/recomendation/tv_recomendation_
 import 'package:ditonton/data/models/tv_response/search/search_tv_list_response.dart';
 import 'package:ditonton/data/models/tv_response/top_rated/tv_top_rated_list_response.dart';
 import 'package:http/http.dart' as http;
+import 'package:ditonton/common/services_client.dart';
 
 abstract class TvRemoteDataSource {
   Future<TvPopularListResponse> getPopularTvShow();
@@ -25,7 +26,12 @@ class TvRemoteDataSourceImpl implements TvRemoteDataSource {
 
   final http.Client client;
 
-  TvRemoteDataSourceImpl({required this.client});
+  final ServicesClient servicesClient;
+
+  TvRemoteDataSourceImpl({
+    required this.client,
+    required this.servicesClient,
+  });
 
   final headers = {
     'Authorization':
@@ -36,8 +42,8 @@ class TvRemoteDataSourceImpl implements TvRemoteDataSource {
   @override
   Future<TvPopularListResponse> getPopularTvShow() async {
     try {
-      final response = await client.get(
-        Uri.parse('$BASE_URL/tv/popular'),
+      final response = await servicesClient.get(
+        url: Uri.parse('$BASE_URL/tv/popular'),
         headers: headers,
       );
 
@@ -56,8 +62,8 @@ class TvRemoteDataSourceImpl implements TvRemoteDataSource {
   @override
   Future<TvOnAirListResponse> getOnAirTvShow() async {
     try {
-      final response = await client.get(
-        Uri.parse('$BASE_URL/tv/on_the_air'),
+      final response = await servicesClient.get(
+        url: Uri.parse('$BASE_URL/tv/on_the_air'),
         headers: headers,
       );
 
@@ -78,8 +84,8 @@ class TvRemoteDataSourceImpl implements TvRemoteDataSource {
   @override
   Future<TvTopRatedListResponse> getTopRatedTvShow() async {
     try {
-      final response = await client.get(
-        Uri.parse('$BASE_URL/tv/top_rated'),
+      final response = await servicesClient.get(
+        url: Uri.parse('$BASE_URL/tv/top_rated'),
         headers: headers,
       );
 
@@ -99,8 +105,8 @@ class TvRemoteDataSourceImpl implements TvRemoteDataSource {
   @override
   Future<TvDetailResponse> getDetailTvShow(int id) async {
     try {
-      final response = await client.get(
-        Uri.parse('$BASE_URL/tv/$id'),
+      final response = await servicesClient.get(
+        url: Uri.parse('$BASE_URL/tv/$id'),
         headers: headers,
       );
 
@@ -121,8 +127,8 @@ class TvRemoteDataSourceImpl implements TvRemoteDataSource {
   @override
   Future<TvRecomendationListResponse> getRecomendationTvShow(int id) async {
     try {
-      final response = await client.get(
-        Uri.parse('$BASE_URL/tv/$id/recommendations'),
+      final response = await servicesClient.get(
+        url: Uri.parse('$BASE_URL/tv/$id/recommendations'),
         headers: headers,
       );
 
@@ -144,8 +150,8 @@ class TvRemoteDataSourceImpl implements TvRemoteDataSource {
   Future<SearchTvListResponse> searchTv(String query) async {
     log("query param: $query");
     try {
-      final response = await client.get(
-        Uri.parse(
+      final response = await servicesClient.get(
+        url: Uri.parse(
           '$BASE_URL/search/tv?query=$query&include_adult=false&language=en-US&page=1',
         ),
         headers: headers,
