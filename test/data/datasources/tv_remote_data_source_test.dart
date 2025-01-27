@@ -27,11 +27,16 @@ void main() {
 
   late TvRemoteDataSourceImpl dataSourceImpl;
   late MockHttpClient mockHttpClient;
+  late MockServicesClient mockServicesClient;
 
   setUp(
     () {
       mockHttpClient = MockHttpClient();
-      dataSourceImpl = TvRemoteDataSourceImpl(client: mockHttpClient);
+      mockServicesClient = MockServicesClient();
+      dataSourceImpl = TvRemoteDataSourceImpl(
+        client: mockHttpClient,
+        servicesClient: mockServicesClient,
+      );
     },
   );
 
@@ -45,8 +50,8 @@ void main() {
         "should return tv show on air list data",
         () async {
           // arrange
-          when(mockHttpClient.get(
-            Uri.parse('$BASE_URL/tv/on_the_air'),
+          when(mockServicesClient.get(
+            url: Uri.parse('$BASE_URL/tv/on_the_air'),
             headers: headers,
           )).thenAnswer((_) async => http.Response(
               readJson('dummy_data/tv_dummy/tv_now_playing.json'), 200));
@@ -60,8 +65,8 @@ void main() {
           'should throw a ServerException when the response code is 404 or other',
           () async {
         // arrange
-        when(mockHttpClient.get(
-          Uri.parse('$BASE_URL/tv/on_the_air'),
+        when(mockServicesClient.get(
+          url: Uri.parse('$BASE_URL/tv/on_the_air'),
           headers: headers,
         )).thenAnswer((_) async => http.Response('Not Found', 404));
         // act
@@ -82,8 +87,8 @@ void main() {
         "should return tv show popular list data",
         () async {
           // arrange
-          when(mockHttpClient.get(
-            Uri.parse('$BASE_URL/tv/popular'),
+          when(mockServicesClient.get(
+            url: Uri.parse('$BASE_URL/tv/popular'),
             headers: headers,
           )).thenAnswer((_) async => http.Response(
               readJson('dummy_data/tv_dummy/tv_popular.json'), 200));
@@ -98,8 +103,8 @@ void main() {
           'should throw a ServerException when the response code is 404 or other',
           () async {
         // arrange
-        when(mockHttpClient.get(
-          Uri.parse('$BASE_URL/tv/popular'),
+        when(mockServicesClient.get(
+          url: Uri.parse('$BASE_URL/tv/popular'),
           headers: headers,
         )).thenAnswer((_) async => http.Response('Not Found', 404));
         // act
@@ -120,8 +125,8 @@ void main() {
         "should return tv show popular list data",
         () async {
           // arrange
-          when(mockHttpClient.get(
-            Uri.parse('$BASE_URL/tv/popular'),
+          when(mockServicesClient.get(
+            url: Uri.parse('$BASE_URL/tv/popular'),
             headers: headers,
           )).thenAnswer((_) async => http.Response(
               readJson('dummy_data/tv_dummy/tv_popular.json'), 200));
@@ -136,8 +141,8 @@ void main() {
           'should throw a ServerException when the response code is 404 or other',
           () async {
         // arrange
-        when(mockHttpClient.get(
-          Uri.parse('$BASE_URL/tv/popular'),
+        when(mockServicesClient.get(
+          url: Uri.parse('$BASE_URL/tv/popular'),
           headers: headers,
         )).thenAnswer((_) async => http.Response('Not Found', 404));
         // act
@@ -158,8 +163,8 @@ void main() {
         "should return tv top rated list data",
         () async {
           // arrange
-          when(mockHttpClient.get(
-            Uri.parse('$BASE_URL/tv/top_rated'),
+          when(mockServicesClient.get(
+            url: Uri.parse('$BASE_URL/tv/top_rated'),
             headers: headers,
           )).thenAnswer((_) async => http.Response(
               readJson('dummy_data/tv_dummy/tv_top_rated.json'), 200));
@@ -174,8 +179,8 @@ void main() {
           'should throw a ServerException when the response code is 404 or other',
           () async {
         // arrange
-        when(mockHttpClient.get(
-          Uri.parse('$BASE_URL/tv/top_rated'),
+        when(mockServicesClient.get(
+          url: Uri.parse('$BASE_URL/tv/top_rated'),
           headers: headers,
         )).thenAnswer((_) async => http.Response('Not Found', 404));
         // act
@@ -198,8 +203,8 @@ void main() {
         "should return tv show popular list data",
         () async {
           // arrange
-          when(mockHttpClient.get(
-            Uri.parse('$BASE_URL/tv/$id'),
+          when(mockServicesClient.get(
+            url: Uri.parse('$BASE_URL/tv/$id'),
             headers: headers,
           )).thenAnswer((_) async => http.Response(
               readJson('dummy_data/tv_dummy/tv_detail.json'), 200));
@@ -214,8 +219,8 @@ void main() {
           'should throw a ServerException when the response code is 404 or other',
           () async {
         // arrange
-        when(mockHttpClient.get(
-          Uri.parse('$BASE_URL/tv/$id'),
+        when(mockServicesClient.get(
+          url: Uri.parse('$BASE_URL/tv/$id'),
           headers: headers,
         )).thenAnswer((_) async => http.Response('Not Found', 404));
         // act
@@ -238,8 +243,8 @@ void main() {
         "should return tv show recomendation list data",
         () async {
           // arrange
-          when(mockHttpClient.get(
-            Uri.parse('$BASE_URL/tv/$id/recommendations'),
+          when(mockServicesClient.get(
+            url: Uri.parse('$BASE_URL/tv/$id/recommendations'),
             headers: headers,
           )).thenAnswer((_) async => http.Response(
               readJson('dummy_data/tv_dummy/tv_recommendation.json'), 200));
@@ -254,8 +259,8 @@ void main() {
           'should throw a ServerException when the response code is 404 or other',
           () async {
         // arrange
-        when(mockHttpClient.get(
-          Uri.parse('$BASE_URL/tv/$id/recommendations'),
+        when(mockServicesClient.get(
+          url: Uri.parse('$BASE_URL/tv/$id/recommendations'),
           headers: headers,
         )).thenAnswer((_) async => http.Response('Not Found', 404));
         // act
@@ -278,8 +283,8 @@ void main() {
         "should return tv show recomendation list data",
         () async {
           // arrange
-          when(mockHttpClient.get(
-            Uri.parse(
+          when(mockServicesClient.get(
+            url: Uri.parse(
                 '$BASE_URL/search/tv?query=$query&include_adult=false&language=en-US&page=1'),
             headers: headers,
           )).thenAnswer((_) async => http.Response(
@@ -295,8 +300,8 @@ void main() {
           'should throw a ServerException when the response code is 404 or other',
           () async {
         // arrange
-        when(mockHttpClient.get(
-          Uri.parse(
+        when(mockServicesClient.get(
+          url: Uri.parse(
               '$BASE_URL/search/tv?query=$query&include_adult=false&language=en-US&page=1'),
           headers: headers,
         )).thenAnswer((_) async => http.Response('Not Found', 404));
