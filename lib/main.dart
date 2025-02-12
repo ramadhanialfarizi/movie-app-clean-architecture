@@ -1,6 +1,7 @@
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/utils.dart';
 import 'package:ditonton/firebase_options.dart';
+import 'package:ditonton/presentation/bloc/movie/detail_movie/detail_movie_bloc.dart';
 import 'package:ditonton/presentation/bloc/movie/search/search_bloc.dart';
 import 'package:ditonton/presentation/pages/about_page.dart';
 import 'package:ditonton/presentation/pages/movie_detail_page.dart';
@@ -94,6 +95,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (_) => di.locator<SearchBloc>(),
         ),
+        BlocProvider(
+          create: (_) => di.locator<DetailMovieBloc>(),
+        )
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

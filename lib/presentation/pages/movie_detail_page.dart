@@ -3,9 +3,11 @@ import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/domain/entities/genre.dart';
 import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/entities/movie_detail.dart';
+import 'package:ditonton/presentation/bloc/movie/detail_movie/detail_movie_bloc.dart';
 import 'package:ditonton/presentation/provider/movie_detail_notifier.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 
@@ -24,33 +26,59 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
   void initState() {
     super.initState();
     Future.microtask(() {
-      Provider.of<MovieDetailNotifier>(context, listen: false)
-          .fetchMovieDetail(widget.id);
-      Provider.of<MovieDetailNotifier>(context, listen: false)
-          .loadWatchlistStatus(widget.id);
+      // Provider.of<MovieDetailNotifier>(context, listen: false)
+      //     .fetchMovieDetail(widget.id);
+      // Provider.of<MovieDetailNotifier>(context, listen: false)
+      //     .loadWatchlistStatus(widget.id);
+      context.read<DetailMovieBloc>().add(OnLoadDetailMovie(widget.id));
+      // context.read<DetailMovieBloc>().add(LoadWatchlistStatus(widget.id));
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Consumer<MovieDetailNotifier>(
-        builder: (context, provider, child) {
-          if (provider.movieState == RequestState.Loading) {
+      // body: Consumer<MovieDetailNotifier>(
+      //   builder: (context, provider, child) {
+      //     if (provider.movieState == RequestState.Loading) {
+      //       return Center(
+      //         child: CircularProgressIndicator(),
+      //       );
+      //     } else if (provider.movieState == RequestState.Loaded) {
+      //       final movie = provider.movie;
+      //       return SafeArea(
+      //         child: DetailContent(
+      //           movie,
+      //           provider.movieRecommendations,
+      //           provider.isAddedToWatchlist,
+      //         ),
+      //       );
+      //     } else {
+      //       return Text(provider.message);
+      //     }
+      //   },
+      // ),
+      body: BlocBuilder<DetailMovieBloc, DetailMovieState>(
+        builder: (context, state) {
+          if (state is DetailMovieLoading) {
             return Center(
               child: CircularProgressIndicator(),
             );
-          } else if (provider.movieState == RequestState.Loaded) {
-            final movie = provider.movie;
+          } else if (state is DetailMovieHasData) {
+            final result = state.result;
+            final recomendationData = state.movieRecommendations;
             return SafeArea(
               child: DetailContent(
-                movie,
-                provider.movieRecommendations,
-                provider.isAddedToWatchlist,
+                result,
+                recomendationData,
+                // watchlistStatus.,
+                false,
               ),
             );
+          } else if (state is DetailMovieError) {
+            return Text(state.message);
           } else {
-            return Text(provider.message);
+            return Container();
           }
         },
       ),
@@ -185,62 +213,98 @@ class DetailContent extends StatelessWidget {
                               'Recommendations',
                               style: kHeading6,
                             ),
-                            Consumer<MovieDetailNotifier>(
-                              builder: (context, data, child) {
-                                if (data.recommendationState ==
-                                    RequestState.Loading) {
-                                  return Center(
-                                    child: CircularProgressIndicator(),
-                                  );
-                                } else if (data.recommendationState ==
-                                    RequestState.Error) {
-                                  return Text(data.message);
-                                } else if (data.recommendationState ==
-                                    RequestState.Loaded) {
-                                  return Container(
-                                    height: 150,
-                                    child: ListView.builder(
-                                      scrollDirection: Axis.horizontal,
-                                      itemBuilder: (context, index) {
-                                        final movie = recommendations[index];
-                                        return Padding(
-                                          padding: const EdgeInsets.all(4.0),
-                                          child: InkWell(
-                                            onTap: () {
-                                              Navigator.pushReplacementNamed(
-                                                context,
-                                                MovieDetailPage.ROUTE_NAME,
-                                                arguments: movie.id,
-                                              );
-                                            },
-                                            child: ClipRRect(
-                                              borderRadius: BorderRadius.all(
-                                                Radius.circular(8),
-                                              ),
-                                              child: CachedNetworkImage(
-                                                imageUrl:
-                                                    'https://image.tmdb.org/t/p/w500${movie.posterPath}',
-                                                placeholder: (context, url) =>
-                                                    Center(
-                                                  child:
-                                                      CircularProgressIndicator(),
-                                                ),
-                                                errorWidget:
-                                                    (context, url, error) =>
-                                                        Icon(Icons.error),
-                                              ),
-                                            ),
-                                          ),
+                            Container(
+                              height: 150,
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) {
+                                  final movie = recommendations[index];
+                                  return Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: InkWell(
+                                      onTap: () {
+                                        Navigator.pushReplacementNamed(
+                                          context,
+                                          MovieDetailPage.ROUTE_NAME,
+                                          arguments: movie.id,
                                         );
                                       },
-                                      itemCount: recommendations.length,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(8),
+                                        ),
+                                        child: CachedNetworkImage(
+                                          imageUrl:
+                                              'https://image.tmdb.org/t/p/w500${movie.posterPath}',
+                                          placeholder: (context, url) => Center(
+                                            child: CircularProgressIndicator(),
+                                          ),
+                                          errorWidget: (context, url, error) =>
+                                              Icon(Icons.error),
+                                        ),
+                                      ),
                                     ),
                                   );
-                                } else {
-                                  return Container();
-                                }
-                              },
+                                },
+                                itemCount: recommendations.length,
+                              ),
                             ),
+                            // Consumer<MovieDetailNotifier>(
+                            //   builder: (context, data, child) {
+                            //     if (data.recommendationState ==
+                            //         RequestState.Loading) {
+                            //       return Center(
+                            //         child: CircularProgressIndicator(),
+                            //       );
+                            //     } else if (data.recommendationState ==
+                            //         RequestState.Error) {
+                            //       return Text(data.message);
+                            //     } else if (data.recommendationState ==
+                            //         RequestState.Loaded) {
+                            //       return Container(
+                            //         height: 150,
+                            //         child: ListView.builder(
+                            //           scrollDirection: Axis.horizontal,
+                            //           itemBuilder: (context, index) {
+                            //             final movie = recommendations[index];
+                            //             return Padding(
+                            //               padding: const EdgeInsets.all(4.0),
+                            //               child: InkWell(
+                            //                 onTap: () {
+                            //                   Navigator.pushReplacementNamed(
+                            //                     context,
+                            //                     MovieDetailPage.ROUTE_NAME,
+                            //                     arguments: movie.id,
+                            //                   );
+                            //                 },
+                            //                 child: ClipRRect(
+                            //                   borderRadius: BorderRadius.all(
+                            //                     Radius.circular(8),
+                            //                   ),
+                            //                   child: CachedNetworkImage(
+                            //                     imageUrl:
+                            //                         'https://image.tmdb.org/t/p/w500${movie.posterPath}',
+                            //                     placeholder: (context, url) =>
+                            //                         Center(
+                            //                       child:
+                            //                           CircularProgressIndicator(),
+                            //                     ),
+                            //                     errorWidget:
+                            //                         (context, url, error) =>
+                            //                             Icon(Icons.error),
+                            //                   ),
+                            //                 ),
+                            //               ),
+                            //             );
+                            //           },
+                            //           itemCount: recommendations.length,
+                            //         ),
+                            //       );
+                            //     } else {
+                            //       return Container();
+                            //     }
+                            //   },
+                            // ),
                           ],
                         ),
                       ),
