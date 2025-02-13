@@ -24,10 +24,12 @@ class DetailMovieError extends DetailMovieState {
 class DetailMovieHasData extends DetailMovieState {
   final MovieDetail result;
   final List<Movie> movieRecommendations;
+  final bool isWatchlist;
 
   DetailMovieHasData(
     this.result,
     this.movieRecommendations,
+    this.isWatchlist,
   );
 
   @override

@@ -67,12 +67,12 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
           } else if (state is DetailMovieHasData) {
             final result = state.result;
             final recomendationData = state.movieRecommendations;
+            final watchlistStatus = state.isWatchlist;
             return SafeArea(
               child: DetailContent(
                 result,
                 recomendationData,
-                // watchlistStatus.,
-                false,
+                watchlistStatus,
               ),
             );
           } else if (state is DetailMovieError) {
@@ -136,15 +136,21 @@ class DetailContent extends StatelessWidget {
                             FilledButton(
                               onPressed: () async {
                                 if (!isAddedWatchlist) {
-                                  await Provider.of<MovieDetailNotifier>(
-                                          context,
-                                          listen: false)
-                                      .addWatchlist(movie);
+                                  // await Provider.of<MovieDetailNotifier>(
+                                  //         context,
+                                  //         listen: false)
+                                  //     .addWatchlist(movie);
+                                  context
+                                      .read<DetailMovieBloc>()
+                                      .add(AddToWatchlist(movie));
                                 } else {
-                                  await Provider.of<MovieDetailNotifier>(
-                                          context,
-                                          listen: false)
-                                      .removeFromWatchlist(movie);
+                                  // await Provider.of<MovieDetailNotifier>(
+                                  //         context,
+                                  //         listen: false)
+                                  //     .removeFromWatchlist(movie);
+                                  context
+                                      .read<DetailMovieBloc>()
+                                      .add(RemoveFromWatchlist(movie));
                                 }
 
                                 final message =

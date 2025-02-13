@@ -32,6 +32,7 @@ class DetailMovieBloc extends Bloc<DetailMovieEvent, DetailMovieState> {
       emit(DetailMovieLoading());
       final resultDetail = await _getMovieDetail.execute(id);
       final resultRecomended = await _getMovieRecommendations.execute(id);
+      final isInWatchlist = await getWatchListStatus.execute(id);
 
       resultDetail.fold(
         (failure) {
@@ -43,75 +44,62 @@ class DetailMovieBloc extends Bloc<DetailMovieEvent, DetailMovieState> {
               emit(DetailMovieError(failure.message));
             },
             (recomendedData) {
-              emit(DetailMovieHasData(detailData, recomendedData));
+              emit(DetailMovieHasData(
+                detailData,
+                recomendedData,
+                isInWatchlist,
+              ));
             },
           );
         },
       );
     });
-    // on<LoadWatchlistStatus>(loadWatchlistStatus);
-    // on<AddToWatchlist>(onAddWatchlist);
-    // on<RemoveFromWatchlist>(onRemoveWatchlist);
+    on<LoadWatchlistStatus>(loadWatchlistStatus);
+    on<AddToWatchlist>(onAddWatchlist);
+    on<RemoveFromWatchlist>(onRemoveWatchlist);
   }
 
-  // Future<void> loadDetailMovieData(
-  //     OnLoadDetailMovie event, Emitter<DetailMovieState> emit) async {
-  //   final id = event.id;
+  Future<void> loadWatchlistStatus(
+      LoadWatchlistStatus event, Emitter<DetailMovieState> emit) async {
+    final isInWatchlist = await getWatchListStatus.execute(event.id);
 
-  //   emit(DetailMovieLoading());
-  //   final resultDetail = await _getMovieDetail.execute(id);
-  //   final resultRecomended = await _getMovieRecommendations.execute(id);
+    final currentState = state;
 
-  //   resultDetail.fold(
-  //     (failure) {
-  //       emit(DetailMovieError(failure.message));
-  //     },
-  //     (detailData) {
-  //       resultRecomended.fold(
-  //         (failure) {
-  //           emit(DetailMovieError(failure.message));
-  //         },
-  //         (recomendedData) {
-  //           emit(DetailMovieHasData(detailData, recomendedData));
-  //         },
-  //       );
-  //     },
-  //   );
-  // }
+    if (currentState is DetailMovieHasData) {
+      emit(DetailMovieHasData(
+        currentState.result,
+        currentState.movieRecommendations,
+        isInWatchlist,
+      ));
+    }
+  }
 
-//   Future<void> loadWatchlistStatus(
-//       LoadWatchlistStatus event, Emitter<DetailMovieState> emit) async {
-//     final isInWatchlist = await getWatchListStatus.execute(event.id);
-//     emit(WatchlistUpdated(isInWatchlist, ""));
-//   }
+  Future<void> onAddWatchlist(
+      AddToWatchlist event, Emitter<DetailMovieState> emit) async {
+    final addWatchlistMoview = await saveWatchlist.execute(event.movie);
 
-//   Future<void> onAddWatchlist(
-//       AddToWatchlist event, Emitter<DetailMovieState> emit) async {
-//     final addWatchlistMoview = await saveWatchlist.execute(event.movie);
+    addWatchlistMoview.fold(
+      (failure) {
+        emit(DetailMovieError(failure.message));
+      },
+      (status) {
+        add(LoadWatchlistStatus(event.movie.id));
+      },
+    );
+  }
 
-//     addWatchlistMoview.fold(
-//       (failure) {
-//         emit(WatchlistError(failure.message));
-//       },
-//       (status) {
-//         emit(WatchlistUpdated(true, status));
-//         add(LoadWatchlistStatus(event.movie.id));
-//       },
-//     );
-//   }
+  Future<void> onRemoveWatchlist(
+      RemoveFromWatchlist event, Emitter<DetailMovieState> emit) async {
+    final removeWatchlistMovie = await removeWatchlist.execute(event.movie);
 
-//   Future<void> onRemoveWatchlist(
-//       RemoveFromWatchlist event, Emitter<DetailMovieState> emit) async {
-//     final removeWatchlistMovie = await removeWatchlist.execute(event.movie);
-
-//     removeWatchlistMovie.fold(
-//       (failure) {
-//         emit(WatchlistError(failure.message));
-//       },
-//       (status) {
-//         emit(WatchlistUpdated(true, status));
-//         add(LoadWatchlistStatus(event.movie.id));
-//       },
-//     );
-//   }
+    removeWatchlistMovie.fold(
+      (failure) {
+        emit(DetailMovieError(failure.message));
+      },
+      (status) {
+        emit(WatchlistUpdated(true, status));
+        add(LoadWatchlistStatus(event.movie.id));
+      },
+    );
+  }
 }
