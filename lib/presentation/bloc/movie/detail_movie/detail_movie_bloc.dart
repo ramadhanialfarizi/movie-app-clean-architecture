@@ -97,7 +97,7 @@ class DetailMovieBloc extends Bloc<DetailMovieEvent, DetailMovieState> {
         emit(DetailMovieError(failure.message));
       },
       (status) {
-        emit(WatchlistUpdated(true, status));
+        // emit(WatchlistUpdated(true, status));
         add(LoadWatchlistStatus(event.movie.id));
       },
     );
