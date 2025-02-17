@@ -137,10 +137,13 @@ class DetailContent extends StatelessWidget {
                             BlocBuilder<WatchlistBloc, WatchlistState>(
                               builder: (context, state) {
                                 bool isWatchlisted = false;
+                                String message = "";
+
                                 if (state is WatchlistUpdated) {
                                   isWatchlisted = state.isAddedToWatchlist;
+                                  message = state.message;
                                 }
-                                LogUtility.writeLog("status : $isWatchlisted");
+
                                 return FilledButton(
                                   onPressed: () async {
                                     if (!isWatchlisted) {
@@ -152,6 +155,9 @@ class DetailContent extends StatelessWidget {
                                           .read<WatchlistBloc>()
                                           .add(RemoveFromWatchlist(movie));
                                     }
+
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(content: Text(message)));
 
                                     // final message =
                                     //     Provider.of<MovieDetailNotifier>(context,

@@ -11,9 +11,12 @@ class WatchlistInitial extends WatchlistState {}
 
 class WatchlistUpdated extends WatchlistState {
   final bool isAddedToWatchlist;
-  final String? message;
+  final String message;
 
   WatchlistUpdated(this.isAddedToWatchlist, this.message);
+
+  @override
+  List<Object> get props => [isAddedToWatchlist, message];
 }
 
 class WatchlistError extends WatchlistState {

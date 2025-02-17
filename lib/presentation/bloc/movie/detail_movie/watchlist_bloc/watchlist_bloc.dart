@@ -1,3 +1,4 @@
+import 'package:ditonton/common/utils.dart';
 import 'package:ditonton/domain/entities/movie_detail.dart';
 import 'package:ditonton/domain/usecases/get_watchlist_status.dart';
 import 'package:ditonton/domain/usecases/remove_watchlist.dart';
@@ -35,8 +36,8 @@ class WatchlistBloc extends Bloc<WatchlistEvent, WatchlistState> {
             emit(WatchlistError(failure.message));
           },
           (statusMessage) {
+            LogUtility.writeLog("add message: ${statusMessage}");
             emit(WatchlistUpdated(true, statusMessage));
-            // add(LoadWatchlistStatus(event.movie.id));
           },
         );
       },
@@ -51,8 +52,8 @@ class WatchlistBloc extends Bloc<WatchlistEvent, WatchlistState> {
             emit(WatchlistError(failure.message));
           },
           (statusMessage) {
+            LogUtility.writeLog("remove message: ${statusMessage}");
             emit(WatchlistUpdated(false, statusMessage));
-            // add(LoadWatchlistStatus(event.movie.id));
           },
         );
       },
