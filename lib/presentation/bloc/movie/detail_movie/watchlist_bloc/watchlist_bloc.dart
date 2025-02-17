@@ -23,7 +23,7 @@ class WatchlistBloc extends Bloc<WatchlistEvent, WatchlistState> {
       (event, emit) async {
         final isInWatchlist = await getWatchListStatus.execute(event.id);
 
-        emit(WatchlistUpdated(isInWatchlist, ""));
+        emit(WatchlistUpdated(isInWatchlist, "xxxx"));
       },
     );
 
