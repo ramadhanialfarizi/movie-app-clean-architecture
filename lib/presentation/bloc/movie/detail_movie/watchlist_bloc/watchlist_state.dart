@@ -9,6 +9,15 @@ abstract class WatchlistState extends Equatable {
 
 class WatchlistInitial extends WatchlistState {}
 
+class WatchlistLoaded extends WatchlistState {
+  final bool isAddedToWatchlist;
+
+  WatchlistLoaded(this.isAddedToWatchlist);
+
+  @override
+  List<Object> get props => [isAddedToWatchlist];
+}
+
 class WatchlistUpdated extends WatchlistState {
   final bool isAddedToWatchlist;
   final String message;

@@ -138,9 +138,12 @@ class DetailContent extends StatelessWidget {
                                 bool isWatchlisted = false;
                                 String message = "";
 
+                                if (state is WatchlistLoaded) {
+                                  isWatchlisted = state.isAddedToWatchlist;
+                                }
+
                                 if (state is WatchlistUpdated) {
                                   isWatchlisted = state.isAddedToWatchlist;
-                                  message = state.message;
                                 }
 
                                 return FilledButton(
@@ -149,10 +152,12 @@ class DetailContent extends StatelessWidget {
                                       context
                                           .read<WatchlistBloc>()
                                           .add(AddToWatchlist(movie));
+                                      message = 'Added to Watchlist';
                                     } else {
                                       context
                                           .read<WatchlistBloc>()
                                           .add(RemoveFromWatchlist(movie));
+                                      message = 'Removed from Watchlist';
                                     }
 
                                     ScaffoldMessenger.of(context).showSnackBar(
