@@ -124,8 +124,10 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
                     );
                   } else if (state is NowPlayingHasData) {
                     return MovieList(state.result);
+                  } else if (state is NowPlayingError) {
+                    return Text('${state.message}');
                   } else {
-                    return Text('Failed');
+                    return Text('No have now playing now');
                   }
                 },
               ),
