@@ -3,6 +3,7 @@ import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/presentation/bloc/movie/now_playing_movie/now_playing_bloc.dart';
 import 'package:ditonton/presentation/bloc/movie/popular_movie/popular_movie_bloc.dart';
+import 'package:ditonton/presentation/bloc/movie/top_rated_movie/top_rated_bloc.dart';
 import 'package:ditonton/presentation/pages/about_page.dart';
 import 'package:ditonton/presentation/pages/movie_detail_page.dart';
 import 'package:ditonton/presentation/pages/popular_movies_page.dart';
@@ -26,14 +27,15 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(
-        () => Provider.of<MovieListNotifier>(context, listen: false)
-          // ..fetchNowPlayingMovies()
-          // ..fetchPopularMovies()
-          ..fetchTopRatedMovies());
+    // Future.microtask(
+    //     () => Provider.of<MovieListNotifier>(context, listen: false)
+    //       // ..fetchNowPlayingMovies()
+    //       // ..fetchPopularMovies()
+    //       ..fetchTopRatedMovies());
 
     context.read<NowPlayingBloc>().add(OnLoadNowPlaying());
     context.read<PopularMovieBloc>().add(OnLoadPopularMovie());
+    context.read<TopRatedBloc>().add(OnLoadTopRated());
   }
 
   @override
@@ -171,18 +173,33 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
                 onTap: () =>
                     Navigator.pushNamed(context, TopRatedMoviesPage.ROUTE_NAME),
               ),
-              Consumer<MovieListNotifier>(builder: (context, data, child) {
-                final state = data.topRatedMoviesState;
-                if (state == RequestState.Loading) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else if (state == RequestState.Loaded) {
-                  return MovieList(data.topRatedMovies);
-                } else {
-                  return Text('Failed');
-                }
-              }),
+              // Consumer<MovieListNotifier>(builder: (context, data, child) {
+              //   final state = data.topRatedMoviesState;
+              //   if (state == RequestState.Loading) {
+              //     return Center(
+              //       child: CircularProgressIndicator(),
+              //     );
+              //   } else if (state == RequestState.Loaded) {
+              //     return MovieList(data.topRatedMovies);
+              //   } else {
+              //     return Text('Failed');
+              //   }
+              // }),
+              BlocBuilder<TopRatedBloc, TopRatedState>(
+                builder: (context, state) {
+                  if (state is TopRatedLoading) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (state is TopRatedHasData) {
+                    return MovieList(state.result);
+                  } else if (state is TopRatedError) {
+                    return Text('${state.message}');
+                  } else {
+                    return Text('No have now playing now');
+                  }
+                },
+              ),
             ],
           ),
         ),
