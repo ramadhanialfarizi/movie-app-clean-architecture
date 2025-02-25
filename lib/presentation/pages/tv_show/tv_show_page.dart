@@ -1,5 +1,6 @@
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/state_enum.dart';
+import 'package:ditonton/presentation/bloc/tv_show/now_playing_tv/now_playing_tv_bloc.dart';
 import 'package:ditonton/presentation/pages/about_page.dart';
 import 'package:ditonton/presentation/pages/home_movie_page.dart';
 import 'package:ditonton/presentation/pages/tv_show/detail_tv_show_pages.dart';
@@ -11,6 +12,7 @@ import 'package:ditonton/presentation/pages/watchlist_main_page.dart';
 import 'package:ditonton/presentation/provider/tv_show/tv_show_controller.dart';
 import 'package:ditonton/presentation/widgets/tv_show_widget/tv_show_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 class TvShowPage extends StatefulWidget {
@@ -28,9 +30,15 @@ class _TvShowPageState extends State<TvShowPage> {
     // TODO: implement initState
     Future.microtask(
       () => Provider.of<TvShowController>(context, listen: false)
-        ..loadTVShowOnAir()
+        // ..loadTVShowOnAir()
         ..loadTvShowPopular()
         ..loadTvShowTopRated(),
+    );
+
+    Future.microtask(
+      () {
+        return context.read<NowPlayingTvBloc>().add(OnLoadNowPlayingTv());
+      },
     );
     super.initState();
   }
@@ -112,23 +120,55 @@ class _TvShowPageState extends State<TvShowPage> {
                   Navigator.pushNamed(context, TvNowPlayingPages.ROUTE_NAME);
                 },
               ),
-              Consumer<TvShowController>(
-                builder: (context, controller, child) {
-                  final state = controller.tvOnAirState;
-                  if (state == RequestState.Loading) {
+              // Consumer<TvShowController>(
+              //   builder: (context, controller, child) {
+              //     final state = controller.tvOnAirState;
+              //     if (state == RequestState.Loading) {
+              //       return Center(
+              //         child: CircularProgressIndicator(),
+              //       );
+              //     } else if (state == RequestState.Loaded) {
+              //       return Container(
+              //         height: 200,
+              //         child: ListView.builder(
+              //           scrollDirection: Axis.horizontal,
+              //           itemCount:
+              //               controller.tvOnAirListResponse?.results?.length,
+              //           itemBuilder: (context, index) {
+              //             var data = (controller.tvOnAirListResponse?.results ??
+              //                 [])[index];
+              //             return TvShowBannerCard(
+              //               imagePath: data.posterPath ?? "",
+              //               onTap: () {
+              //                 Navigator.pushNamed(
+              //                   context,
+              //                   DetailTvPages.ROUTE_NAME,
+              //                   arguments: data.id,
+              //                 );
+              //               },
+              //             );
+              //           },
+              //         ),
+              //       );
+              //     } else {
+              //       return Text('Failed');
+              //     }
+              //   },
+              // ),
+              BlocBuilder<NowPlayingTvBloc, NowPlayingTvState>(
+                builder: (context, state) {
+                  if (state is NowPlayingTvLoading) {
                     return Center(
                       child: CircularProgressIndicator(),
                     );
-                  } else if (state == RequestState.Loaded) {
+                  } else if (state is NowPlayingTvHasData) {
                     return Container(
                       height: 200,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount:
-                            controller.tvOnAirListResponse?.results?.length,
+                        itemCount: state.result.results?.length,
                         itemBuilder: (context, index) {
-                          var data = (controller.tvOnAirListResponse?.results ??
-                              [])[index];
+                          var data = (state.result.results ?? [])[index];
                           return TvShowBannerCard(
                             imagePath: data.posterPath ?? "",
                             onTap: () {
@@ -142,8 +182,15 @@ class _TvShowPageState extends State<TvShowPage> {
                         },
                       ),
                     );
+                  } else if (state is NowPlayingTvError) {
+                    return Center(
+                      child: Text(state.message),
+                    );
                   } else {
-                    return Text('Failed');
+                    return Center(
+                      key: Key('error_message'),
+                      child: Text("No data"),
+                    );
                   }
                 },
               ),
