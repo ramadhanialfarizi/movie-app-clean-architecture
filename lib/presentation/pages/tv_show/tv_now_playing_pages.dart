@@ -22,7 +22,12 @@ class _TvNowPlayingPagesState extends State<TvNowPlayingPages> {
     //     ..loadTVShowOnAir(),
     // );
 
-    context.read<NowPlayingTvBloc>().add(OnLoadNowPlayingTv());
+    Future.microtask(
+      () {
+        context.read<NowPlayingTvBloc>().add(OnLoadNowPlayingTv());
+      },
+    );
+
     super.initState();
   }
 
