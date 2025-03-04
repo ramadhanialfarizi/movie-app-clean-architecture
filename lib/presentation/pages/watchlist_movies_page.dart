@@ -1,10 +1,8 @@
 import 'package:ditonton/common/utils.dart';
 import 'package:ditonton/presentation/bloc/movie/watchlist_movie/watchlist_movie_bloc.dart';
-import 'package:ditonton/presentation/provider/watchlist_movie_notifier.dart';
 import 'package:ditonton/presentation/widgets/movie_card_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 
 class WatchlistMoviesPage extends StatefulWidget {
   // static const ROUTE_NAME = '/watchlist-movie';
@@ -22,7 +20,9 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
     //     Provider.of<WatchlistMovieNotifier>(context, listen: false)
     //         .fetchWatchlistMovies());
 
-    context.read<WatchlistMovieBloc>().add(OnLoadWatchlistMovie());
+    Future.microtask(
+      () => context.read<WatchlistMovieBloc>().add(OnLoadWatchlistMovie()),
+    );
   }
 
   @override
@@ -32,8 +32,9 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
   }
 
   void didPopNext() {
-    Provider.of<WatchlistMovieNotifier>(context, listen: false)
-        .fetchWatchlistMovies();
+    // Provider.of<WatchlistMovieNotifier>(context, listen: false)
+    //     .fetchWatchlistMovies();
+    context.read<WatchlistMovieBloc>().add(OnLoadWatchlistMovie());
   }
 
   @override
