@@ -22,6 +22,7 @@ import 'package:ditonton/data/models/tv_response/watchlist/tv_table_data.dart';
 import 'package:ditonton/domain/entities/tv_entities/tv_detail_model.dart';
 import 'package:ditonton/domain/entities/tv_entities/tv_item_model.dart';
 import 'package:ditonton/domain/entities/tv_entities/tv_list_model.dart';
+import 'package:ditonton/domain/entities/tv_entities/tv_watchlist_model.dart';
 
 final testTvShowJson = {
   'id': 1396,
@@ -310,4 +311,11 @@ TvItemModel tvItemModel = TvItemModel(
   name: "Ici tout commence",
   voteCount: 62,
   // voteAverage: 0.0,
+);
+
+TvWatchlistModel tvWatchlistModel = TvWatchlistModel(
+  id: 1111,
+  title: "title",
+  posterPath: "posterPath",
+  overview: "overview",
 );
