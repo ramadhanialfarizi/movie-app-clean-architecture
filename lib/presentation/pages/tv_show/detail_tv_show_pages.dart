@@ -1,14 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ditonton/common/constants.dart';
-import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/domain/entities/genre.dart';
 import 'package:ditonton/domain/entities/tv_entities/tv_detail_model.dart';
+import 'package:ditonton/presentation/bloc/tv_show/detail_tv/add_watchlist_tv/add_watchlist_tv_bloc.dart';
 import 'package:ditonton/presentation/bloc/tv_show/detail_tv/load_detail_tv/load_detail_tv_bloc.dart';
-import 'package:ditonton/presentation/provider/tv_show/detail_tv_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:provider/provider.dart';
 
 class DetailTvPages extends StatefulWidget {
   static const ROUTE_NAME = '/tv-detail';
@@ -36,6 +34,9 @@ class _DetailTvPagesState extends State<DetailTvPages> {
     Future.microtask(
       () {
         context.read<LoadDetailTvBloc>().add(OnLoadDetailTv(widget.id));
+        context
+            .read<AddWatchlistTvBloc>()
+            .add(LoadWatchlistTvStatus(widget.id));
       },
     );
     super.initState();
@@ -147,50 +148,79 @@ class DetailContent extends StatelessWidget {
                               tvDetailResponse.name ?? "",
                               style: kHeading5,
                             ),
-                            FilledButton(
-                              onPressed: () async {
-                                // if (!isAddedWatchlist) {
-                                //   await Provider.of<DetailTvController>(context,
-                                //           listen: false)
-                                //       .addWatchlist(tvDetailResponse);
-                                // } else {
-                                //   await Provider.of<DetailTvController>(context,
-                                //           listen: false)
-                                //       .removeFromWatchlist(tvDetailResponse);
-                                // }
+                            BlocBuilder<AddWatchlistTvBloc,
+                                AddWatchlistTvState>(
+                              builder: (context, state) {
+                                bool isWatchlisted = false;
+                                String message = "";
 
-                                // final message = Provider.of<DetailTvController>(
-                                //         context,
-                                //         listen: false)
-                                //     .watchlistMessage;
+                                if (state is AddWatchlistTvLoaded) {
+                                  isWatchlisted = state.isAddedToWatchlist;
+                                }
 
-                                // if (message ==
-                                //         DetailTvController
-                                //             .watchlistAddSuccessMessage ||
-                                //     message ==
-                                //         DetailTvController
-                                //             .watchlistRemoveSuccessMessage) {
-                                //   ScaffoldMessenger.of(context).showSnackBar(
-                                //       SnackBar(content: Text(message)));
-                                // } else {
-                                //   showDialog(
-                                //       context: context,
-                                //       builder: (context) {
-                                //         return AlertDialog(
-                                //           content: Text(message),
-                                //         );
-                                //       });
-                                // }
+                                if (state is AddWatchlistTvUpdated) {
+                                  isWatchlisted = state.isAddedToWatchlist;
+                                }
+                                return FilledButton(
+                                  onPressed: () async {
+                                    if (!isWatchlisted) {
+                                      // await Provider.of<DetailTvController>(
+                                      //         context,
+                                      //         listen: false)
+                                      //     .addWatchlist(tvDetailResponse);
+                                      context.read<AddWatchlistTvBloc>().add(
+                                          AddWatchlistTv(tvDetailResponse));
+                                      message = 'Added to Watchlist';
+                                    } else {
+                                      // await Provider.of<DetailTvController>(
+                                      //         context,
+                                      //         listen: false)
+                                      //     .removeFromWatchlist(
+                                      //         tvDetailResponse);
+
+                                      context.read<AddWatchlistTvBloc>().add(
+                                          RemoveFromWatchlistTv(
+                                              tvDetailResponse));
+                                      message = 'Removed from Watchlist';
+                                    }
+
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(content: Text(message)));
+
+                                    // final message = Provider.of<DetailTvController>(
+                                    //         context,
+                                    //         listen: false)
+                                    //     .watchlistMessage;
+
+                                    // if (message ==
+                                    //         DetailTvController
+                                    //             .watchlistAddSuccessMessage ||
+                                    //     message ==
+                                    //         DetailTvController
+                                    //             .watchlistRemoveSuccessMessage) {
+                                    //   ScaffoldMessenger.of(context).showSnackBar(
+                                    //       SnackBar(content: Text(message)));
+                                    // } else {
+                                    //   showDialog(
+                                    //       context: context,
+                                    //       builder: (context) {
+                                    //         return AlertDialog(
+                                    //           content: Text(message),
+                                    //         );
+                                    //       });
+                                    // }
+                                  },
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      isWatchlisted
+                                          ? Icon(Icons.check)
+                                          : Icon(Icons.add),
+                                      Text('Watchlist'),
+                                    ],
+                                  ),
+                                );
                               },
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  // isAddedWatchlist
-                                  //     ? Icon(Icons.check)
-                                  //     : Icon(Icons.add),
-                                  Text('Watchlist'),
-                                ],
-                              ),
                             ),
                             Text(
                               _showGenres(tvDetailResponse.genre ?? []),
