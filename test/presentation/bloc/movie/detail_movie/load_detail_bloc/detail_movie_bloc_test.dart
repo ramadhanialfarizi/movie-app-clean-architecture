@@ -38,6 +38,23 @@ void main() {
     },
   );
 
+  group('DetailMovieEvent', () {
+    test('props of OnLoadDetailMovie returns correct id', () {
+      final event = OnLoadDetailMovie(1);
+      expect(event.props, [1]);
+    });
+
+    test('OnLoadDetailMovie equality', () {
+      expect(OnLoadDetailMovie(1), OnLoadDetailMovie(1));
+      expect(OnLoadDetailMovie(1), isNot(OnLoadDetailMovie(2)));
+    });
+
+    test('OnLoadRecommendedMovie equality', () {
+      expect(OnLoadRecommendedMovie(1), OnLoadRecommendedMovie(1));
+      expect(OnLoadRecommendedMovie(1), isNot(OnLoadRecommendedMovie(2)));
+    });
+  });
+
   group(
     "test bloc",
     () {
