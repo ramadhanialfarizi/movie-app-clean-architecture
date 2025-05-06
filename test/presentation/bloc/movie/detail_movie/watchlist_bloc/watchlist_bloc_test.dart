@@ -43,6 +43,36 @@ void main() {
     },
   );
 
+  group('WatchlistEvent', () {
+    test('AddToWatchlist props should contain movie', () {
+      final event = AddToWatchlist(testMovieDetail);
+      expect(event.props, [testMovieDetail]);
+    });
+
+    test('AddToWatchlist should support value equality', () {
+      expect(AddToWatchlist(testMovieDetail), AddToWatchlist(testMovieDetail));
+    });
+
+    test('RemoveFromWatchlist props should contain movie', () {
+      final event = RemoveFromWatchlist(testMovieDetail);
+      expect(event.props, [testMovieDetail]);
+    });
+
+    test('RemoveFromWatchlist should support value equality', () {
+      expect(RemoveFromWatchlist(testMovieDetail),
+          RemoveFromWatchlist(testMovieDetail));
+    });
+
+    test('LoadWatchlistStatus props should contain id', () {
+      final event = LoadWatchlistStatus(1);
+      expect(event.props, [1]);
+    });
+
+    test('LoadWatchlistStatus should support value equality', () {
+      expect(LoadWatchlistStatus(1), LoadWatchlistStatus(1));
+    });
+  });
+
   group(
     "loaded watchlist status",
     () {
