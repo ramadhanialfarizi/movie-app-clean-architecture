@@ -1,8 +1,10 @@
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/domain/entities/movie.dart';
+import 'package:ditonton/presentation/bloc/movie/top_rated_movie/top_rated_bloc.dart';
 import 'package:ditonton/presentation/pages/top_rated_movies_page.dart';
 import 'package:ditonton/presentation/provider/top_rated_movies_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -10,17 +12,28 @@ import 'package:provider/provider.dart';
 
 import 'top_rated_movies_page_test.mocks.dart';
 
-@GenerateMocks([TopRatedMoviesNotifier])
+@GenerateMocks([TopRatedBloc])
 void main() {
-  late MockTopRatedMoviesNotifier mockNotifier;
+  late MockTopRatedBloc mockTopRatedBloc;
 
   setUp(() {
-    mockNotifier = MockTopRatedMoviesNotifier();
+    mockTopRatedBloc = MockTopRatedBloc();
+
+    when(mockTopRatedBloc.state).thenReturn(TopRatedEmpty());
+    when(mockTopRatedBloc.stream)
+        .thenAnswer((_) => Stream.value(TopRatedEmpty()));
   });
 
   Widget _makeTestableWidget(Widget body) {
-    return ChangeNotifierProvider<TopRatedMoviesNotifier>.value(
-      value: mockNotifier,
+    // return ChangeNotifierProvider<TopRatedMoviesNotifier>.value(
+    //   value: mockNotifier,
+    //   child: MaterialApp(
+    //     home: body,
+    //   ),
+    // );
+
+    return BlocProvider<TopRatedBloc>.value(
+      value: mockTopRatedBloc,
       child: MaterialApp(
         home: body,
       ),
@@ -29,7 +42,8 @@ void main() {
 
   testWidgets('Page should display progress bar when loading',
       (WidgetTester tester) async {
-    when(mockNotifier.state).thenReturn(RequestState.Loading);
+    // when(mockNotifier.state).thenReturn(RequestState.Loading);
+    when(mockTopRatedBloc.state).thenReturn(TopRatedLoading());
 
     final progressFinder = find.byType(CircularProgressIndicator);
     final centerFinder = find.byType(Center);
@@ -42,8 +56,10 @@ void main() {
 
   testWidgets('Page should display when data is loaded',
       (WidgetTester tester) async {
-    when(mockNotifier.state).thenReturn(RequestState.Loaded);
-    when(mockNotifier.movies).thenReturn(<Movie>[]);
+    // when(mockNotifier.state).thenReturn(RequestState.Loaded);
+    // when(mockNotifier.movies).thenReturn(<Movie>[]);
+
+    when(mockTopRatedBloc.state).thenReturn(TopRatedHasData(<Movie>[]));
 
     final listViewFinder = find.byType(ListView);
 
@@ -54,8 +70,10 @@ void main() {
 
   testWidgets('Page should display text with message when Error',
       (WidgetTester tester) async {
-    when(mockNotifier.state).thenReturn(RequestState.Error);
-    when(mockNotifier.message).thenReturn('Error message');
+    // when(mockNotifier.state).thenReturn(RequestState.Error);
+    // when(mockNotifier.message).thenReturn('Error message');
+
+    when(mockTopRatedBloc.state).thenReturn(TopRatedError('Error message'));
 
     final textFinder = find.byKey(Key('error_message'));
 
