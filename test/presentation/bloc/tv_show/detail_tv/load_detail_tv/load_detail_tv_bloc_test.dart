@@ -9,7 +9,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../../../dummy_data/tv_dummy/tv_dummy_objects.dart';
-import 'load_detail_tv_bloc.mocks.dart';
+import 'load_detail_tv_bloc_test.mocks.dart';
 
 @GenerateMocks([
   GetTvShowDetail,
