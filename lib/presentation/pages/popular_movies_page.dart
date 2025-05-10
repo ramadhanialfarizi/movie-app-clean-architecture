@@ -65,7 +65,10 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
                 itemCount: state.result.length,
               );
             } else if (state is PopularMovieError) {
-              return Text('${state.message}');
+              return Center(
+                key: Key('error_message'),
+                child: Text(state.message),
+              );
             } else {
               return Text('No have now playing now');
             }
