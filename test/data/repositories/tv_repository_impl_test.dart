@@ -337,7 +337,7 @@ void main() {
             SocketException('Failed to connect to the network'),
           );
 
-          final result = await await tvRepository.searchTv(query);
+          final result = await tvRepository.searchTv(query);
           verify(mockTvRemoteDataSource.searchTv(query));
           expect(
               result,
@@ -347,4 +347,24 @@ void main() {
       );
     },
   );
+
+  test('should return list of TvWatchlistModel when data source returns data',
+      () async {
+    // arrange
+    when(mockTvLocalDataSource.getWatchlistTv())
+        .thenAnswer((_) async => [tvTableDataDummy]);
+
+    // act
+    final result = await tvRepository.getWatchlistTvShow();
+
+    // assert
+    result.fold(
+      (failure) => fail('Should not return failure'),
+      (tvList) {
+        expect(tvList.length, 1);
+        expect(tvList[0].id, 1);
+        expect(tvList[0].title, 'title');
+      },
+    );
+  });
 }
