@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:ditonton/common/exception.dart';
 import 'package:ditonton/common/failure.dart';
+import 'package:ditonton/data/models/movie_table.dart';
 import 'package:ditonton/data/repositories/tv_repository_impl.dart';
 import 'package:ditonton/domain/entities/tv_entities/tv_detail_model.dart';
 import 'package:ditonton/domain/entities/tv_entities/tv_list_model.dart';
@@ -366,5 +367,74 @@ void main() {
         expect(tvList[0].title, 'title');
       },
     );
+  });
+
+  test('should return Right message when saving successful', () async {
+    final testTvTable = MovieTable(
+      id: 1,
+      title: 'Test TV Show',
+      posterPath: '/poster.jpg',
+      overview: 'Test overview',
+    );
+    final testTvDetail = TvDetailModel(
+      id: 1,
+      name: 'Test TV Show',
+      posterPath: '/poster.jpg',
+      overview: 'Test overview',
+    );
+
+    when(mockTvLocalDataSource.insertWatchlist(testTvTable))
+        .thenAnswer((_) async => 'Added to Watchlist');
+
+    final result = await tvRepository.saveWatchlist(testTvDetail);
+
+    expect(result, Right('Added to Watchlist'));
+  });
+
+  test('should return Right message when removing successful', () async {
+    final testTvTable = MovieTable(
+      id: 1,
+      title: 'Test TV Show',
+      posterPath: '/poster.jpg',
+      overview: 'Test overview',
+    );
+    final testTvDetail = TvDetailModel(
+      id: 1,
+      name: 'Test TV Show',
+      posterPath: '/poster.jpg',
+      overview: 'Test overview',
+      // Add other required fields here
+    );
+
+    when(mockTvLocalDataSource.removeWatchlist(testTvTable))
+        .thenAnswer((_) async => 'Removed from Watchlist');
+
+    final result = await tvRepository.removeWatchlist(testTvDetail);
+
+    expect(result, Right('Removed from Watchlist'));
+  });
+
+  test('should return true when the TV show is found in local database',
+      () async {
+    when(mockTvLocalDataSource.getTvShowById(1))
+        .thenAnswer((_) async => MovieTable(
+              id: 1,
+              title: 'Test TV Show',
+              posterPath: '/poster.jpg',
+              overview: 'Test overview',
+            ));
+
+    final result = await tvRepository.isAddedToWatchlist(1);
+
+    expect(result, true);
+  });
+
+  test('should return false when the TV show is not found in local database',
+      () async {
+    when(mockTvLocalDataSource.getTvShowById(1)).thenAnswer((_) async => null);
+
+    final result = await tvRepository.isAddedToWatchlist(1);
+
+    expect(result, false);
   });
 }
